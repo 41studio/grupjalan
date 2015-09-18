@@ -1,0 +1,20 @@
+.container
+  .row
+    .col-md-8
+      = simple_form_for @post do |f|
+        = f.error_notification
+        .form-group
+          = f.input :title, input_html: { class: 'form-control' }
+        .form-group
+          = f.input :description, input_html: { class: 'form-control' }
+        .form-group
+          b 
+           | Photo
+          = f.file_field :photo, input_html: { class: 'form-control' }
+        .field
+          b 
+           | Video
+          = f.file_field :video, input_html: { class: 'form-control' }
+        br/
+        = f.button :submit, class: "btn btn-primary"
+        = link_to 'Back', posts_path, class: "btn btn-default"

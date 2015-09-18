@@ -1,0 +1,22 @@
+.container
+  .row
+    .col-md-12
+      p#notice = notice
+
+      p
+       h1 
+        = @post.title
+      p
+        = image_tag @post.photo.thumb.url, class: "img-rounded"
+      p
+       h1
+        | Description
+       br/
+       blockquote
+        .text-justify
+          = @post.description
+      p
+        = video_tag @post.video, controls: true, size:"800x450"
+
+
+      = link_to 'Back', posts_path, class: "btn btn-primary"

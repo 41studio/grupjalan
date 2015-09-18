@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+        <h2>Log in</h2>
+
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <%= f.input :email, input_html: { class: "form-control"} %><br />
+          </div>
+
+          <div class="form-group">
+            <%= f.input :password, input_html: { class: "form-control"} %><br />
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end -%>
+
+          <div class="actions">
+            <%= f.submit "Log in", class: "btn btn-primary" %>
+            <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-default" %>
+          </div>
+        <% end %><br />
+     
+        <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>        
