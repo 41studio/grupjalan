@@ -14,5 +14,34 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require_tree .
+
+
+$(function(){
+  $(".country-dropdown").on("change", function(){
+    var countryCode = $(this).val();
+
+    $.ajax({
+		  url: "/sync/get_provinces",
+		  cache: false,
+      data: {
+        country_code: countryCode
+      }
+		});
+		  
+  });
+  
+  $(".province-dropdown").on("change", function(){
+    var provinceCode =  $(this).val();
+
+    $.ajax({
+      url: "/sync/get_cities",
+      cache: false,
+      data: {
+        province_code: provinceCode
+      }
+    });
+
+  });
+
+});
 

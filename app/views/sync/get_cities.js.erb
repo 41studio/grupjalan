@@ -1,0 +1,7 @@
+var elm = $(".city-dropdown")
+
+elm.html('');
+
+<% @cities.each do |city| %>
+  elm.append("<option value='<%= city %>'><%= city %></option>")
+<% end %>

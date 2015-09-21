@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'sync/get_provinces'
+
+  get 'sync/get_cities'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :posts

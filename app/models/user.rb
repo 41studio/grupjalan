@@ -18,6 +18,7 @@
 #
 
 class User < ActiveRecord::Base
+  # enum gender: [:Male, :Female]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,6 +29,9 @@ class User < ActiveRecord::Base
 
   mount_uploader :photo, PhotoUploader 
   mount_uploader :video, VideoUploader 
+
+  # get_provinces = []
+
 
 
   def self.from_omniauth(auth)

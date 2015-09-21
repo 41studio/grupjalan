@@ -1,0 +1,7 @@
+var elm = $(".province-dropdown")
+
+elm.html('');
+
+<% @provinces.each do |province| %>
+  elm.append("<option value='<%= province.first %>'><%= province.last %></option>")
+<% end %>

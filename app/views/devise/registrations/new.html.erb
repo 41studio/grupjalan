@@ -28,6 +28,11 @@
         </div>
 
         <div class="form-group">
+           <h4><b>Video</b></h4>
+          <%= f.file_field :video, input_html: { class: "form-control" } %>
+        </div>
+
+        <div class="form-group">
           <%= f.input :gender, input_html: { class: "form-control" } %>
         </div>
 
@@ -48,19 +53,31 @@
         </div>
 
         <div class="form-group">
-          <%= f.input :password, autocomplete: "off", input_html: { class: "form-control" } %>
+          <%= f.input :country, :collection => CS.countries.invert, input_html: { class: "form-control country-dropdown" } %>
+        </div>
+         
+        <div class="form-group">
+          <%= f.input :province, :collection => [], input_html: { class: "form-control province-dropdown" } %>
         </div>
 
         <div class="form-group">
-          <%= f.input :password_confirmation, autocomplete: "off", input_html: { class: "form-control" } %>
+          <%= f.input :city, :collection => [], input_html: { class: "form-control city-dropdown" } %>
         </div>
-
+        
         <div class="form-group">
           <%= f.input :neighborhood, input_html: { class: "form-control" } %>
         </div>
 
         <div class="form-group">
           <%= f.input :address, input_html: { class: "form-control" } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.input :password, autocomplete: "off", input_html: { class: "form-control" } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.input :password_confirmation, autocomplete: "off", input_html: { class: "form-control" } %>
         </div>
 
         <div class="actions">

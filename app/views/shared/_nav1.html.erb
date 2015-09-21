@@ -14,12 +14,17 @@
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <% if user_signed_in? %>
               <ul class="nav navbar-nav">
-                  <li class="active"><%= link_to "Home", index_path %></li>
-                  <li><%= link_to "Profile", index_path %></li>
-                  <li><%= link_to "Messages", index_path %></li>
+                  <li class="active"><%= link_to "Listing Post", index_path %></li>
+                 <!--  <li><%= link_to "Profile", index_path %></li>
+                  <li><%= link_to "Messages", index_path %></li> -->
               </ul>
               <ul class="nav navbar-nav navbar-right">
                   <li><%=link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+                  <% if current_user.photo.url.nil? %>
+                    <li><%=image_tag("blank-profile.png", size: "50x50", class: "img-circle")%></li>
+                  <% else %>
+                    <li><%=image_tag(current_user.photo.url, size: "50x50", class: "img-circle") %></li>
+                  <% end %>  
               </ul>    
             <% else %>
               <ul class="nav navbar-nav navbar-right">
