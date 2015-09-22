@@ -15,6 +15,35 @@
 #  last_sign_in_ip        :inet
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  provider               :string
+#  uid                    :string
+#  photo                  :string
+#  username               :string
+#  first_name             :string
+#  last_name              :string
+#  neighborhood           :string
+#  address                :text
+#  gender                 :string
+#  brithday               :string
+#  handphone              :string
+#  status                 :string
+#  video                  :string
+#  country                :string
+#  city                   :string
+#  province               :string
+#  role                   :integer          default(0)
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
+#
+# Indexes
+#
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_provider              (provider)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_uid                   (uid)
 #
 
 class User < ActiveRecord::Base
@@ -30,6 +59,9 @@ class User < ActiveRecord::Base
 
   mount_uploader :photo, PhotoUploader 
   mount_uploader :video, VideoUploader 
+
+  validates :username, :first_name, :last_name, :email, presence: true
+  validates :username, uniqueness: true
 
   
 
