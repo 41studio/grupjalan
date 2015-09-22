@@ -40,6 +40,7 @@ gem 'carrierwave-video'
 gem 'streamio-ffmpeg'
 gem 'rack-mini-profiler'
 gem 'city-state'
+gem 'jquery-turbolinks'
 
 
 group :development, :test do

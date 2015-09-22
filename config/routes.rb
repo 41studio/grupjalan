@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  resources :groups
   get 'sync/get_provinces'
 
   get 'sync/get_cities'
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  # devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :posts
   devise_for :users, controllers: { registrations: "users/registrations", :omniauth_callbacks => "users/omniauth_callbacks" }

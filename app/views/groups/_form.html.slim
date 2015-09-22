@@ -1,0 +1,15 @@
+.container
+  .row
+    .col-md-8
+      = simple_form_for(@group) do |f|
+        = f.error_notification
+
+        .form-group
+          = f.input :group_name, input_html: { class: "form-control"}
+          = f.input :start_to_trip, input_html: { class: "form-control"}
+          = f.input :end_to_trip, input_html: { class: "form-control"}
+
+        .form-actions
+          = f.button :submit, class: "btn btn-primary"
+          = link_to 'Back', root_path, class: "btn btn-default"
+

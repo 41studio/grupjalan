@@ -11,12 +11,24 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
 
 
 $(function(){
+  $(".dropdown").hover(            
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            },
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            });
   $(".country-dropdown").on("change", function(){
     var countryCode = $(this).val();
 
@@ -44,4 +56,5 @@ $(function(){
   });
 
 });
+
 

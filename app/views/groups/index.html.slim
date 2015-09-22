@@ -1,0 +1,25 @@
+h1 Listing groups
+
+table
+  thead
+    tr
+      th Group name
+      th Start to trip
+      th End to trip
+      th
+      th
+      th
+
+  tbody
+    - @groups.each do |group|
+      tr
+        td = group.group_name
+        td = group.start_to_trip
+        td = group.end_to_trip
+        td = link_to 'Show', group
+        td = link_to 'Edit', edit_group_path(group)
+        td = link_to 'Destroy', group, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Group', new_group_path

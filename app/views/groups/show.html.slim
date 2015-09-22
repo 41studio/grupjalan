@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Group name:
+  = @group.group_name
+p
+  strong Start to trip:
+  = @group.start_to_trip
+p
+  strong End to trip:
+  = @group.end_to_trip
+
+= link_to 'Edit', edit_group_path(@group)
+'|
+= link_to 'Back', groups_path

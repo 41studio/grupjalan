@@ -21,17 +21,31 @@ class User < ActiveRecord::Base
   # enum gender: [:Male, :Female]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter] 
 
   has_many :posts 
+  enum role: ['user', 'admin', 'moderator']
 
   mount_uploader :photo, PhotoUploader 
   mount_uploader :video, VideoUploader 
 
-  # get_provinces = []
+  
 
+  def is_admin?
+    self.role.eql? 'admin'
+  end
+
+
+  def is_user?
+    self.role.eql? 'user'
+  end
+
+
+  def is_moderator?
+    self.role.eql? 'moderator'
+  end
 
 
   def self.from_omniauth(auth)
