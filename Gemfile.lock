@@ -288,6 +288,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   koala (~> 2.2)
   mini_magick
   omniauth-facebook

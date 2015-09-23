@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy
   has_many :trips, dependent: :destroy
+  has_many :groups, dependent: :destroy
   enum role: ['user', 'admin', 'moderator']
 
   mount_uploader :photo, PhotoUploader 

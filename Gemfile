@@ -41,6 +41,7 @@ gem 'streamio-ffmpeg'
 gem 'rack-mini-profiler'
 gem 'city-state'
 gem 'jquery-turbolinks'
+gem 'jquery-ui-rails'
 
 
 group :development, :test do

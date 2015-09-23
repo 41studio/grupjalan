@@ -1,0 +1,15 @@
+.container
+  .row
+    .col-md-8
+      = form_tag '/groups/new_plan_step2' do
+          = label_tag 
+          h3
+            | Tanggal Mulai 
+          = text_field_tag 'Tanggal Mulai'
+          = label_tag 
+          h3
+            | Tanggal Akhir
+          = text_field_tag 'Tanggal Akhir'
+          br
+          br
+          = link_to 'Lanjut', new_plan_step3_path, class: "btn3d btn btn-primary btn-lg"

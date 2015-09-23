@@ -8,6 +8,7 @@
 #  end_to_trip   :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  destination   :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

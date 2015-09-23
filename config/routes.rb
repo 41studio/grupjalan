@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
    get 'index', to: 'posts#index', as: :index
    get 'quotes', to: 'posts#quotes', as: :quotes
+   get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
+   get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
+   get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
