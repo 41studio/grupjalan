@@ -15,6 +15,7 @@ Rails.application.routes.draw do
    root 'posts#home'
 
    get 'index', to: 'posts#index', as: :index
+   get 'quotes', to: 'posts#quotes', as: :quotes
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -13,6 +13,10 @@ class PostsController < ApplicationController
 
   end  
 
+  def quotes
+    
+  end
+
   # GET /posts/1
   # GET /posts/1.json
   def show

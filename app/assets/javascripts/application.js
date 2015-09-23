@@ -18,6 +18,10 @@
 
 
 $(function(){
+  $('#quote-carousel').carousel({
+    pause: true,
+    interval: 4000,
+  });
   $(".dropdown").hover(            
             function() {
                 $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
