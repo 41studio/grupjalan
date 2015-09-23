@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trips
   resources :groups
   get 'sync/get_provinces'
 

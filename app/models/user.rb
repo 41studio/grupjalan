@@ -54,7 +54,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter] 
 
-  has_many :posts 
+  has_many :posts, dependent: :destroy
+  has_many :trips, dependent: :destroy
   enum role: ['user', 'admin', 'moderator']
 
   mount_uploader :photo, PhotoUploader 

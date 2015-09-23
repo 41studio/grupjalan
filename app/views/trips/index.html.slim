@@ -1,0 +1,27 @@
+.container
+  .row
+    .col-md-8
+       h1 
+        | Listing to place trips
+        span class= "glyphicon glyphicon-road" aria-hidden= "true"
+
+       .bs-example
+          table class= "table table-hover"  class="table table-bordered"
+            thead
+              tr
+                th Name place
+                th S
+                th E
+                th D
+
+            tbody
+              - @trips.each do |trip|
+                tr
+                  td = trip.name_place
+                  td = link_to 'Show', trip
+                  td = link_to 'Edit', edit_trip_path(trip)
+                  td = link_to 'Destroy', trip, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+          br
+
+          = link_to 'New Trip', new_trip_path, class: "btn3d btn btn-primary btn-md"
