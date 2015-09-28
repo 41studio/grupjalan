@@ -16,9 +16,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require bootstrap-datepicker
 
 
 $(function(){
+  $('.datepicker').datepicker();
   $('#quote-carousel').carousel({
     pause: true,
     interval: 4000,
@@ -59,6 +61,39 @@ $(function(){
     });
 
   });
+
+  var ready;
+  ready = function() {
+    var numbers = new Bloodhound({
+      remote: {
+        url: "/groups/autocomplete?query=%QUERY",
+        wildcard: '%QUERY'
+      },
+      datumTokenizer: function(g) { 
+              return Bloodhound.tokenizers.whitespace(g.name_place); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace
+
+   
+  });
+
+  var promise = numbers.initialize();
+
+  promise
+  .done(function() { console.log('success!'); })
+  .fail(function() { console.log('err!'); });
+
+  // instantiate the typeahead UI
+  $( '.typeahead').typeahead(null, {
+    displayKey: 'name_place',
+    source: numbers.ttAdapter()
+  });
+  }
+  $('.typeahead').on('typeahead:selected', function(event, datum) {
+    $("#trip_id").val(datum.value);
+  });
+
+  $(document).ready(ready);
+  $(document).on('page:load', ready);  
 });
 
 

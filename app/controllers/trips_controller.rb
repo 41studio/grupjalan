@@ -1,6 +1,5 @@
 class TripsController < InheritedResources::Base
 
-	
 
   private
 

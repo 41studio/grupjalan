@@ -10,6 +10,8 @@
 #
 
 class Trip < ActiveRecord::Base
-	belongs_to :user
+
+	searchkick text_start: [:name_place],autocomplete: ['name_place']
+  belongs_to :user
   has_many :groups
 end

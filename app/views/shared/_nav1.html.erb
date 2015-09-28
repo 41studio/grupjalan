@@ -29,7 +29,7 @@
                   <% if current_user.photo.url.nil? %>
                     <li><%=image_tag("blank-profile.png", size: "50x50", class: "img-circle")%></li>
                   <% else %>
-                    <li><%=image_tag(current_user.photo.url, size: "50x50", class: "img-circle") %></li>
+                    <li><%= link_to (image_tag current_user.photo.url, size: "50x50", class: "img-circle"), edit_user_registration_path %></li>
                   <% end %>  
               </ul>    
             <% else %>

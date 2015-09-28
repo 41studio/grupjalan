@@ -11,6 +11,8 @@
  * file per style scope.
  *
  *= require_self
+ *= require typeahead
+ *= require bootstrap-datepicker
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";

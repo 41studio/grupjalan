@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
   resources :trips
-  resources :groups
+  # resources :trips do
+  #   collection do
+  #     get :autocomplete
+  #   end
+  # end
+
+  resources :groups do
+    collection do 
+      get :autocomplete
+    end
+  end
+      
   get 'sync/get_provinces'
 
   get 'sync/get_cities'

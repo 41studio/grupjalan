@@ -1,11 +1,13 @@
 .container
   .row
     .col-md-8
-      = form_tag '/groups/new_plan_step1' do
+      = form_tag new_plan_step2_path, method: :get do
+        .form-group
           = label_tag 
           h3
             | Tujuan
-          = text_field_tag 'Tujuan'
+          = hidden_field_tag :trip_id
+          = text_field_tag :query, params[:query], class: 'form-control typeahead', autocomplete: "off"
           br
           br
-          = link_to 'Lanjut', new_plan_step2_path, class: "btn3d btn btn-primary btn-lg"
+          = submit_tag 'Lanjut', class: "btn3d btn btn-primary btn-lg"

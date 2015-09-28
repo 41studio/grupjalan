@@ -13,7 +13,8 @@ class GroupsController < InheritedResources::Base
 
   end 
 
-  def auto_complete_plan
+  def autocomplete
+    render json: Trip.search(params[:query], autocomplete: true, limit: 10).map {|trip| {name_place: trip.name_place, value: trip.id}}
 
   end  
 

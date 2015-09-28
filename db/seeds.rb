@@ -48,5 +48,7 @@ user.trips.create([
   {
     name_place: 'Tangkuban Perahu'
   }
+
+  
 ])
 

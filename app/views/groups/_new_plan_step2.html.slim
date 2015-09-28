@@ -1,15 +1,19 @@
 .container
   .row
     .col-md-8
-      = form_tag '/groups/new_plan_step2' do
+      = form_tag new_plan_step3_path, method: :get do
+        #datepicker.input-daterange.input-group
           = label_tag 
+          = hidden_field_tag :trip_id, params[:trip_id]
           h3
             | Tanggal Mulai 
-          = text_field_tag 'Tanggal Mulai'
-          = label_tag 
+            br
+          = text_field_tag :start_to_trip, nil, class: "datepicker"
+          h2
+            b TO
+            br
           h3
             | Tanggal Akhir
-          = text_field_tag 'Tanggal Akhir'
-          br
-          br
-          = link_to 'Lanjut', new_plan_step3_path, class: "btn3d btn btn-primary btn-lg"
+          = text_field_tag :end_to_trip, nil, class: "datepicker"
+        br
+        = submit_tag 'Lanjut', class: "btn3d btn btn-primary btn-lg"

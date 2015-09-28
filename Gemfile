@@ -42,6 +42,8 @@ gem 'rack-mini-profiler'
 gem 'city-state'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
+gem 'searchkick'
+gem 'bootstrap-datepicker-rails'
 
 
 group :development, :test do

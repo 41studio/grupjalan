@@ -66,6 +66,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.4.0)
+      railties (>= 3.0)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
@@ -100,6 +102,14 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    elasticsearch (1.0.12)
+      elasticsearch-api (= 1.0.12)
+      elasticsearch-transport (= 1.0.12)
+    elasticsearch-api (1.0.12)
+      multi_json
+    elasticsearch-transport (1.0.12)
+      faraday
+      multi_json
     erubis (2.7.0)
     execjs (2.6.0)
     faraday (0.9.1)
@@ -231,6 +241,10 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchkick (0.9.0)
+      activemodel
+      elasticsearch (>= 1)
+      hashie
     simple_form (3.1.1)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -278,6 +292,7 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.5)
   byebug
   carrierwave
@@ -299,6 +314,7 @@ DEPENDENCIES
   rails (= 4.2.4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searchkick
   simple_form (~> 3.1.0)
   slim (~> 3.0.6)
   slim-rails (~> 3.0.1)

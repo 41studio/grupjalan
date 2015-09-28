@@ -12,6 +12,7 @@
 #
 
 class Group < ActiveRecord::Base
+	# searchkick text_start: [:name_place],autocomplete: ['name_place']
 	belongs_to :trip
 	has_many :users
 end
