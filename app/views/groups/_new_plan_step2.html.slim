@@ -2,18 +2,16 @@
   .row
     .col-md-8
       = form_tag new_plan_step3_path, method: :get do
-        #datepicker.input-daterange.input-group
+        .input-group.input-daterange
           = label_tag 
           = hidden_field_tag :trip_id, params[:trip_id]
           h3
             | Tanggal Mulai 
             br
-          = text_field_tag :start_to_trip, nil, class: "datepicker"
-          h2
-            b TO
-            br
+          = text_field_tag :start_to_trip, nil, class: "form-control"
+          br
           h3
             | Tanggal Akhir
-          = text_field_tag :end_to_trip, nil, class: "datepicker"
+          = text_field_tag :end_to_trip, nil, class: "form-control"
         br
         = submit_tag 'Lanjut', class: "btn3d btn btn-primary btn-lg"

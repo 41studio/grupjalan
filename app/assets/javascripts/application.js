@@ -20,11 +20,14 @@
 
 
 $(function(){
-  $('.datepicker').datepicker();
   $('#quote-carousel').carousel({
     pause: true,
     interval: 4000,
   });
+  $('.input-daterange input').each(function() {
+    $(this).datepicker("clearDates");
+  });
+  
   $(".dropdown").hover(            
             function() {
                 $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
