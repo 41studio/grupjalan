@@ -31,6 +31,8 @@ Rails.application.routes.draw do
    get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
    get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
    get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
+   post 'new_plan_create_group', to: 'groups#new_plan_create_group', as: :new_plan_create_group
+   get 'new_plan_join_group', to: 'groups#new_plan_join_group', as: :new_plan_join_group
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

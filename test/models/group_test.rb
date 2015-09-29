@@ -8,7 +8,8 @@
 #  end_to_trip   :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  destination   :string
+#  trip_id       :integer
+#  user_id       :integer
 #
 
 require 'test_helper'

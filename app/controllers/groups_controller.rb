@@ -10,27 +10,38 @@ class GroupsController < InheritedResources::Base
   end 
 
   def new_plan_step3
-
-  end 
+    @group = Group.new(group_params)
+    @groups = Group.where(group_params)
+  end
 
   def autocomplete
     render json: Trip.search(params[:query], autocomplete: true, limit: 10).map {|trip| {name_place: trip.name_place, value: trip.id}}
-
   end  
 
   def new_plan_create_group
+    @group = current_user.owned_groups.new(group_params)
+
+    if @group.save
+      @group.users << current_user
+      redirect_to @group, notice: 'grup jalan-jalan sudah berhasil di buat'
+    else
+      @groups = Group.where(group_params)
+      render :new_plan_step3
+    end
     
   end
   
   def new_plan_join_group
-
+    group = Group.find(params[:group_id])
+    group.users << current_user
+    redirect_to group, notice: 'Kamu sudah join dengan grup ini'
   end  
 
   private
 
 
     def group_params
-      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :destination)
+      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id)
     end
 end
 

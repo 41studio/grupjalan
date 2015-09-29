@@ -1,7 +1,14 @@
 .container
   .row
     .col-md-8
-      = form_tag '/groups/new_plan_step2' do
+      = simple_form_for @group, url: new_plan_create_group_path do |f|
+      	.form-group
+      	  = f.input  :trip_id, as: :hidden
+      	  = f.input  :start_to_trip, as: :hidden
+      	  = f.input  :end_to_trip, as: :hidden
+          = f.input  :group_name, input_html: { class: "form-control" }
+          br
+          = f.button :submit, 'Buat Grup Baru', class: "btn3d btn btn-primary btn-lg"
 
-          = text_field_tag :group_name
-          = submit_tag 'Buat Grup Baru', class: "btn3d btn btn-primary btn-lg"
+      
+      

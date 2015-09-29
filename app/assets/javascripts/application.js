@@ -24,10 +24,11 @@ $(function(){
     pause: true,
     interval: 4000,
   });
-  $('.input-daterange input').each(function() {
-    $(this).datepicker("clearDates");
-  });
+  $('.input-daterange').datepicker({
+
+  });  
   
+
   $(".dropdown").hover(            
             function() {
                 $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
@@ -65,18 +66,14 @@ $(function(){
 
   });
 
-  var ready;
-  ready = function() {
-    var numbers = new Bloodhound({
-      remote: {
-        url: "/groups/autocomplete?query=%QUERY",
-        wildcard: '%QUERY'
-      },
-      datumTokenizer: function(g) { 
-              return Bloodhound.tokenizers.whitespace(g.name_place); },
-      queryTokenizer: Bloodhound.tokenizers.whitespace
-
-   
+  var numbers = new Bloodhound({
+    remote: {
+      url: "/groups/autocomplete?query=%QUERY",
+      wildcard: '%QUERY'
+    },
+    datumTokenizer: function(g) { 
+            return Bloodhound.tokenizers.whitespace(g.name_place); },
+    queryTokenizer: Bloodhound.tokenizers.whitespace
   });
 
   var promise = numbers.initialize();
@@ -84,19 +81,19 @@ $(function(){
   promise
   .done(function() { console.log('success!'); })
   .fail(function() { console.log('err!'); });
+  
 
   // instantiate the typeahead UI
   $( '.typeahead').typeahead(null, {
     displayKey: 'name_place',
     source: numbers.ttAdapter()
   });
-  }
+
   $('.typeahead').on('typeahead:selected', function(event, datum) {
     $("#trip_id").val(datum.value);
   });
 
-  $(document).ready(ready);
-  $(document).on('page:load', ready);  
+  
 });
 
 

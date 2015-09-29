@@ -15,5 +15,5 @@
 class Post < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   mount_uploader :video, VideoUploader
-  belongs_to :user
+  belongs_to     :user
 end
