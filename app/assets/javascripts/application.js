@@ -27,6 +27,17 @@ $(function(){
   $('.input-daterange').datepicker({
 
   });  
+
+  $("#myBtn").click(function() {
+    $(this).after(
+        '<div class="alert alert-success alert-dismissable">'+
+            '<button type="button" class="close" ' + 
+                    'data-dismiss="alert" aria-hidden="true">' + 
+                '&times;' + 
+            '</button>' + 
+            'Post has created' + 
+         '</div>');
+  }); 
   
 
   $(".dropdown").hover(            
