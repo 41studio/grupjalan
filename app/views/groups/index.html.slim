@@ -3,26 +3,27 @@
     .col-md-8
       h1 Listing groups
 
-      table.table-striped.table-hover.table-bordered
-        thead
-          tr
-            th Group name
-            th Start to trip
-            th End to trip
-            th
-            th
-            th
-
-        tbody
-          - @groups.each do |group|
+      .bs-example
+        table class= "table table-hover"  class="table table-bordered"
+          thead
             tr
-              td = group.group_name
-              td = group.start_to_trip
-              td = group.end_to_trip
-              td = link_to 'Show', group
-              td = link_to 'Edit', edit_group_path(group)
-              td = link_to 'Destroy', group, data: {:confirm => 'Are you sure?'}, :method => :delete
+              th Group name
+              th Start to trip
+              th End to trip
+              th S
+              th E
+              th D
 
-      br
+          tbody
+            - @groups.each do |group|
+              tr
+                td = group.group_name
+                td = group.start_to_trip
+                td = group.end_to_trip
+                td = link_to 'Show', group
+                td = link_to 'Edit', edit_group_path(group)
+                td = link_to 'Destroy', group, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-      = link_to 'New Group', new_group_path
+        br
+
+        = link_to 'New Group', new_group_path, class: "btn3d btn btn-primary btn-md"
