@@ -82,27 +82,16 @@ class User < ActiveRecord::Base
     self.role.eql? 'moderator'
   end
 
-  def self.from_omniauth(auth)
-   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-     user.email = auth.info.email.present? ? auth.info.email : "#{auth.info.first_name}#{auth.info.last_name}@mail.com"
-     user.password = Devise.friendly_token[0,20]
-     user.username = auth.info.name
-     user.address = "No address given"
-     user.skip_confirmation!
-     user.first_name = auth.info.first_name
-     user.last_name = auth.info.last_name
-     user.remote_image_url = auth.info.image
-     user.user_agent = user_agent
-   end
- end
+ 
   # def self.from_omniauth(auth)
-     # where(provider: auth.provider, uid: auth.uid).first_or_create(email: auth.info.email,password:Devise.friendly_token[0,20])
+  #   where(provider: auth.provider, uid: auth.uid).first_or_create(email: auth.info.email,password:Devise.friendly_token[0,20])
 
-    # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-    #   user.email = auth.provider.eql? "facebook" ? auth.info.email : "#{auth.uid}@kris.com"
-    #   user.password = Devise.friendly_token[0,20]
-    #   user.name = auth.info.name
-    # end 
+  #    # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+  #    #  user.email = auth.provider.eql? "facebook" ? auth.info.email : "#{auth.uid}@kris.com"
+  #    #  user.password = Devise.friendly_token[0,20]
+  #    #  user.name = auth.info.name
+  #    #  user.skip_confirmation!
+  #   end 
   # end
 
   # def self.from_facebook_omniauth(auth)
@@ -146,19 +135,18 @@ class User < ActiveRecord::Base
 # end
 
 
-  # def self.from_google_omniauth(auth)
-  #   user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
-  #   if user.present?
-  #     user.update_attributes(provider: auth.provider, uid: auth.uid)
-  #   else
-  #    user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20])
-  #    # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
-  #    user.skip_confirmation!
-  #    user.confirm!
-  #    user.save
-  #   end 
-  #   user
-  # end 
+  def self.from_omniauth(auth)
+    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
+    if user.present?
+      user.update_attributes(provider: auth.provider, uid: auth.uid)
+    else
+     user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20])
+     # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
+     user.skip_confirmation!
+     user.save
+    end 
+    user
+  end 
 
 
   # def self.new_with_session(params, session)
