@@ -85,7 +85,15 @@ Rails.application.configure do
     :user_name =>      "kris@41studio.com",
     :password =>       "GQMNEZrypI3Ij_Owvbb_YQ",
     :authentication => :plain
-}
+  }
   config.action_mailer.delivery_method = :smtp
+
+  config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: "[Grup Jalan Production Error] ",
+      sender_address: %{"Grup Jalan Error on Production" <no-reply@grupjalan.com>},
+      exception_recipients: %w{adit@41studio.com agung@41studio.com kris@41studio.com},
+      sections: %w(data request session environment backtrace)
+    }
 
 end

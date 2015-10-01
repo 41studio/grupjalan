@@ -44,6 +44,7 @@ gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 gem 'searchkick'
 gem 'bootstrap-datepicker-rails'
+gem 'exception_notification'
 
 
 group :development, :test do
