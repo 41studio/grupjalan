@@ -10,6 +10,11 @@
           <%= f.input :email, autofocus: true, input_html: { class: "form-control" } %>
         </div>
 
+         <div class="form-group">
+          <b> Photo </b>
+          <%= f.file_field :photo, input_html: { class: "form-control" } %>
+        </div>
+
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
