@@ -140,13 +140,44 @@ class User < ActiveRecord::Base
     if user.present?
       user.update_attributes(provider: auth.provider, uid: auth.uid)
     else
-     user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20])
+     user = User.new(
+      email: auth.info.email,
+      password:Devise.friendly_token[0,20],
+      first_name: auth.info.first_name,
+      username: Devise.friendly_token[0,20],
+      last_name: auth.info.last_name,
+      provider: auth.provider,
+      uid: auth.uid
+      )
      # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
      user.skip_confirmation!
      user.save
     end 
     user
   end 
+
+  def self.from_twitter_omniauth(auth)
+    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
+    if user.present?
+      user.update_attributes(provider: auth.provider, uid: auth.uid)
+    else
+     user = User.new(
+      email: "#{Devise.friendly_token[0,20]}@email.com",
+      password:Devise.friendly_token[0,20],
+      first_name:auth.info.name.split.first,
+      username: Devise.friendly_token[0,20],
+      last_name: auth.info.name.split.last,
+      provider: auth.provider,
+      uid: auth.uid
+      )
+     # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
+     user.skip_confirmation!
+     user.save
+    end 
+    user
+  end 
+
+
 
 
   # def self.new_with_session(params, session)
