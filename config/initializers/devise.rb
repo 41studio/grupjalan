@@ -263,5 +263,8 @@ Devise.setup do |config|
                    scope: 'email,public_profile', info_fields: 'email'
   config.omniauth :google_oauth2, Rails.application.secrets.google_key, Rails.application.secrets.google_secret
 
-  config.omniauth :twitter, Rails.application.secrets.twitter_key, Rails.application.secrets.twitter_secret                 
+  config.omniauth :twitter, Rails.application.secrets.twitter_key, Rails.application.secrets.twitter_secret 
+
+  config.secret_key = '5b14841eb8f84024753d74a93e73db4a2f87619fc17eda8078ddd472327260621f29d77bc69d97cbd1eced2110794094f7a6f5088819a4ae652a833a8fbb7e34'
+                
 end
