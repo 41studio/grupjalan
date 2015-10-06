@@ -260,7 +260,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   config.omniauth :facebook, Rails.application.secrets.facebook_key, Rails.application.secrets.facebook_secret, 
-                   scope: 'email,public_profile', info_fields: 'email, username, first_name, last_name'
+                   scope: 'email,public_profile', info_fields: 'email, first_name, last_name'
   config.omniauth :google_oauth2, Rails.application.secrets.google_key, Rails.application.secrets.google_secret
 
   config.omniauth :twitter, Rails.application.secrets.twitter_key, Rails.application.secrets.twitter_secret 
