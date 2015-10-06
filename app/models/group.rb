@@ -10,6 +10,9 @@
 #  updated_at    :datetime         not null
 #  trip_id       :integer
 #  user_id       :integer
+#  location      :string
+#  lat           :integer
+#  lng           :integer
 #
 
 class Group < ActiveRecord::Base
@@ -18,4 +21,5 @@ class Group < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :trip
 	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true
+	validates  :location, :lat, :lng, presence: true
 end

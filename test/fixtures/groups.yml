@@ -10,6 +10,9 @@
 #  updated_at    :datetime         not null
 #  trip_id       :integer
 #  user_id       :integer
+#  location      :string
+#  lat           :integer
+#  lng           :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

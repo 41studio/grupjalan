@@ -6,7 +6,10 @@ class GroupsController < InheritedResources::Base
   end
 
   def new_plan_step2
-
+    unless params[:trip_id].present?
+      trip =Trip.create(name_place: params[:query])
+      params[:trip_id] = trip.id
+    end
   end 
 
   def new_plan_step3
@@ -41,7 +44,7 @@ class GroupsController < InheritedResources::Base
 
 
     def group_params
-      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id)
+      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id, :location, :lat, :lng)
     end
 end
 
