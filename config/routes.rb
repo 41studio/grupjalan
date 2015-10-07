@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'mytrips/index'
+  get 'mytrips/index/show/:id', to: 'mytrips#show', as: :mytrips_show
+
   resources :trips
   # resources :trips do
   #   collection do

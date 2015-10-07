@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def home
-
+   redirect_to mytrips_index_path if user_signed_in?
   end  
 
   def quotes

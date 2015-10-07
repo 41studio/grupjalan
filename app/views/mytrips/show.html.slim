@@ -1,0 +1,19 @@
+.container
+  .row
+    - @groups_ids.each do |group_ids|
+      .group
+        td = group_ids.group_name
+        br
+        td = group_ids.start_to_trip
+        br
+        td = group_ids.end_to_trip
+        br
+    .col-md-8
+      p#notice = notice
+      p
+        br
+          pre
+            h1
+        		  = @trips_ids.name_place
+
+          

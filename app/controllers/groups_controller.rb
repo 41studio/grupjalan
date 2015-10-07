@@ -7,7 +7,7 @@ class GroupsController < InheritedResources::Base
 
   def new_plan_step2
     unless params[:trip_id].present?
-      trip =Trip.create(name_place: params[:query])
+      trip = current_user.trips.first_or_create(name_place: params[:query])
       params[:trip_id] = trip.id
     end
   end 
