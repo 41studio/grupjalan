@@ -10,17 +10,17 @@
             thead
               tr
                 th Name place
-                th S
-                th E
-                th D
+                th Show
+                th Edit
+                th Delete
 
             tbody
               - @trips.each do |trip|
                 tr
                   td = trip.name_place
-                  td = link_to 'Show', trip
-                  td = link_to 'Edit', edit_trip_path(trip)
-                  td = link_to 'Destroy', trip, data: {:confirm => 'Are you sure?'}, :method => :delete
+                  td = link_to '', trip, class: "glyphicon glyphicon-eye-open"
+                  td = link_to '', edit_trip_path(trip), class: "glyphicon glyphicon-edit"
+                  td = link_to '', trip, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "glyphicon glyphicon-trash"
 
           br
 

@@ -20,6 +20,7 @@ class Group < ActiveRecord::Base
 	has_and_belongs_to_many :users
 	belongs_to :user
 	belongs_to :trip
+	has_many   :posts
 	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true
 	validates  :location, :lat, :lng, presence: true
 end

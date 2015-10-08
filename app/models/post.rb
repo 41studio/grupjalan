@@ -10,6 +10,8 @@
 #  updated_at  :datetime         not null
 #  user_id     :integer
 #  description :text
+#  trip_id     :integer
+#  group_id    :integer
 #
 
 class Post < ActiveRecord::Base

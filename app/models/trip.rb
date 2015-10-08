@@ -14,4 +14,5 @@ class Trip < ActiveRecord::Base
   searchkick text_start: [:name_place],autocomplete: ['name_place']
   belongs_to :user
   has_many :groups
+  has_many :posts
 end

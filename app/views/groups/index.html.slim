@@ -20,9 +20,9 @@
                 td = group.group_name
                 td = group.start_to_trip
                 td = group.end_to_trip
-                td = link_to 'Show', group
-                td = link_to 'Edit', edit_group_path(group)
-                td = link_to 'Destroy', group, data: {:confirm => 'Are you sure?'}, :method => :delete
+                td = link_to 'Show', group, class: "btn3d btn btn-default btn-sm"
+                td = link_to 'Edit', edit_group_path(group), class: " btn3d btn btn-success btn-sm"
+                td = link_to 'Destroy', group, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn3d btn btn-danger btn-sm"
 
         br
 
