@@ -1,24 +1,32 @@
+
 .container
   .row
-    - @groups_ids.each do |group_ids|
-      .group
-        h5
-          td = group_ids.group_name
-          br
-          hr
-          td = group_ids.start_to_trip
-          br
-          hr
-          td = group_ids.end_to_trip
-          br
-          hr
+    - if @group
+      h1 aya
     .col-md-8
       p#notice = notice
       p
         br
           h1
             mark
-      		    = @trips_ids.name_place
+      		    = @trip.name_place
           hr
+        
+
+    h4
+      b Groups
+      hr      
+    - @groups.each do |group|
+        .list-unstyled
+          h5
+            b
+              td = link_to group.group_name, mytrips_show_path(params[:id], group_id: group.id)
+            br
+            td = group.start_to_trip
+            br
+            td = group.end_to_trip
+            br
 
           
+
+

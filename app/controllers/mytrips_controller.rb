@@ -5,8 +5,22 @@ class MytripsController < ApplicationController
   end
 
   def show
-  	@groups_ids = current_user.groups.map(&:id)
-  	@groups_ids = Group.find(@groups_ids)
-  	@trips_ids  = Trip.find(params[:id])
+  	@trip = Trip.find(params[:id])
+    @groups = @trip.groups
+
+    if params[:group_id].present?
+      @group = Group.find(params[:group_id])
+    end
+  end
+
+  def new
+  end
+
+  def create
+
   end	
 end
+
+
+
+

@@ -18,8 +18,9 @@
 class Group < ActiveRecord::Base
 	# searchkick text_start: [:name_place],autocomplete: ['name_place']
 	has_and_belongs_to_many :users
-	belongs_to :user
+	belongs_to :owner, foreign_key: :user_id, class_name: "User"
 	belongs_to :trip
+	has_many   :users
 	has_many   :posts
 	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true
 	validates  :location, :lat, :lng, presence: true
