@@ -2,7 +2,14 @@
 .container
   .row
     - if @group
-      h1 aya
+      div id="map" style="width: 400px; height: 400px;"
+      br
+      h2
+        b Lokasi :
+      br
+      h4
+        blockquote
+          = @group.location
     .col-md-8
       p#notice = notice
       p
@@ -26,6 +33,13 @@
             br
             td = group.end_to_trip
             br
+- if @group
+  javascript:
+    $("#map").googleMap();
+    $("#map").addMarker({
+      zoom: 10, // Initial zoom level (optional)
+      coords: ["#{@group.lat}", "#{@group.lng}"]
+    });            
 
           
 

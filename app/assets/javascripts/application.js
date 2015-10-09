@@ -18,6 +18,7 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require locationpicker
+//= require googlemap
 
 
 $(function(){

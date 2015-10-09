@@ -11,8 +11,8 @@
 #  trip_id       :integer
 #  user_id       :integer
 #  location      :string
-#  lat           :integer
-#  lng           :integer
+#  lat           :float
+#  lng           :float
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
