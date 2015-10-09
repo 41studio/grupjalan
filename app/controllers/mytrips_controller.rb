@@ -13,6 +13,12 @@ class MytripsController < ApplicationController
     end
   end
 
+  def member
+    @trip = Trip.find(params[:id])
+    @group = Group.find(params[:group_id])
+    @users = @group.users
+  end  
+
   def new
   end
 

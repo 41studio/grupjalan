@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'mytrips/index'
   get 'mytrips/index/show/:id', to: 'mytrips#show', as: :mytrips_show
   post 'mytrips/index/show/:id', to: 'mytrips#create', as: :mytrips_create
+  get 'mytrips/index/:id/member', to: 'mytrips#member', as: :mytrips_member
   resources :trips
   # resources :trips do
   #   collection do

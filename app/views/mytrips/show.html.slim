@@ -2,6 +2,11 @@
 .container
   .row
     - if @group
+      .group
+        pre
+          = @group.group_name
+          br
+          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn3d btn btn-primary btn-md"  
       div id="map" style="width: 400px; height: 400px;"
       br
       h2
