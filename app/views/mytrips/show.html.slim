@@ -4,9 +4,16 @@
     - if @group
       .group
         pre
-          = @group.group_name
+          h4
+            = @group.group_name
+          hr
           br
-          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn3d btn btn-primary btn-md"  
+          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn3d btn btn-primary btn-lg"
+          br  
+          = link_to 'Join', mytrips_join_group_path(params[:id], group_id: @group.id), class: "btn3d btn btn-success btn-lg" 
+          br
+          - if @joined
+            = link_to 'Leave Group', mytrips_leave_group_path(group_id: @group.id), class: "btn3d btn btn-danger btn-lg" 
       div id="map" style="width: 400px; height: 400px;"
       br
       h2
