@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'mytrips/index'
   get 'mytrips/index/show/:id', to: 'mytrips#show', as: :mytrips_show
-  post 'mytrips/index/show/:id', to: 'mytrips#create', as: :mytrips_create
+  post 'mytrips/index/show/:id', to: 'mytrips#create_post', as: :mytrips_create_post
   get 'mytrips/index/:id/member', to: 'mytrips#member', as: :mytrips_member
   get 'mytrips_join_group', to: 'mytrips#mytrips_join_group', as: :mytrips_join_group
   get 'mytrips_leave_group', to: 'mytrips#mytrips_leave_group', as: :mytrips_leave_group

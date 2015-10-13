@@ -7,6 +7,9 @@ class MytripsController < ApplicationController
   def show
   	@trip = Trip.find(params[:id])
     @groups = @trip.groups
+    @post = Post.new
+    @group_posts = @trip.posts.where(group_id: params[:group_id])
+    @trip_posts = @trip.posts
 
     if params[:group_id].present?
       @group = Group.find(params[:group_id])
@@ -27,22 +30,15 @@ class MytripsController < ApplicationController
   end 
 
   def mytrips_leave_group
-    puts "params"
-    puts params
-    @group = Group.find(params[:group_id])
-    # groups_users = GroupsUser.all
-    groups_users = GroupsUser.where("group_id = ? AND user_id = ?", params[:group_id], current_user).first
-    groups_users.destroy
-    redirect_to @group, notice: 'kamu sudah keluar dari group ini'
-
+    groups = Group.find(params[:group_id])
+    groups.users.delete(current_user)
+    redirect_to groups, notice: 'kamu sudah keluar dari group ini' 
   end
 
   def new
+
   end
 
-  def create
-
-  end	
 end
 
 

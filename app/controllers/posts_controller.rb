@@ -38,9 +38,9 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
 
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to :back, notice: 'Post was successfully created.'
     else
-      render :new
+      redirect_to :back, notice: 'Create Post Failed'
     end
 
   end
@@ -50,7 +50,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to mytrips_show_path(@post.trip.id, group_id: @post.group.id), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,11 +72,11 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def find_post
-      @post = Post.find(params[:id])
+      @post = current_user.posts.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :photo, :video)
+      params.require(:post).permit(:title, :description, :photo, :video, :group_id, :trip_id)
     end
 end

@@ -1,0 +1,10 @@
+p  = post.user.username
+p  = post.group.group_name
+p  = image_tag post.photo.middle.url, class: "img-circle"
+.text-justify
+  p  = post.description
+p  = post.created_at
+- if current_user && current_user.id.eql?(post.user_id)
+    = link_to '', post, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "glyphicon glyphicon-trash"
+    = link_to '', edit_post_path(post), class: "glyphicon glyphicon-edit"
+hr
