@@ -44,7 +44,14 @@ class GroupsController < InheritedResources::Base
 
 
     def group_params
-      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id, :location, :lat, :lng)
+      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id, :location, :lat, :lng, :photo)
     end
 end
 
+before_action :redirect_https
+
+    def redirect_https        
+      redirect_to :protocol => "https://" unless request.ssl?
+      return true 
+    end
+    

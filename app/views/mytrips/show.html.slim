@@ -15,6 +15,13 @@
           br
           - if @joined
             = link_to 'Leave Group', mytrips_leave_group_path(group_id: @group.id), class: "btn3d btn btn-danger btn-lg" 
+      br
+      = image_tag @group.photo.cover.url
+      br
+      br
+      = image_tag @group.photo.logo.url
+      br
+      br
       div id="map" style="width: 900px; height: 500px;"
       br
       h2
@@ -57,7 +64,20 @@
             td = group.start_to_trip
             br
             td = group.end_to_trip
-            br
+            hr
+    h4
+      b Groups Not Joined         
+    - @groups_nj.each do |group|
+      .list-unstyled
+        h5
+          b
+            td = link_to group.group_name, mytrips_show_path(params[:id], group_id: group.id)
+          br
+          td = group.start_to_trip
+          br
+          td = group.end_to_trip
+          br
+
 - if @group
   javascript:
     $("#map").googleMap();

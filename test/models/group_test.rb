@@ -13,6 +13,7 @@
 #  location      :string
 #  lat           :float
 #  lng           :float
+#  photo         :string
 #
 
 require 'test_helper'

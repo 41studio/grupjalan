@@ -82,11 +82,14 @@ class User < ActiveRecord::Base
     self.role.eql? 'moderator'
   end
 
-  
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
   def self.from_facebook_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
     if user.present?
-      user.update_attributes(provider: auth.provider, uid: auth.uid)
+      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
     else
      user = User.new(
       email: auth.info.email,
@@ -94,6 +97,7 @@ class User < ActiveRecord::Base
       first_name: auth.info.first_name,
       username: Devise.friendly_token[0,20],
       last_name: auth.info.last_name,
+      remote_photo_url: auth.info.image,
       provider: auth.provider,
       uid: auth.uid
       )
@@ -107,7 +111,7 @@ class User < ActiveRecord::Base
   def self.from_google_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
     if user.present?
-      user.update_attributes(provider: auth.provider, uid: auth.uid)
+      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
     else
      user = User.new(
       email: auth.info.email,
@@ -116,6 +120,7 @@ class User < ActiveRecord::Base
       username: Devise.friendly_token[0,20],
       last_name: auth.info.last_name,
       provider: auth.provider,
+      remote_photo_url: auth.info.image,
       uid: auth.uid
       )
      # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
@@ -128,7 +133,7 @@ class User < ActiveRecord::Base
   def self.from_twitter_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
     if user.present?
-      user.update_attributes(provider: auth.provider, uid: auth.uid)
+      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
     else
      user = User.new(
       email: "#{Devise.friendly_token[0,20]}@email.com",
@@ -137,6 +142,7 @@ class User < ActiveRecord::Base
       username: Devise.friendly_token[0,20],
       last_name: auth.info.name.split.last,
       provider: auth.provider,
+      remote_photo_url: auth.info.image,
       uid: auth.uid
       )
      # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
