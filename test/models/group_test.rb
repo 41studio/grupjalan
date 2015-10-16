@@ -14,6 +14,7 @@
 #  lat           :float
 #  lng           :float
 #  photo         :string
+#  image         :string
 #
 
 require 'test_helper'

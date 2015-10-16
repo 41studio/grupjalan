@@ -14,11 +14,13 @@
 #  lat           :float
 #  lng           :float
 #  photo         :string
+#  image         :string
 #
 
 class Group < ActiveRecord::Base
 	# searchkick text_start: [:name_place],autocomplete: ['name_place']
 	mount_uploader :photo, PhotoUploader
+	mount_uploader :image, ImageUploader
 	scope :not_joined, -> (group_ids){where('id NOT IN (?)',group_ids)}
 	scope :by_trip, -> (trip){where(trip: trip)}
 	has_and_belongs_to_many :users

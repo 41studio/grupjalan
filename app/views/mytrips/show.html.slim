@@ -9,17 +9,19 @@
               = @group.group_name
           hr
           br
-          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn3d btn btn-primary btn-lg"
+          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn3d btn btn-primary btn-md"
           br  
-          = link_to 'Join', mytrips_join_group_path(params[:id], group_id: @group.id), class: "btn3d btn btn-success btn-lg" 
+          = link_to 'Join', mytrips_join_group_path(params[:id], group_id: @group.id), class: "btn3d btn btn-success btn-md" 
           br
           - if @joined
-            = link_to 'Leave Group', mytrips_leave_group_path(group_id: @group.id), class: "btn3d btn btn-danger btn-lg" 
+            = link_to 'Leave Group', mytrips_leave_group_path(group_id: @group.id), class: "btn3d btn btn-danger btn-md" 
+          br
+          = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn3d btn btn-default btn-md"
       br
-      = image_tag @group.photo.cover.url
+      = image_tag @group.photo.cover.url, class: "img-rounded"
       br
       br
-      = image_tag @group.photo.logo.url
+      = image_tag @group.image.logo.url, class: "img-thumbnail"
       br
       br
       div id="map" style="width: 900px; height: 500px;"
