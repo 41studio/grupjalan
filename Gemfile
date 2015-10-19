@@ -46,6 +46,8 @@ gem 'jquery-ui-rails'
 gem 'searchkick'
 gem 'bootstrap-datepicker-rails'
 gem 'exception_notification'
+gem 'acts_as_commentable'
+gem 'acts_as_votable', '~> 0.10.0'
 
 
 group :development, :test do

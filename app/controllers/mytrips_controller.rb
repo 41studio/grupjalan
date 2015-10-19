@@ -16,6 +16,8 @@ class MytripsController < ApplicationController
       @group = Group.find(params[:group_id])
       @joined = @group.users.include? current_user
     end
+
+    @comments = @post.comments
   end
 
   def member

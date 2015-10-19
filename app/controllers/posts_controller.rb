@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :find_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   
 
 
@@ -43,6 +43,35 @@ class PostsController < ApplicationController
       redirect_to :back, notice: 'Create Post Failed'
     end
 
+  end
+
+  def create_comment
+    @post = Post.find(params[:comment][:post_id])
+    @user = @post.user
+    @comment = current_user.comments.new
+    @comment.comment = params[:comment][:comment]
+    @comment.commentable = @post
+    @comment.save
+    @comments = @post.comments
+    redirect_to :back
+  end 
+
+  def destroy_comment
+     @post = Post.find(params[:post])
+     @comment = current_user.comments.find(params[:id_comment])
+     @comment.destroy
+
+     redirect_to :back
+  end 
+
+  def upvote
+    @post.upvote_by current_user
+    redirect_to :back
+  end
+  
+  def downvote
+    @post.downvote_by current_user
+    redirect_to :back
   end
 
   # PATCH/PUT /posts/1

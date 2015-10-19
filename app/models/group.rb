@@ -15,6 +15,7 @@
 #  lng           :float
 #  photo         :string
 #  image         :string
+#  category_id   :integer
 #
 
 class Group < ActiveRecord::Base
@@ -24,6 +25,7 @@ class Group < ActiveRecord::Base
 	scope :not_joined, -> (group_ids){where('id NOT IN (?)',group_ids)}
 	scope :by_trip, -> (trip){where(trip: trip)}
 	has_and_belongs_to_many :users
+	belongs_to :category
 	belongs_to :trip
 	has_many   :posts, dependent: :destroy
 	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true

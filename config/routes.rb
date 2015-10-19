@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'mytrips/index/:id/member', to: 'mytrips#member', as: :mytrips_member
   get 'mytrips_join_group', to: 'mytrips#mytrips_join_group', as: :mytrips_join_group
   get 'mytrips_leave_group', to: 'mytrips#mytrips_leave_group', as: :mytrips_leave_group
+  post 'create_comment/:id', to: 'posts#create_comment', as: :comment_create
+  delete 'delete_comment', to: 'posts#destroy_comment', as: :delete_comment
   resources :trips
   # resources :trips do
   #   collection do
@@ -24,7 +26,12 @@ Rails.application.routes.draw do
 
   # devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :posts
+  resources :posts do 
+    member do
+     get "like", to: "posts#upvote"
+     get "dislike", to: "posts#downvote"
+    end
+  end   
   devise_for :users, controllers: { registrations: "users/registrations", 
              :omniauth_callbacks => "users/omniauth_callbacks" 
   }

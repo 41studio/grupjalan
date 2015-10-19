@@ -2,7 +2,18 @@
   .row
     .col-md-8
       h1
-       | Buat Perjalanan Baru
-       span class= "glyphicon glyphicon-plane" aria-hidden= "true"
+       | Buat Grup Baru
+       span class= "glyphicon glyphicon-user" aria-hidden= "true"
        hr
        == render 'new_plan_step2'
+
+       tbody
+        - @groups.each do |group|
+            tr
+              td = group.group_name
+              td = group.start_to_trip
+              td = group.end_to_trip
+              - if current_user.groups.where(id:group.id).blank?
+        			  td = link_to 'Join', new_plan_join_group_path(group_id: group.id), class: "btn3d btn btn-primary btn-sm"
+
+			        

@@ -1,16 +1,30 @@
 .container
   .row
-    .col-md-5
-      = simple_form_for :group, url: new_plan_step3_path, method: :get do |f|
-        = f.input :trip_id, as: :hidden, input_html: { value: params[:trip_id] } 
-        .form-group 
-          .input-daterange
-            h3
-              b Mulai Perjalanan
-            = f.input :start_to_trip, label: false, input_html: { class: "form-control", style: "width: 450px" }
-            br
-            h3
-              b Mengakhiri Perjalanan
-            = f.input :end_to_trip, label: false, input_html: { class: "form-control", style: "width: 450px" }
+    .col-md-8
+      = simple_form_for @group, url: new_plan_create_group_path do |f|
+      	.form-group
+      	  = f.input  :trip_id, as: :hidden, input_html: { value: params[:group][:trip_id] }
+      	  = f.input  :start_to_trip, as: :hidden
+      	  = f.input  :end_to_trip, as: :hidden
+          = f.input  :lat, as: :hidden, input_html: { id: "us2-lat"}
+          = f.input  :lng, as: :hidden, input_html: { id: "us2-lon"}
+          = f.input  :group_name, input_html: { class: "form-control", style: "width: 450px"}
           br
-          = f.button :submit, 'Lanjut', class: "btn3d btn btn-primary btn-lg"
+          h4 
+            b Logo
+          = f.file_field :image, input_html: { class: 'form-control' }, class: "btn3d btn btn-info btn-sm"
+          br
+          h4
+            b Cover
+          = f.file_field :photo, input_html: { class: 'form-control' }, class: "btn3d btn btn-info btn-sm"
+          br
+          = f.input :category_id, collection: Category.all.collect { |p| [p.plan_category, p.id] }, include_blank: true, input_html: { class: 'form-control'}
+          br
+          = f.input  :location, input_html: { class: "form-control", id: "us2-address", style: "width: 450px"}
+          br
+          div id="us2" style="width: 800px; height: 400px;"
+          br
+          = f.button :submit, 'Buat Grup Baru', class: "btn3d btn btn-primary btn-lg"
+
+      
+      

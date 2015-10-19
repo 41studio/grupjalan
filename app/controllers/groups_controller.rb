@@ -6,14 +6,12 @@ class GroupsController < InheritedResources::Base
 
   end
 
+
   def new_plan_step2
     unless params[:trip_id].present?
-      trip = current_user.trips.first_or_create(name_place: params[:query])
+      trip = current_user.trips.first_or_create(name_place: params[:group][:query])
       params[:trip_id] = trip.id
     end
-  end 
-
-  def new_plan_step3
     @group = Group.new(group_params)
     @groups = Group.where(group_params)
   end
@@ -30,7 +28,7 @@ class GroupsController < InheritedResources::Base
       redirect_to @group, notice: 'grup jalan-jalan sudah berhasil di buat'
     else
       @groups = Group.where(group_params)
-      render :new_plan_step3
+      render :new_plan_step2
     end
     
   end
@@ -63,7 +61,7 @@ class GroupsController < InheritedResources::Base
     end  
 
     def group_params
-      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id, :location, :lat, :lng, :photo, :image)
+      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id, :location, :lat, :lng, :photo, :image, :category_id)
     end
 end
 

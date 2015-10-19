@@ -15,6 +15,7 @@
 #  lng           :float
 #  photo         :string
 #  image         :string
+#  category_id   :integer
 #
 
 require 'test_helper'

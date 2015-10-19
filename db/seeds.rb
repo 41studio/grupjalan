@@ -48,7 +48,26 @@ user.trips.create([
   {
     name_place: 'Tangkuban Perahu'
   }
-
+ 
   
 ])
 
+ Category.destroy_all
+
+ Category.create([
+  {
+   plan_category: 'Pantai' 
+  },
+
+  {
+   plan_category: 'Wisata'
+  },
+
+  {
+   plan_category: 'Laut'
+  },
+
+  {
+   plan_category: 'Taman'
+  }
+])
