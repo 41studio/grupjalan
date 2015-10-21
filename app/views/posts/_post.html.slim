@@ -4,6 +4,18 @@ p  = image_tag post.photo.middle.url, class: "img-circle"
 .text-justify
   p  = post.description
 p  = post.created_at
+.caption style="text-align:right;"
+  = link_to like_post_path(post), class: "like", method: :get do
+    button.btn3d.btn.btn-primary.btn-sm aria-label=("Left Align") type="button"
+    span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
+    span.badge = post.get_upvotes.size
+
+
+  = link_to dislike_post_path(post), class: "like", method: :get do
+    button.btn3d.btn.btn-primary.btn-sm aria-label=("Left Align") type="button"
+    span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
+    span.badge = post.get_downvotes.size   
+
 - if current_user && current_user.id.eql?(post.user_id)
     = link_to '', post, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "glyphicon glyphicon-trash"
     = link_to '', edit_post_path(post), class: "glyphicon glyphicon-edit"
@@ -12,22 +24,15 @@ hr
 
 h2.comment_count= pluralize(post.comments.count, "Comment")
 - post.comments.each do |comment|
-  p.comment= comment.comment
+  .img-position
+     p.image = image_tag comment.user.photo, size: "50x50", class: "img-circle"
+  pre
+    h4
+      p.comment= comment.comment
   br/ 
   - if current_user && current_user.id.eql?(comment.user_id)
     = link_to "Delete",  delete_comment_path(post:post,id_comment:comment), method: :delete, class: "btn3d btn btn-danger btn-sm"
 
-.caption style="text-align:right;"
-  = link_to like_post_path(post), class: "like", method: :get do
-    button.btn.btn-info aria-label=("Left Align") type="button"
-    span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
-    span.badge = post.get_upvotes.size
-
-
-  = link_to dislike_post_path(post), class: "like", method: :get do
-    button.btn.btn-info aria-label=("Left Align") type="button"
-    span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
-    span.badge = post.get_downvotes.size     
 
 = render '/posts/comment', post: post 
 br

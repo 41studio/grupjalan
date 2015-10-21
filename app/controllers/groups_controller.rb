@@ -13,7 +13,7 @@ class GroupsController < InheritedResources::Base
       params[:trip_id] = trip.id
     end
     @group = Group.new(group_params)
-    @groups = Group.where(group_params)
+    @groups = Group.where("trip_id = :trip_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip", { start_to_trip: params[:group][:start_to_trip], end_to_trip: params[:group][:end_to_trip], trip_id: params[:group][:trip_id]})
   end
 
   def autocomplete

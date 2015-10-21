@@ -1,4 +1,6 @@
 class MytripsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @trips_ids = current_user.groups.map(&:trip_id)
     @trips_ids = Trip.find(@trips_ids)

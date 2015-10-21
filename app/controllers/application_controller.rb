@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
     def redirect_https        
       redirect_to :protocol => "https://" unless request.ssl?
-      return true 
+      return true              
     end   
   def authenticate_admin!
   	redirect_to new_user_session_path unless current_user.try(:is_admin?)
