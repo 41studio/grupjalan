@@ -1,3 +1,0 @@
-param[:id]
-
-= link_to 'test', mytrips_show_path(user.id, group_id: group.id)
