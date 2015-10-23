@@ -76,6 +76,7 @@ GEM
     bourbon (4.2.3)
       sass (~> 3.4)
       thor
+    bower-rails (0.10.0)
     builder (3.2.2)
     byebug (6.0.2)
     carrierwave (0.10.0)
@@ -308,6 +309,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.5)
+  bower-rails
   byebug
   carrierwave
   carrierwave-video
@@ -343,4 +345,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

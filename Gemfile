@@ -48,7 +48,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'exception_notification'
 gem 'acts_as_commentable'
 gem 'acts_as_votable', '~> 0.10.0'
-
+gem 'bower-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
