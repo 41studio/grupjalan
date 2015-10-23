@@ -4,6 +4,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-datepicker/dist/js/bootstrap-datepicker
+//= require typeahead.js/dist/typeahead.bundle
 //= require locationpicker
 //= require googlemap
 
