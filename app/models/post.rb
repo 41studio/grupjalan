@@ -17,11 +17,13 @@
 class Post < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   mount_uploader :video, VideoUploader
-  scope :by_group, -> (group_id){where(group_id: group_id)}
-  belongs_to     :user
-  belongs_to     :trip
-  belongs_to     :group
 
   acts_as_commentable
   acts_as_votable
+  
+  belongs_to :user
+  belongs_to :trip
+  belongs_to :group
+
+  scope :by_group, -> (group_id) { where(group_id: group_id) }
 end

@@ -10,9 +10,11 @@
 #
 
 class Trip < ActiveRecord::Base
+  searchkick text_start: [:name_place], autocomplete: ['name_place']
 
-  searchkick text_start: [:name_place],autocomplete: ['name_place']
+  with_options dependent: :destroy do |assoc|
+    has_many :posts
+    has_many :groups
+  end
   belongs_to :user
-  has_many :posts, dependent: :destroy
-  has_many :groups, dependent: :destroy
 end
