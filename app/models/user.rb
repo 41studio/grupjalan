@@ -55,7 +55,9 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter] 
   
   mount_uploader :photo, PhotoUploader 
-  mount_uploader :video, VideoUploader 
+  mount_uploader :video, VideoUploader
+
+  GENDERS = [['Male', 'male'], ['Female', 'female']]
 
   with_options dependent: :destroy do |assoc|
     has_many :posts
