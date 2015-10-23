@@ -3,7 +3,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/dist/js/bootstrap-datepicker
 //= require locationpicker
 //= require googlemap
 
