@@ -23,7 +23,7 @@
 #  last_name              :string
 #  neighborhood           :string
 #  address                :text
-#  gender                 :string
+#  gender                 :integer
 #  brithday               :string
 #  handphone              :string
 #  status                 :string
@@ -53,103 +53,57 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter] 
-
-  has_many :posts, dependent: :destroy
-  has_many :trips, dependent: :destroy
-  has_many :owned_groups, dependent: :destroy, class_name: "Group"
-  has_and_belongs_to_many :groups
-  has_many :comments, dependent: :destroy
-  enum role: ['user', 'admin', 'moderator']
-
+  
   mount_uploader :photo, PhotoUploader 
   mount_uploader :video, VideoUploader 
 
-  validates :username, :first_name, :last_name, :email, presence: true
-  validates :username, uniqueness: true
+  with_options dependent: :destroy do |assoc|
+    has_many :posts
+    has_many :trips
+    has_many :owned_groups, class_name: "Group"
+    has_many :comments
+  end
 
-  
+  has_and_belongs_to_many :groups
+
+  enum role: ['user', 'admin', 'moderator']
+
+  validates :username, :first_name, :last_name, :email, presence: true
+  validates :username, uniqueness: true  
+
+  def self.from_omniauth(auth)
+    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
+
+    if user
+      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
+    else
+      user = User.new(
+        email: auth.info.email,
+        first_name: auth.info.name.split(" ", 2).first,
+        last_name: auth.info.name.split(" ", 2).last,
+        username: auth.info.nickname,
+        remote_photo_url: auth.info.image,
+        provider: auth.provider,
+        uid: auth.uid
+      )
+    end
+
+    user
+  end
 
   def is_admin?
-    self.role.eql? 'admin'
+    role.eql? 'admin'
   end
-
 
   def is_user?
-    self.role.eql? 'user'
+    role.eql? 'user'
   end
 
-
   def is_moderator?
-    self.role.eql? 'moderator'
+    role.eql? 'moderator'
   end
 
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
-
-  def self.from_facebook_omniauth(auth)
-    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
-    if user.present?
-      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
-    else
-     user = User.new(
-      email: auth.info.email,
-      password:Devise.friendly_token[0,20],
-      first_name: auth.info.first_name,
-      username: Devise.friendly_token[0,20],
-      last_name: auth.info.last_name,
-      remote_photo_url: auth.info.image,
-      provider: auth.provider,
-      uid: auth.uid
-      )
-     # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
-     user.skip_confirmation!
-     user.save
-    end 
-    user
-  end
-
-  def self.from_google_omniauth(auth)
-    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
-    if user.present?
-      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
-    else
-     user = User.new(
-      email: auth.info.email,
-      password:Devise.friendly_token[0,20],
-      first_name: auth.info.first_name,
-      username: Devise.friendly_token[0,20],
-      last_name: auth.info.last_name,
-      provider: auth.provider,
-      remote_photo_url: auth.info.image,
-      uid: auth.uid
-      )
-     # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
-     user.skip_confirmation!
-     user.save
-    end 
-    user
-  end 
-
-  def self.from_twitter_omniauth(auth)
-    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
-    if user.present?
-      user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
-    else
-     user = User.new(
-      email: "#{Devise.friendly_token[0,20]}@email.com",
-      password:Devise.friendly_token[0,20],
-      first_name:auth.info.name.split.first,
-      username: Devise.friendly_token[0,20],
-      last_name: auth.info.name.split.last,
-      provider: auth.provider,
-      remote_photo_url: auth.info.image,
-      uid: auth.uid
-      )
-     # user = User.new(email: auth.info.email,password:Devise.friendly_token[0,20] , name:auth.info.name) 
-     user.skip_confirmation!
-     user.save
-    end 
-    user
-  end 
 end
