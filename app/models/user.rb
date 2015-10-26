@@ -74,12 +74,12 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true  
 
   def self.from_omniauth(auth)
-    user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first
+    user = User.where("(provider = ? AND uid = ?) OR email = ? ", auth.provider, auth.uid, auth.info.email).first_or_initialize
 
-    if user
+    if !user.new_record?
       user.update_attributes(provider: auth.provider, uid: auth.uid, remote_photo_url: auth.info.image)
     else
-      user = User.new(
+      user.assign_attributes(
         email: auth.info.email,
         first_name: auth.info.name.split(" ", 2).first,
         last_name: auth.info.name.split(" ", 2).last,
@@ -107,5 +107,12 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def create_from_omniauth(attributes)
+    if attributes
+      self.provider = attributes["provider"]
+      self.uid = attributes["uid"]
+    end
   end
 end
