@@ -8,12 +8,12 @@
     p= post.created_at
 
     .caption.text-right
-      = link_to like_group_post_path(post.group, post), class: "like btn btn-sm btn-primary", method: :get do
+      = link_to post_upvote_path(post), class: "like btn btn-sm btn-primary", method: :post do
         i.fa.fa-thumbs-o-up
         |  
         span.badge = post.get_upvotes.size
       |  
-      = link_to dislike_group_post_path(post.group, post), class: "like btn btn-sm btn-danger", method: :get do
+      = link_to post_downvote_path(post), class: "like btn btn-sm btn-danger", method: :post do
         i.fa.fa-thumbs-o-down
         |  
         span.badge = post.get_downvotes.size

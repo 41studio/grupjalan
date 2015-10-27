@@ -28,16 +28,14 @@ Rails.application.routes.draw do
       get :autocomplete
     end
 
-    resources :posts do
-      member do
-        get "like"
-        get "dislike"
-      end
-    end
+    resources :posts
   end
 
   resources :posts, only: nil do
     resources :comments, only: [:create, :destroy]
+
+    post "downvote", to: 'votes#downvote'
+    post "upvote", to: 'votes#upvote'
   end
 
   get 'mytrips/index/:id/member', to: 'mytrips#member', as: :mytrips_member

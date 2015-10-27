@@ -1,12 +1,9 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :set_group
+  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, except: [:index, :new]
 
   def index
     @posts = Post.all
-  end
-
-  def show
   end
 
   def new
@@ -31,28 +28,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def create_comment
-    
-  end 
-
-  def destroy_comment
-     @post = Post.find(params[:post])
-     @comment = current_user.comments.find(params[:id_comment])
-     @comment.destroy
-
-     redirect_to :back
-  end 
-
-  def upvote
-    @post.upvote_by current_user
-    redirect_to :back
-  end
-  
-  def downvote
-    @post.downvote_by current_user
-    redirect_to :back
-  end
-
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -69,6 +44,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:success] = 'Post berhasil dihapus.'
+
     respond_to do |format|
       format.html { redirect_to :back }
       format.json { head :no_content }
