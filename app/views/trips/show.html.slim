@@ -41,9 +41,6 @@
   .col-md-4
     .panel.panel-default
       .panel-heading Groups
-      - if @group
-        .panel-body
-          = link_to 'Show all group posts', mytrips_show_path, class: "btn3d btn btn-default btn-sm"
       .list-group
         - @groups.joined(current_user.id).each do |group|
           = link_to group_trip_path(@trip, group.id), class: 'list-group-item' do

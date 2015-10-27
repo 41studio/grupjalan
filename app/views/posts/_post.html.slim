@@ -8,22 +8,22 @@
     p= post.created_at
 
     .caption.text-right
-      = link_to like_post_path(post), class: "like btn btn-sm btn-primary", method: :get do
+      = link_to like_group_post_path(post.group, post), class: "like btn btn-sm btn-primary", method: :get do
         i.fa.fa-thumbs-o-up
         |  
         span.badge = post.get_upvotes.size
       |  
-      = link_to dislike_post_path(post), class: "like btn btn-sm btn-danger", method: :get do
+      = link_to dislike_group_post_path(post.group, post), class: "like btn btn-sm btn-danger", method: :get do
         i.fa.fa-thumbs-o-down
         |  
         span.badge = post.get_downvotes.size
       |  
 
-      - if current_user && current_user.id.eql?(post.user_id)
-          = link_to post, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-sm btn-warning" do
+      - if user_signed_in? && post.user_id.eql?(current_user.id)
+          = link_to group_post_path(post.group, post), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-sm btn-warning" do
             i.fa.fa-trash-o
           |  
-          = link_to edit_post_path(post), class: "btn btn-sm btn-info" do
+          = link_to edit_group_post_path(post.group, post), class: "btn btn-sm btn-info" do
             i.fa.fa-pencil
     hr
 
@@ -36,7 +36,7 @@
           p.comment= comment.comment
       br/ 
       - if current_user && current_user.id.eql?(comment.user_id)
-        = link_to "Delete",  delete_comment_path(post:post,id_comment:comment), method: :delete, class: "btn3d btn btn-danger btn-sm"
+        = link_to "Delete",  post_comment_path(post, comment), method: :delete, class: "btn3d btn btn-danger btn-sm", data: { confirm: 'Are you sure?' }
 
-    = render '/posts/comment', post: post 
+    = render 'comments/new', post: post
     br

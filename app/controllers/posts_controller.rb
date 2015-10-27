@@ -1,57 +1,38 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :set_group
 
-  # GET /posts
-  # GET /posts.json
   def index
     @posts = Post.all
   end
 
-  def home
-   redirect_to mytrips_index_path if user_signed_in?
-  end  
-
-  def quotes
-    
-  end
-
-  # GET /posts/1
-  # GET /posts/1.json
   def show
   end
 
-  # GET /posts/new
   def new
     @post = current_user.posts.new
   end
 
-  # GET /posts/1/edit
   def edit
   end
 
-  # POST /posts
-  # POST /posts.json
   def create
-    @user = current_user
     @post = current_user.posts.new(post_params)
 
-    if @post.save
-      redirect_to :back, notice: 'Post was successfully created.'
-    else
-      redirect_to :back, notice: 'Create Post Failed'
-    end
+    @post.group = @group
+    @post.trip = @group.trip
 
+    if @post.save
+      flash[:success] = 'Post berhasil dibuat.'
+      redirect_to group_trip_path(@group.trip, @group)
+    else
+      flash[:danger] = 'Post gagal dibuat.'
+      redirect_to group_trip_path(@group.trip, @group)
+    end
   end
 
   def create_comment
-    @post = Post.find(params[:comment][:post_id])
-    @user = @post.user
-    @comment = current_user.comments.new
-    @comment.comment = params[:comment][:comment]
-    @comment.commentable = @post
-    @comment.save
-    @comments = @post.comments
-    redirect_to :back
+    
   end 
 
   def destroy_comment
@@ -72,12 +53,11 @@ class PostsController < ApplicationController
     redirect_to :back
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to mytrips_show_path(@post.trip.id, group_id: @post.group.id), notice: 'Post was successfully updated.' }
+        flash[:success] = 'Post berhasil diupdate.'
+        format.html { redirect_to group_trip_path(@group.trip, @group) }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -86,23 +66,24 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     @post.destroy
+    flash[:success] = 'Post berhasil dihapus.'
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def find_post
       @post = current_user.posts.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def set_group
+      @group = Group.find(params[:group_id])
+    end
+
     def post_params
       params.require(:post).permit(:title, :description, :photo, :video, :group_id, :trip_id)
     end

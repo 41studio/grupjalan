@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading New Post
   .panel-body
-    = simple_form_for @post, url: posts_path do |f|
+    = simple_form_for @post, url: group_posts_path(@group) do |f|
       = f.input :trip_id, as: :hidden, input_html: { value: @trip.id }
       = f.input :group_id, as: :hidden, input_html: { value: params[:group_id] }
       = f.input :description, placeholder: "Tulis Postingan Kamu Di Sini", label: false, input_html: { class: "form-control", rows: 4 }
