@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_group, only: [:edit, :update]  
+  before_filter :set_group, only: [:edit, :update, :leave, :join]
   
   def new_plan_step1
 
@@ -53,7 +53,19 @@ class GroupsController < ApplicationController
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
-  end  
+  end
+
+  def join
+    @group.users << current_user
+    flash[:success] = "Kamu berhasil join grup ini."
+    redirect_to group_trip_path(@group.trip, @group)
+  end
+
+  def leave
+    @group.users.delete(current_user)
+    flash[:success] = "Kamu berhasil keluar dari grup ini."
+    redirect_to group_trip_path(@group.trip, @group)
+  end
 
   private
     def set_group

@@ -26,20 +26,8 @@ class MytripsController < ApplicationController
     @trip = Trip.find(params[:id])
     @group = Group.find(params[:group_id])
     @users = @group.users
-  end 
-
-  def mytrips_join_group
-    @group = Group.find(params[:group_id])
-    @group.users << current_user
-    redirect_to @group, notice: 'kamu sudah join dengan grup ini'
-  end 
-
-  def mytrips_leave_group
-    groups = Group.find(params[:group_id])
-    groups.users.delete(current_user)
-    redirect_to groups, notice: 'kamu sudah keluar dari group ini' 
   end
-
+  
   def new
 
   end

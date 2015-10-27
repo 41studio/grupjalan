@@ -14,11 +14,14 @@
           br
           br
           = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn btn-primary btn-md btn-block"
+          
           - if @group.user_ids.include? current_user.id
-            = link_to 'Leave Group', mytrips_leave_group_path(group_id: @group.id), class: "btn btn-danger btn-md btn-block"
+            = link_to 'Leave Group', leave_group_path(@group), class: "btn btn-danger btn-md btn-block", method: :delete
           - else
-            = link_to 'Join', mytrips_join_group_path(params[:id], group_id: @group.id), class: "btn btn-success btn-md btn-block"
-          = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
+            = link_to 'Join', join_group_path(@group), class: "btn btn-success btn-md btn-block", method: :post
+
+          - if @group.user_id.eql? current_user.id
+            = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
     .col-md-12
       #map style="width: 100%; height: 400px;"
       br

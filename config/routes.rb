@@ -24,13 +24,13 @@ Rails.application.routes.draw do
       get "group/:group_id", to: "trips#group", as: :group
     end
   end
-  # resources :trips do
-  #   collection do
-  #     get :autocomplete
-  #   end
-  # end
 
   resources :groups do
+    member do
+      post "join"
+      delete "leave"
+    end
+
     collection do 
       get :autocomplete
     end
