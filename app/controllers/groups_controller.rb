@@ -44,9 +44,10 @@ class GroupsController < ApplicationController
   end 
 
   def update
-     respond_to do |format|
+    respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to mytrips_show_path(@group.trip.id, group_id: @group.id), notice: 'Post was successfully updated.' }
+        flash[:success] = 'Grup berhasil diupdate.'
+        format.html { redirect_to group_trip_path(@group.trip, @group) }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }

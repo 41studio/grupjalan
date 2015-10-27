@@ -48,7 +48,8 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @group.save
         @group.users << current_user
-        format.html { redirect_to plan_url(@group), notice: 'Plan was successfully created.' }
+        flash[:notice] =  'Grup berhasil dibuat.'
+        format.html { redirect_to group_trip_path(@group.trip, @group) }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

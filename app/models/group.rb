@@ -23,6 +23,8 @@ class Group < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
 
+	CATEGORIES = Category.pluck(:plan_category, :id)
+
 	scope :by_trip, -> (trip) { where(trip: trip) }
 	scope :joined, -> (user_id) { where(user_id: user_id) }
 	scope :not_joined, -> (user_id) { where.not(user_id: user_id) }
