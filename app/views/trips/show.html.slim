@@ -1,9 +1,68 @@
-p#notice = notice
+- if @group
+  .row
+    .col-md-8
+      = image_tag @group.photo_url, class: 'img-thumbnail'
+      
+      h4 Lokasi: 
+      blockquote
+        = @group.location 
+    .col-md-4
+      .panel.panel-default
+        .panel-heading= @group.group_name
+        .panel-body
+          = image_tag @group.image_url(:logo), class: 'img-thumbnail'
+          br
+          br
+          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn btn-primary btn-md btn-block"
+          - if @group.user_ids.include? current_user.id
+            = link_to 'Leave Group', mytrips_leave_group_path(group_id: @group.id), class: "btn btn-danger btn-md btn-block"
+          - else
+            = link_to 'Join', mytrips_join_group_path(params[:id], group_id: @group.id), class: "btn btn-success btn-md btn-block"
+          = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
+    .col-md-12
+      #map style="width: 100%; height: 400px;"
+      br
+    .clearfix
+.row
+  h1= @trip.name_place
+  hr
+  .col-md-8
+    - if @group
+      = render 'trips/new_post' 
+      - @group_posts.each do |post|
+        = render post
+    - else
+      - @trip_posts.each do |post|
+        = render post
 
-p
-  strong Name place:
-  = @trip.name_place
+  .col-md-4
+    .panel.panel-default
+      .panel-heading Groups
+      - if @group
+        .panel-body
+          = link_to 'Show all group posts', mytrips_show_path, class: "btn3d btn btn-default btn-sm"
+      .list-group
+        - @groups.joined(current_user.id).each do |group|
+          = link_to group_trip_path(@trip, group.id), class: 'list-group-item' do
+            h4.list-group-item-heading= group.group_name
+            p.list-group-item-text= "Start Date #{group.start_to_trip}"
+            p.list-group-item-text= "Start Date #{group.end_to_trip}"
+              
+    .panel.panel-default
+      .panel-heading Groups Not Joined
+      .list-group
+        - @groups.not_joined(current_user.id).each do |group|
+          = link_to group_trip_path(@trip, group.id), class: 'list-group-item' do
+            h4.list-group-item-heading= group.group_name
+            p.list-group-item-text= "Start Date #{group.start_to_trip}"
+            p.list-group-item-text= "Start Date #{group.end_to_trip}"
 
-= link_to 'Edit', edit_trip_path(@trip)
-'|
-= link_to 'Back', trips_path
+- if @group
+  javascript:
+    $(document).ready(function(){
+      $("#map").googleMap();
+      $("#map").addMarker({
+        zoom: 10, // Initial zoom level (optional)
+        coords: ["#{@group.lat}", "#{@group.lng}"]
+      });
+    })

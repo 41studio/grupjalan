@@ -1,39 +1,42 @@
-p  = post.user.full_name
-p  = post.group.group_name
-p  = image_tag post.photo.middle.url, class: "img-circle"
-.text-justify
-  p  = post.description
-p  = post.created_at
-.caption style="text-align:right;"
-  = link_to like_post_path(post), class: "like", method: :get do
-    button.btn3d.btn.btn-primary.btn-sm aria-label=("Left Align") type="button"
-    span.glyphicon.glyphicon-thumbs-up.glyphicon-align-center aria-hidden="true"
-    span.badge = post.get_upvotes.size
+.panel.panel-default
+  .panel-heading
+    = post.user.full_name
+    = " (#{post.group.group_name})"
+  .panel-body
+    = image_tag post.photo.medium.url, class: "img-thumbnail"
+    p= post.description
+    p= post.created_at
 
+    .caption.text-right
+      = link_to like_post_path(post), class: "like btn btn-sm btn-primary", method: :get do
+        i.fa.fa-thumbs-o-up
+        |  
+        span.badge = post.get_upvotes.size
+      |  
+      = link_to dislike_post_path(post), class: "like btn btn-sm btn-danger", method: :get do
+        i.fa.fa-thumbs-o-down
+        |  
+        span.badge = post.get_downvotes.size
+      |  
 
-  = link_to dislike_post_path(post), class: "like", method: :get do
-    button.btn3d.btn.btn-primary.btn-sm aria-label=("Left Align") type="button"
-    span.glyphicon.glyphicon-thumbs-down.glyphicon-align-center aria-hidden="true"
-    span.badge = post.get_downvotes.size   
+      - if current_user && current_user.id.eql?(post.user_id)
+          = link_to post, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-sm btn-warning" do
+            i.fa.fa-trash-o
+          |  
+          = link_to edit_post_path(post), class: "btn btn-sm btn-info" do
+            i.fa.fa-pencil
+    hr
 
-- if current_user && current_user.id.eql?(post.user_id)
-    = link_to '', post, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "glyphicon glyphicon-trash"
-    = link_to '', edit_post_path(post), class: "glyphicon glyphicon-edit"
-hr
+    h3= pluralize(post.comments.count, "Comment")
+    - post.comments.each do |comment|
+      .img-position
+         p.image = image_tag comment.user.photo_url(:thumb), size: "50x50", class: "img-circle"
+      pre
+        h4
+          p.comment= comment.comment
+      br/ 
+      - if current_user && current_user.id.eql?(comment.user_id)
+        = link_to "Delete",  delete_comment_path(post:post,id_comment:comment), method: :delete, class: "btn3d btn btn-danger btn-sm"
 
-
-h2.comment_count= pluralize(post.comments.count, "Comment")
-- post.comments.each do |comment|
-  .img-position
-     p.image = image_tag comment.user.photo, size: "50x50", class: "img-circle"
-  pre
-    h4
-      p.comment= comment.comment
-  br/ 
-  - if current_user && current_user.id.eql?(comment.user_id)
-    = link_to "Delete",  delete_comment_path(post:post,id_comment:comment), method: :delete, class: "btn3d btn btn-danger btn-sm"
-
-
-= render '/posts/comment', post: post 
-br
-br
+    = render '/posts/comment', post: post 
+    br

@@ -8,6 +8,6 @@ html
     = csrf_meta_tags
   body
     = render 'shared/navbar'
-    p.notice= notice
-    p.alert= alert
-    = yield
+    .container
+      = render 'shared/flash_messages'
+      = yield

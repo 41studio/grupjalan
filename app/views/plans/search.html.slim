@@ -1,0 +1,23 @@
+.row
+  .col-md-6
+    h1
+     | Buat Plan Baru
+     span class= "glyphicon glyphicon-plane" aria-hidden= "true"
+     hr
+    
+    = simple_form_for(@group, url: new_plan_path, method: :get) do |f|
+
+      = f.error_notification
+
+      .form-group
+        b Tujuan
+        = f.input :trip_id, as: :hidden, input_html: { id: "trip_id" }
+        = f.input :query, label: false, input_html: { class: 'form-control typeahead', autocomplete: "off", value: params[:query] }
+
+      .input-daterange
+        .form-group
+          = f.input :start_to_trip, label: 'Mulai Perjalanan', input_html: { class: "form-control" }
+        .form-group
+          = f.input :end_to_trip, label: 'Mengakhiri Perjalanan', input_html: { class: "form-control" }
+      br
+      = f.button :submit, 'Lanjut', class: "btn3d btn btn-primary btn-lg"

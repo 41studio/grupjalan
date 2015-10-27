@@ -1,7 +1,5 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  
-
 
   # GET /posts
   # GET /posts.json

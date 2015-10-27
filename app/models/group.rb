@@ -23,8 +23,9 @@ class Group < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
 
-	scope :not_joined, -> (group_ids) { where('id NOT IN (?)',group_ids) }
 	scope :by_trip, -> (trip) { where(trip: trip) }
+	scope :joined, -> (user_id) { where(user_id: user_id) }
+	scope :not_joined, -> (user_id) { where.not(user_id: user_id) }
 
 	has_and_belongs_to_many :users
 	belongs_to :category
