@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :groups do
+  resources :groups, only: [:edit, :update] do
     member do
       post "join"
       delete "leave"
