@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy]
-  before_action :set_group, except: [:index, :new]
+  before_action :set_group, except: [:index, :new, :quotes]
 
   def index
     @posts = Post.all
