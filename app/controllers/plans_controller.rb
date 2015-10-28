@@ -26,14 +26,8 @@ class PlansController < ApplicationController
             end
 
     @group = trip.groups.new(group_params)
-    @groups = Group.where(
-      "trip_id = :trip_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
-      {
-        start_to_trip: params[:group][:start_to_trip],
-        end_to_trip: params[:group][:end_to_trip],
-        trip_id: trip.id
-      }
-    )
+
+    set_groups
   end
 
   # GET /plans/1/edit
@@ -44,6 +38,7 @@ class PlansController < ApplicationController
   # POST /plans.json
   def create
     @group = current_user.owned_groups.new(group_params)
+    set_groups
 
     respond_to do |format|
       if @group.save
@@ -86,6 +81,17 @@ class PlansController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_plan
       @group = Group.find(params[:id])
+    end
+
+    def set_groups
+      @groups = Group.where(
+        "trip_id = :trip_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+        {
+          start_to_trip: params[:group][:start_to_trip],
+          end_to_trip: params[:group][:end_to_trip],
+          trip_id: @group.trip.id
+        }
+      )
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

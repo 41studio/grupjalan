@@ -13,7 +13,7 @@
 
   = f.input :photo, as: :file, label: 'Cover'
 
-  = f.input :category_id, collection: Category.all.collect { |p| [p.plan_category, p.id] }, include_blank: true, input_html: { class: 'form-control'}
+  = f.input :category_id, collection: Group::CATEGORIES, include_blank: true, input_html: { class: 'form-control'}
 
   = f.input  :location, input_html: { class: "form-control", id: "us2-address"}
 
