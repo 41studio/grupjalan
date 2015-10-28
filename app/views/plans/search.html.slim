@@ -1,23 +1,20 @@
-.row
-  .col-md-6
-    h1
-     | Buat Plan Baru
-     span class= "glyphicon glyphicon-plane" aria-hidden= "true"
-     hr
-    
-    = simple_form_for(@group, url: new_plan_path, method: :get) do |f|
+.row.search-group
+  .col-md-4.col-md-offset-4
+    .panel.panel-default
+      .panel-body
+        h2 Cari Grup
+        hr
+        
+        = simple_form_for(@group, url: new_plan_path, method: :get) do |f|
 
-      = f.error_notification
+          = f.error_notification
 
-      .form-group
-        b Tujuan
-        = f.input :trip_id, as: :hidden, input_html: { id: "trip_id" }
-        = f.input :query, label: false, input_html: { class: 'form-control typeahead', autocomplete: "off", value: params[:query] }
+          = f.input :trip_id, as: :hidden, input_html: { id: "trip_id" }
+          = f.input :query, label: 'Tujuan', placeholder: 'ex: Pangandaran', input_html: { class: 'typeahead', autocomplete: "off", value: '', autofocus: true }
 
-      .input-daterange
-        .form-group
-          = f.input :start_to_trip, label: 'Mulai Perjalanan', input_html: { class: "form-control" }
-        .form-group
-          = f.input :end_to_trip, label: 'Mengakhiri Perjalanan', input_html: { class: "form-control" }
-      br
-      = f.button :submit, 'Lanjut', class: "btn3d btn btn-primary btn-lg"
+          
+          = f.input :start_to_trip, label: 'Mulai Perjalanan', placeholder: 'mm/dd/yyyy', input_html: { class: "form-control datepicker_from" }
+          = f.input :end_to_trip, label: 'Mengakhiri Perjalanan', placeholder: 'mm/dd/yyyy', input_html: { class: "form-control datepicker_to", disabled: true }
+          
+          .form-group
+            = f.submit 'Lanjut', class: "btn btn-primary btn-block"

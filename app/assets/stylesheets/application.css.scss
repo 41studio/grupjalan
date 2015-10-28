@@ -23,8 +23,20 @@ body{
     margin-left: 2px;
     vertical-align: middle;
 } 
+.search-group{
+  .twitter-typeahead{
+    width: 100%;
+  }
 
+  h2{
+    margin-top: 0px !important;
+  }
 
+  hr{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+  }
+}
 
 // .btn3d {
 //     position:relative;
