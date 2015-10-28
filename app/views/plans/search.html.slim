@@ -12,9 +12,8 @@
           = f.input :trip_id, as: :hidden, input_html: { id: "trip_id" }
           = f.input :query, label: 'Tujuan', placeholder: 'ex: Pangandaran', input_html: { class: 'typeahead', autocomplete: "off", value: '', autofocus: true }
 
-          
-          = f.input :start_to_trip, label: 'Mulai Perjalanan', placeholder: 'mm/dd/yyyy', input_html: { class: "form-control datepicker_from" }
-          = f.input :end_to_trip, label: 'Mengakhiri Perjalanan', placeholder: 'mm/dd/yyyy', input_html: { class: "form-control datepicker_to", disabled: true }
+          = f.input :start_to_trip, as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from" }
+          = f.input :end_to_trip, as: :string, label: 'Mengakhiri Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_to", disabled: true }
           
           .form-group
             = f.submit 'Lanjut', class: "btn btn-primary btn-block"

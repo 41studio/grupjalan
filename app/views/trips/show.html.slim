@@ -14,15 +14,9 @@
           = image_tag @group.image_url(:logo), class: 'img-thumbnail'
           br
           br
-          - if @members
-            = link_to "Posts", group_trip_path(@trip, @group), class: 'btn btn-primary btn-md btn-block'
-          - else
-            = link_to 'Members', members_group_trip_path(@trip, @group), class: "btn btn-primary btn-md btn-block"
+          = link_for_members(@members.nil?)
           
-          - if @group.user_ids.include? current_user.id
-            = link_to 'Leave Group', leave_group_path(@group), class: "btn btn-danger btn-md btn-block", method: :delete
-          - else
-            = link_to 'Join', join_group_path(@group), class: "btn btn-success btn-md btn-block", method: :post
+          = link_for_join(@group.user_ids.include?(current_user.id))
 
           - if @group.user_id.eql? current_user.id
             = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
@@ -40,7 +34,7 @@
       - if @members
         = render "trips/members", members: @members
       - else
-        = render 'trips/new_post' 
+        = render 'trips/new_post'
         - @group_posts.each do |post|
           = render post
     - else
@@ -49,22 +43,12 @@
 
   .col-md-4
     .panel.panel-default
-      .panel-heading Groups
-      .list-group
-        - @groups.joined(current_user.id).each do |group|
-          = link_to group_trip_path(@trip, group.id), class: 'list-group-item' do
-            h4.list-group-item-heading= group.group_name
-            p.list-group-item-text= "Start Date #{group.start_to_trip}"
-            p.list-group-item-text= "Start Date #{group.end_to_trip}"
+      .panel-heading Grup bergabung
+      = render "trips/groups", groups: @groups.joined(current_user.id)
               
     .panel.panel-default
-      .panel-heading Groups Not Joined
-      .list-group
-        - @groups.not_joined(current_user.id).each do |group|
-          = link_to group_trip_path(@trip, group.id), class: 'list-group-item' do
-            h4.list-group-item-heading= group.group_name
-            p.list-group-item-text= "Start Date #{group.start_to_trip}"
-            p.list-group-item-text= "Start Date #{group.end_to_trip}"
+      .panel-heading Grup Tidak Bergabung
+      = render "trips/groups", groups: @groups.not_joined(current_user.id)
 
 - if @group
   javascript:

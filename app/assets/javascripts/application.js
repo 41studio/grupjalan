@@ -20,7 +20,8 @@ $(function(){
   var dp_opts = {
     startDate: "new Date()",
     autoclose: true,
-    todayHighlight: true
+    todayHighlight: true,
+    format: "yyyy-mm-dd"
   }
 
   var dp_from = $('.datepicker_from').datepicker(dp_opts);

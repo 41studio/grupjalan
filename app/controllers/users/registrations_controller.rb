@@ -47,4 +47,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     def clear_session
       session["devise.omniauth"] = nil
     end
+
+    def after_update_path_for(resource)
+      edit_user_registration_url
+    end
 end
