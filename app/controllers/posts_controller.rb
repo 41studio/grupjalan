@@ -25,14 +25,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        flash[:success] = 'Post berhasil diupdate.'
-        format.html { redirect_to group_trip_path(@group.trip, @group) }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.update(post_params)
+      flash[:success] = 'Post berhasil diupdate.'
+      redirect_to group_trip_path(@group.trip, @group)
+    else
+      render :edit
     end
   end
 
@@ -40,10 +37,7 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:success] = 'Post berhasil dihapus.'
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { head :no_content }
-    end
+    redirect_to :back
   end
 
   private

@@ -11,15 +11,11 @@ class GroupsController < ApplicationController
   end 
 
   def update
-    respond_to do |format|
-      if @group.update(group_params)
-        flash[:success] = 'Grup berhasil diupdate.'
-        format.html { redirect_to group_trip_path(@group.trip, @group) }
-        format.json { render :show, status: :ok, location: @group }
-      else
-        format.html { render :edit }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
+    if @group.update(group_params)
+      flash[:success] = 'Grup berhasil diupdate.'
+      redirect_to group_trip_path(@group.trip, @group)
+    else
+      render :edit
     end
   end
 
