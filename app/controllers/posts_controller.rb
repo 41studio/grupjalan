@@ -1,13 +1,9 @@
 class PostsController < ApplicationController
-  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :find_post, only: [:edit, :update, :destroy]
   before_action :set_group, except: [:index, :new, :quotes]
 
   def index
-    @posts = Post.all
-  end
-
-  def new
-    @post = current_user.posts.new
+    @posts = current_user.posts.includes(:trip, :group)
   end
 
   def edit
@@ -33,7 +29,6 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         flash[:success] = 'Post berhasil diupdate.'
         format.html { redirect_to group_trip_path(@group.trip, @group) }
-        format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }

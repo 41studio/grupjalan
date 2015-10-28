@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get 'sync/get_provinces'
   get 'sync/get_cities'
 
-  get 'index', to: 'posts#index', as: :index
   get 'quotes', to: 'posts#quotes', as: :quotes
 
   resources :plans do
@@ -35,10 +34,10 @@ Rails.application.routes.draw do
       get :autocomplete
     end
 
-    resources :posts
+    resources :posts, except: [:new, :show]
   end
 
-  resources :posts, only: nil do
+  resources :posts, only: :index do
     resources :comments, only: [:create, :destroy]
 
     post "downvote", to: 'votes#downvote'
