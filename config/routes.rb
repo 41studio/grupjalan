@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :trips do
+  resources :trips, only: :show do
     member do
       get "group/:group_id", to: "trips#group", as: :group
       get "group/:group_id/members", to: "trips#members", as: :members_group
