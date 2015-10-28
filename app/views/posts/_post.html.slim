@@ -11,12 +11,12 @@
       = link_to post_upvote_path(post), class: "like btn btn-sm btn-primary", method: :post do
         i.fa.fa-thumbs-o-up
         |  
-        span.badge = post.get_upvotes.size
+        span.badge = post.cached_votes_up
       |  
       = link_to post_downvote_path(post), class: "like btn btn-sm btn-danger", method: :post do
         i.fa.fa-thumbs-o-down
         |  
-        span.badge = post.get_downvotes.size
+        span.badge = post.cached_votes_down
       |  
 
       - if user_signed_in? && post.user_id.eql?(current_user.id)
@@ -27,7 +27,7 @@
             i.fa.fa-pencil
     hr
 
-    h3= pluralize(post.comments.count, "Comment")
+    h3= pluralize(post.comments_count, "Comment")
     - post.comments.each do |comment|
       .img-position
          p.image = image_tag comment.user.photo_url(:thumb), size: "50x50", class: "img-circle"
