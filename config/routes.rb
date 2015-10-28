@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get 'quotes', to: 'posts#quotes', as: :quotes
 
-  resources :plans do
+  resources :plans, only: [:new, :create] do
     collection do
       get :search
     end
