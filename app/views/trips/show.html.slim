@@ -6,6 +6,7 @@
       h4 Lokasi: 
       blockquote
         = @group.location 
+
     .col-md-4
       .panel.panel-default
         .panel-heading= @group.group_name
@@ -13,7 +14,10 @@
           = image_tag @group.image_url(:logo), class: 'img-thumbnail'
           br
           br
-          = link_to 'Member', mytrips_member_path(params[:id], group_id: @group.id), class: "btn btn-primary btn-md btn-block"
+          - if @members
+            = link_to "Posts", group_trip_path(@trip, @group), class: 'btn btn-primary btn-md btn-block'
+          - else
+            = link_to 'Members', members_group_trip_path(@trip, @group), class: "btn btn-primary btn-md btn-block"
           
           - if @group.user_ids.include? current_user.id
             = link_to 'Leave Group', leave_group_path(@group), class: "btn btn-danger btn-md btn-block", method: :delete
@@ -22,18 +26,23 @@
 
           - if @group.user_id.eql? current_user.id
             = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
+
     .col-md-12
       #map style="width: 100%; height: 400px;"
       br
     .clearfix
+
 .row
   h1= @trip.name_place
   hr
   .col-md-8
     - if @group
-      = render 'trips/new_post' 
-      - @group_posts.each do |post|
-        = render post
+      - if @members
+        = render "trips/members", members: @members
+      - else
+        = render 'trips/new_post' 
+        - @group_posts.each do |post|
+          = render post
     - else
       - @trip_posts.each do |post|
         = render post

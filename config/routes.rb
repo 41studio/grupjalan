@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   
   get 'mytrips', to: 'pages#mytrips', as: :mytrips
 
+  get 'sync/get_provinces'
+  get 'sync/get_cities'
+
+  get 'index', to: 'posts#index', as: :index
+  get 'quotes', to: 'posts#quotes', as: :quotes
+
   resources :plans do
     collection do
       get :search
@@ -15,6 +21,7 @@ Rails.application.routes.draw do
   resources :trips do
     member do
       get "group/:group_id", to: "trips#group", as: :group
+      get "group/:group_id/members", to: "trips#members", as: :members_group
     end
   end
 
@@ -37,17 +44,9 @@ Rails.application.routes.draw do
     post "downvote", to: 'votes#downvote'
     post "upvote", to: 'votes#upvote'
   end
-
-  get 'mytrips/index/:id/member', to: 'mytrips#member', as: :mytrips_member
-
-  get 'sync/get_provinces'
-
-  get 'sync/get_cities'
-
+  
   devise_for :users, controllers: {
     registrations: "users/registrations", 
-    :omniauth_callbacks => "users/omniauth_callbacks" 
-  }
-   get 'index', to: 'posts#index', as: :index
-   get 'quotes', to: 'posts#quotes', as: :quotes
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }   
 end
