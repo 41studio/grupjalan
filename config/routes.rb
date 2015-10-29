@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
   # devise_for :admin_users, ActiveAdmin::Devise.config
+
+  apipie
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      # users
+      post "users/sign_in_email"
+      delete "users/sign_out"
+      post "users/register"
+      get "users/:user_id", to: "users#show"
+      put "users/:user_id", to: "users#update"
+
+      resources :trips, only: [:index, :show]
+    end
+  end
+
   ActiveAdmin.routes(self)
 
   root "pages#index"

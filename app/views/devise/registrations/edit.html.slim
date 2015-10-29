@@ -10,7 +10,7 @@
 
         = f.input :handphone, placeholder: "0813-23xx-xxxx", input_html: { class: "form-control" }
 
-        = f.input :gender, as: :radio_buttons, :collection => User::GENDERS, :checked => ['male', 'male']
+        = f.input :gender, as: :radio_buttons, :collection => User::GENDERS
 
         = f.input :birthday, as: :string, placeholder: "yyyy-mm-dd", input_html: { class: "form-control datepicker" }
 

@@ -23,7 +23,7 @@
 #  last_name              :string
 #  neighborhood           :string
 #  address                :text
-#  gender                 :integer
+#  gender                 :string           default("male")
 #  handphone              :string
 #  status                 :string
 #  video                  :string
@@ -36,9 +36,11 @@
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
 #  birthday               :date
+#  auth_token             :string
 #
 # Indexes
 #
+#  index_users_on_auth_token            (auth_token) UNIQUE
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_provider              (provider)
@@ -70,8 +72,10 @@ class User < ActiveRecord::Base
 
   enum role: ['user', 'admin', 'moderator']
 
-  validates :username, :first_name, :last_name, :email, presence: true
-  validates :username, uniqueness: true  
+  validates :first_name, :last_name, :email, presence: true
+  validates :gender, inclusion: { in: %w(male female), message: '%{value} is not a valid gender.' }
+
+  before_save :ensure_authentication_token
 
   def self.from_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?) OR email = ? ", auth.provider, auth.uid, auth.info.email).first_or_initialize
@@ -113,6 +117,20 @@ class User < ActiveRecord::Base
     if attributes
       self.provider = attributes["provider"]
       self.uid = attributes["uid"]
+    end
+  end
+
+  # authentication
+  def ensure_authentication_token
+    if auth_token.nil?
+      self.auth_token = generate_auth_token
+    end
+  end
+
+  def generate_auth_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(auth_token: token).first
     end
   end
 end
