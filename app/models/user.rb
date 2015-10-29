@@ -47,6 +47,7 @@
 #
 
 class User < ActiveRecord::Base
+  paginates_per 3
   # enum gender: [:Male, :Female]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -72,6 +73,8 @@ class User < ActiveRecord::Base
 
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, uniqueness: true  
+  acts_as_followable
+  acts_as_follower
 
   def self.from_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?)  OR email = ? ", auth.provider, auth.uid, auth.info.email).first

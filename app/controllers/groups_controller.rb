@@ -1,6 +1,6 @@
 class GroupsController < InheritedResources::Base
   before_filter :authenticate_user!
-  before_filter :set_group, only: [:edit, :update]  
+  before_filter :set_group, only: %i(edit update)  
   
   def new_plan_step1
 

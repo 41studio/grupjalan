@@ -39,10 +39,18 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+   resources :users do
+    member do
+      get :follow
+      get :unfollow
+    end
+   end
    root 'posts#home'
 
    get 'index', to: 'posts#index', as: :index
    get 'quotes', to: 'posts#quotes', as: :quotes
+   get 'current_user_show', to: 'posts#current_user_show', as: :current_show
+   get 'show_profile', to: 'posts#show_profile', as: :show_profile
    get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
    get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
    get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3

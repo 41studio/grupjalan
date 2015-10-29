@@ -35,6 +35,9 @@ gem 'exception_notification'
 gem 'acts_as_commentable'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'bower-rails'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+gem 'acts_as_follower'
 
 group :development, :test do
   gem 'byebug'
