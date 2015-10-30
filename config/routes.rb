@@ -11,7 +11,13 @@ Rails.application.routes.draw do
       get "users/:user_id", to: "users#show"
       put "users/:user_id", to: "users#update"
 
-      resources :trips, only: [:index, :show]
+      resources :groups do
+        collection do
+          post "search"
+        end
+      end
+
+      resources :trips, only: :index
     end
   end
 
