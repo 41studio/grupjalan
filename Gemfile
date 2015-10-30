@@ -36,6 +36,7 @@ gem 'acts_as_commentable'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'bower-rails'
 gem 'friendly_id', '~> 5.1.0'
+gem 'kaminari'
 gem 'apipie-rails'
 
 group :development, :test do
@@ -53,6 +54,7 @@ group :development do
   gem 'rails_best_practices'
   gem 'letter_opener'
   gem 'bullet'
+  gem ''
 end
 
 group :production do 

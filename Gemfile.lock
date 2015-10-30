@@ -415,6 +415,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
+  kaminari
   koala (~> 2.2)
   letter_opener
   mini_magick
