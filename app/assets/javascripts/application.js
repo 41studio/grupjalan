@@ -15,10 +15,32 @@ $(function(){
     pause: true,
     interval: 4000,
   });
-  $('.input-daterange').datepicker({
 
-  }); 
+  // datepicker search group
+  var dp_opts = {
+    startDate: "new Date()",
+    autoclose: true,
+    todayHighlight: true,
+    format: "yyyy-mm-dd"
+  }
 
+  var dp_from = $('.datepicker_from').datepicker(dp_opts);
+  var dp_to = $('.datepicker_to').datepicker(dp_opts);
+
+  dp_from.on("changeDate", function(selectedDate){
+    dp_to.removeAttr('disabled');
+
+    dp_to.datepicker("setStartDate", selectedDate.date);
+  });
+
+  dp_from.on("clearDate", function(){
+    dp_to.attr('disabled', true);
+    dp_to.val('');
+  })
+
+  // datepicker edit profile
+  $('.datepicker').datepicker({ todayHighlight: true });
+  
   $('#us2').locationpicker({
     location: {latitude: 46.15242437752303, longitude: 2.7470703125}, 
     radius:0,
@@ -98,7 +120,7 @@ $(function(){
   
 
   // instantiate the typeahead UI
-  $( '.typeahead').typeahead(null, {
+  $('.typeahead').typeahead(null, {
     displayKey: 'name_place',
     source: numbers.ttAdapter()
   });

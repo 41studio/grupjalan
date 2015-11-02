@@ -1,0 +1,14 @@
+.col-md-8
+  h1 Mytrips List
+  hr
+
+  table.table.table-hover.table-bordered.table-striped
+    thead
+      tr
+        th Trip name
+        th Action
+    tbody
+      - @trips.each do |trip|
+        tr
+          td = trip.name_place
+          td = link_to 'Show', trip_path(trip), class: "btn3d btn btn-primary btn-sm"

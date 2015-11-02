@@ -1,42 +1,25 @@
 Rails.application.routes.draw do
-  get 'mytrips/index'
-  get 'mytrips/index/show/:id', to: 'mytrips#show', as: :mytrips_show
-  post 'mytrips/index/show/:id', to: 'mytrips#create_post', as: :mytrips_create_post
-  get 'mytrips/index/:id/member', to: 'mytrips#member', as: :mytrips_member
-  get 'mytrips_join_group', to: 'mytrips#mytrips_join_group', as: :mytrips_join_group
-  get 'mytrips_leave_group', to: 'mytrips#mytrips_leave_group', as: :mytrips_leave_group
-  post 'create_comment/:id', to: 'posts#create_comment', as: :comment_create
-  delete 'delete_comment', to: 'posts#destroy_comment', as: :delete_comment
-  resources :trips
-  # resources :trips do
-  #   collection do
-  #     get :autocomplete
-  #   end
-  # end
+  # devise_for :admin_users, ActiveAdmin::Devise.config
 
-  resources :groups do
-    collection do 
-      get :autocomplete
+  apipie
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      # users
+      post "users/sign_in_email"
+      delete "users/sign_out"
+      post "users/register"
+      get "users/:user_id", to: "users#show"
+      put "users/:user_id", to: "users#update"
+
+      resources :groups do
+        collection do
+          post "search"
+        end
+      end
+
+      resources :trips, only: :index
     end
   end
-      
-  get 'sync/get_provinces'
-
-  get 'sync/get_cities'
-
-  # devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  resources :posts do 
-    member do
-     get "like", to: "posts#upvote"
-     get "dislike", to: "posts#downvote"
-    end
-  end   
-  devise_for :users, controllers: { registrations: "users/registrations", 
-             :omniauth_callbacks => "users/omniauth_callbacks" 
-  }
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
    resources :users do
@@ -56,53 +39,52 @@ Rails.application.routes.draw do
    get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
    post 'new_plan_create_group', to: 'groups#new_plan_create_group', as: :new_plan_create_group
    get 'new_plan_join_group', to: 'groups#new_plan_join_group', as: :new_plan_join_group
+  ActiveAdmin.routes(self)
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  root "pages#index"
+  
+  get 'mytrips', to: 'pages#mytrips', as: :mytrips
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  get 'sync/get_provinces'
+  get 'sync/get_cities'
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  get 'quotes', to: 'posts#quotes', as: :quotes
 
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  resources :plans, only: [:new, :create] do
+    collection do
+      get :search
+    end
+  end
+  
+  resources :trips, only: :show do
+    member do
+      get "group/:group_id", to: "trips#group", as: :group
+      get "group/:group_id/members", to: "trips#members", as: :members_group
+    end
+  end
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  resources :groups, only: [:edit, :update] do
+    member do
+      post "join"
+      delete "leave"
+    end
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
+    collection do 
+      get :autocomplete
+    end
 
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
+    resources :posts, except: [:new, :show]
+  end
 
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  resources :posts, only: :index do
+    resources :comments, only: [:create, :destroy]
+
+    post "downvote", to: 'votes#downvote'
+    post "upvote", to: 'votes#upvote'
+  end
+  
+  devise_for :users, controllers: {
+    registrations: "users/registrations", 
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }   
 end

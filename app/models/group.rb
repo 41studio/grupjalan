@@ -4,8 +4,6 @@
 #
 #  id            :integer          not null, primary key
 #  group_name    :string
-#  start_to_trip :string
-#  end_to_trip   :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  trip_id       :integer
@@ -16,6 +14,8 @@
 #  photo         :string
 #  image         :string
 #  category_id   :integer
+#  start_to_trip :date
+#  end_to_trip   :date
 #
 
 class Group < ActiveRecord::Base
@@ -23,8 +23,11 @@ class Group < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
 
-	scope :not_joined, -> (group_ids) { where('id NOT IN (?)',group_ids) }
+	CATEGORIES = Category.pluck(:plan_category, :id)
+
 	scope :by_trip, -> (trip) { where(trip: trip) }
+	scope :joined, -> (user_id) { where(user_id: user_id) }
+	scope :not_joined, -> (user_id) { where.not(user_id: user_id) }
 
 	has_and_belongs_to_many :users
 	belongs_to :category

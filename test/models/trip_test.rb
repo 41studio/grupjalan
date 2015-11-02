@@ -7,6 +7,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
+#  slug       :string
+#
+# Indexes
+#
+#  index_trips_on_slug  (slug) UNIQUE
 #
 
 require 'test_helper'

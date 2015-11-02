@@ -1,34 +1,20 @@
-.container
-  .row
-    .col-md-12
-      h1 
-        | Kumpulan Posting
-        span class= "glyphicon glyphicon-file" aria-hidden= "true"
+.col-md-12
+  .panel.panel-default
+    .panel-body
+      h2 Kumpulan Posting
 
-      .bs-example
-        table class= "table table-hover"  class="table table-bordered"
-          thead
-            tr
-              th Judul
-              th Deskripsi
-              th Foto
-              th Vidio
-              th Show
-              th Edit
-              th Delete
+    table.table.table-hover.table-striped
+      thead
+        tr
+          th Foto
+          th Content
+          th colspan="3"
 
-          tbody
-            - @posts.each do |post|
-              tr
-                td = post.title
-                td = post.description
-                td = image_tag post.photo.small.url, class: "img-rounded"
-                td = video_tag post.video, controls: true, size:"80x80"
-                td = link_to '', post, class: "glyphicon glyphicon-eye-open"
-                td = link_to '', edit_post_path(post), class: "glyphicon glyphicon-edit"
-                td = link_to '', post, data: {:confirm => 'Are you sure?'}, :method => :delete, class: "glyphicon glyphicon-trash"
-
-
-        br
-
-        = link_to 'New Post', new_post_path, class: "btn3d btn btn-primary btn-md"
+      tbody
+        - @posts.each do |post|
+          tr
+            td = image_tag post.photo_url(:thumb), class: "img-thumbnail"
+            td = truncate(post.description, length: 100)
+            td = link_to 'View', group_trip_path(post.trip, post.group), class: "btn btn-default"
+            td = link_to 'Edit', edit_group_post_path(post.group, post), class: "btn btn-primary"
+            td = link_to 'Delete', group_post_path(post.group, post), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"
