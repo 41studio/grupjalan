@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   # devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users, controllers: {
+    registrations: "users/registrations", 
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }   
 
   apipie
   namespace :api, defaults: { format: :json } do
@@ -28,10 +32,9 @@ Rails.application.routes.draw do
       get :unfollow
     end
    end
-   root 'posts#home'
+   # root 'posts#home'
 
    get 'index', to: 'posts#index', as: :index
-   get 'quotes', to: 'posts#quotes', as: :quotes
    get 'current_user_show', to: 'posts#current_user_show', as: :current_show
    get 'show_profile', to: 'posts#show_profile', as: :show_profile
    get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
@@ -83,8 +86,4 @@ Rails.application.routes.draw do
     post "upvote", to: 'votes#upvote'
   end
   
-  devise_for :users, controllers: {
-    registrations: "users/registrations", 
-    omniauth_callbacks: "users/omniauth_callbacks"
-  }   
 end

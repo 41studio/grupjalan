@@ -23,7 +23,6 @@
 #  last_name              :string
 #  neighborhood           :string
 #  address                :text
-#  brithday               :string
 #  gender                 :string           default("male")
 #  handphone              :string
 #  status                 :string

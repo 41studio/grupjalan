@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 User.destroy_all
 
-user = User.create :username => 'Agung', :first_name => 'agung', :last_name => '41studio', :email => 'agung@41studio.com', :role => 'admin', :password => 'top secret', :password_confirmation => 'top secret' 
+user = User.create :username => 'Kris', :first_name => 'Kris', :last_name => 'Dhinal', :email => 'kris@41studio.com', :role => 'admin', :password => '24121987', :password_confirmation => '24121987' 
 user.trips.create([
   {
     name_place: 'pangandaran'

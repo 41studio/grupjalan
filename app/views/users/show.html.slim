@@ -5,5 +5,7 @@
         p = image_tag @user.photo.medium.url, class: "img-rounded", width: '25%' 
         p = @user.full_name
         hr
-        p = link_to 'follow', follow_user_path(@user), class: "btn3d btn btn-primary btn-sm", style: 'margin-left: 600px'
-        p = link_to 'unfollow', unfollow_user_path(@user), class: "btn3d btn btn-danger btn-sm", style: 'margin-left: 600px'
+        - if current_user.following? @user
+        	p = link_to 'unfollow', unfollow_user_path(@user), class: "btn3d btn btn-danger btn-sm", style: 'margin-left: 600px'
+        - else  
+          p = link_to 'follow', follow_user_path(@user), class: "btn3d btn btn-primary btn-sm", style: 'margin-left: 600px'
