@@ -1,4 +1,4 @@
-= simple_form_for @post, url: group_post_path(@group, @post) do |f|
+= simple_form_for @post do |f|
   = f.error_notification
 
   = f.input :description, label: 'Content', input_html: { class: 'form-control', rows: 5 } 
@@ -9,4 +9,4 @@
 
   .form-group
     = f.button :submit, class: "btn3d btn btn-primary btn-md", id: "myBtn"
-    = link_to 'Back', group_trip_path(@group.trip, @group), class: "btn3d btn btn-default btn-md"
+    = link_to 'Back', trip_group_path(@group.trip, @group), class: "btn3d btn btn-default btn-md"

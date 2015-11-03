@@ -33,6 +33,7 @@ class Group < ActiveRecord::Base
 	belongs_to :category
 	belongs_to :trip
 	has_many   :posts, dependent: :destroy
+	has_many   :messages, dependent: :destroy
 	
 	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true
 	validates  :location, :lat, :lng, presence: true

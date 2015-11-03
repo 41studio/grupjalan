@@ -7,8 +7,10 @@
 //= require typeahead.js/dist/typeahead.bundle
 //= require locationpicker
 //= require googlemap
-
+//= require chat
 //= require turbolinks
+//= require private_pub
+
 
 $(function(){
   $('#quote-carousel').carousel({

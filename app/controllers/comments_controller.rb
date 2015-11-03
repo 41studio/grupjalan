@@ -33,6 +33,6 @@ class CommentsController < ApplicationController
     end
 
     def redirect_to_group
-      redirect_to group_trip_url(@post.trip, @post.group)
+      redirect_to :back
     end
 end

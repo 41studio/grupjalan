@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'conversations/create'
+
+  get 'conversations/show'
+
+
   # devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, controllers: {
     registrations: "users/registrations", 
@@ -60,26 +65,24 @@ Rails.application.routes.draw do
   end
   
   resources :trips, only: :show do
-    member do
-      get "group/:group_id", to: "trips#group", as: :group
-      get "group/:group_id/members", to: "trips#members", as: :members_group
-    end
+    resources :groups, only: [:edit, :update, :show]
   end
 
-  resources :groups, only: [:edit, :update] do
+  resources :groups, only: [:edit, :update, :show] do
+    resources :posts, except: [:new, :show]
+    resources :messages, only: [:create]
     member do
       post "join"
       delete "leave"
+      get "members"
     end
 
     collection do 
       get :autocomplete
     end
-
-    resources :posts, except: [:new, :show]
   end
 
-  resources :posts, only: :index do
+  resources :posts do
     resources :comments, only: [:create, :destroy]
 
     post "downvote", to: 'votes#downvote'

@@ -67,6 +67,7 @@ class User < ActiveRecord::Base
     has_many :trips
     has_many :owned_groups, class_name: "Group"
     has_many :comments
+    has_many :messages
     has_many :conversations, :foreign_key => :sender_id
   end
 

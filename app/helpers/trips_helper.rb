@@ -1,9 +1,9 @@
 module TripsHelper
   def link_for_members(is_members)
     if is_members
-      link_to 'Members', members_group_trip_path(@trip, @group), class: "btn btn-primary btn-md btn-block"
+      link_to 'Members', members_group_path(@group), class: "btn btn-primary btn-md btn-block"
     else
-      link_to "Posts", group_trip_path(@trip, @group), class: 'btn btn-primary btn-md btn-block'
+      link_to "Posts", trip_group_path(@group), class: 'btn btn-primary btn-md btn-block'
     end
   end
 

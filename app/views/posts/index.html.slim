@@ -15,6 +15,6 @@
           tr
             td = image_tag post.photo_url(:thumb), class: "img-thumbnail"
             td = truncate(post.description, length: 100)
-            td = link_to 'View', group_trip_path(post.trip, post.group), class: "btn btn-default"
+            td = link_to 'View', trip_group_path(post.trip, post.group), class: "btn btn-default"
             td = link_to 'Edit', edit_group_post_path(post.group, post), class: "btn btn-primary"
             td = link_to 'Delete', group_post_path(post.group, post), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger"

@@ -1,13 +1,14 @@
 class PostsController < ApplicationController
 
   before_action :find_post, only: [:edit, :update, :destroy]
-  before_action :set_group, except: [:index, :new, :quotes]
+  before_action :set_group, only: [:index, :new, :quotes, :show, :edit, :create]
 
   def index
     @posts = current_user.posts.includes(:trip, :group)
   end
 
   def edit
+
   end
 
   def create
@@ -15,20 +16,19 @@ class PostsController < ApplicationController
 
     @post.group = @group
     @post.trip = @group.trip
-
     if @post.save
       flash[:success] = 'Post berhasil dibuat.'
-      redirect_to group_trip_path(@group.trip, @group)
+      redirect_to trip_group_path(@group.trip, @group)
     else
       flash[:danger] = 'Post gagal dibuat.'
-      redirect_to group_trip_path(@group.trip, @group)
+      redirect_to trip_group_path(@group.trip, @group)
     end
   end
 
   def update
     if @post.update(post_params)
       flash[:success] = 'Post berhasil diupdate.'
-      redirect_to group_trip_path(@group.trip, @group)
+      redirect_to trip_group_path(@group.trip, @group)
     else
       render :edit
     end

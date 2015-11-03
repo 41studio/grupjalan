@@ -8,6 +8,7 @@
 #  user_id         :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  group_id        :integer
 #
 # Indexes
 #
@@ -16,8 +17,8 @@
 #
 
 class Message < ActiveRecord::Base
-  belongs_to :conversation
   belongs_to :user
+  belongs_to :group
 
-  validates_presence_of :body, :conversation_id, :user_id
+  validates_presence_of :body
 end

@@ -1,0 +1,8 @@
+.panel.panel-default
+  .panel-heading
+    = message.user.full_name
+    = "(#{message.group.group_name})"
+  .panel-body
+    = image_tag message.user.photo.small.url, class: "img-circle"
+    p = message.body
+    p = message.created_at  

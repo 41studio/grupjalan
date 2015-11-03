@@ -4,6 +4,13 @@
       h2
         p = image_tag @user.photo.medium.url, class: "img-rounded", width: '25%' 
         p = @user.full_name
+        .row
+          col-md-1
+            h6 Pengikut
+            p = @user.followers_count
+          col-md-1
+            h6 mengikuti
+            p = @user.follow_count  
         hr
         - if current_user.following? @user
         	p = link_to 'unfollow', unfollow_user_path(@user), class: "btn3d btn btn-danger btn-sm", style: 'margin-left: 600px'
