@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
 
   before_action :find_post, only: [:edit, :update, :destroy]
-  before_action :set_group, only: [:index, :new, :quotes, :show, :edit, :create]
+  before_action :set_trip, only:  [:new, :show, :edit, :create]
 
   def index
-    @posts = current_user.posts.includes(:trip, :group)
+    @posts = current_user.posts.includes(:trip) 
   end
 
   def edit
@@ -14,21 +14,20 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
 
-    @post.group = @group
-    @post.trip = @group.trip
+    @post.trip  = @trip
     if @post.save
       flash[:success] = 'Post berhasil dibuat.'
-      redirect_to trip_group_path(@group.trip, @group)
+      redirect_to :back
     else
-      flash[:danger] = 'Post gagal dibuat.'
-      redirect_to trip_group_path(@group.trip, @group)
+      flash[:danger]  = 'Post gagal dibuat.'
+      redirect_to :back
     end
   end
 
   def update
     if @post.update(post_params)
       flash[:success] = 'Post berhasil diupdate.'
-      redirect_to trip_group_path(@group.trip, @group)
+      redirect_to :back
     else
       render :edit
     end
@@ -46,8 +45,8 @@ class PostsController < ApplicationController
       @post = current_user.posts.find(params[:id])
     end
 
-    def set_group
-      @group = Group.find(params[:group_id])
+    def set_trip
+      @trip = Trip.friendly.find(params[:trip_id])
     end
 
     def post_params

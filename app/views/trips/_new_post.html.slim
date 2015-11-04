@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading New Post
   .panel-body
-    = simple_form_for @post, url: group_posts_path(@group) do |f|
+    = simple_form_for @post, url: trip_posts_path(@trip) do |f|
       = f.input :description, placeholder: "Tulis Postingan Kamu Di Sini", label: false, input_html: { class: "form-control", rows: 4 }
 
       = f.input :photo, as: :file

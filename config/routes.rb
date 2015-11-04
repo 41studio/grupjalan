@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    resources :users do
+    resources :messages, only: [:index, :create]
     member do
       get :follow
       get :unfollow
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
 
    get 'index', to: 'posts#index', as: :index
    get 'current_user_show', to: 'posts#current_user_show', as: :current_show
-   get 'show_profile', to: 'posts#show_profile', as: :show_profile
+   get 'show_profile',   to: 'posts#show_profile', as: :show_profile
    get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
    get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
    get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
@@ -66,10 +67,10 @@ Rails.application.routes.draw do
   
   resources :trips, only: :show do
     resources :groups, only: [:edit, :update, :show]
+    resources :posts, except: [:new, :show]
   end
 
   resources :groups, only: [:edit, :update, :show] do
-    resources :posts, except: [:new, :show]
     resources :messages, only: [:create]
     member do
       post "join"

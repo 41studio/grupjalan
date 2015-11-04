@@ -3,6 +3,7 @@
   h1= @trip.name_place
   hr
   .col-md-8
+    = render 'new_post'
     - @trip_posts.each do |post|
       = render post
 

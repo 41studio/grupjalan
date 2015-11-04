@@ -1,0 +1,6 @@
+.col-md-8
+  .panel.panel-default
+    = render 'form' 
+    hr      
+    - @messages.each do |message|
+       = render message  

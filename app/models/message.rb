@@ -9,6 +9,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  group_id        :integer
+#  to              :integer
 #
 # Indexes
 #

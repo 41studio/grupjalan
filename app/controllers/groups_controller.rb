@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_group, only: [:edit, :update, :leave, :join, :show, :members]
   before_filter :set_trip, only: [:show]
-  before_filter :build_post, only: [:show]
+ 
   
   def autocomplete
     render json: Trip.search(params[:query], autocomplete: true, limit: 10).map {|trip| {name_place: trip.name_place, value: trip.id}}
@@ -45,13 +45,6 @@ class GroupsController < ApplicationController
   end
 
   private
-
-    def build_post
-      @post = Post.new
-    end
-
-    
-
 
     def set_trip
       @trip = Trip.friendly.find(params[:trip_id])

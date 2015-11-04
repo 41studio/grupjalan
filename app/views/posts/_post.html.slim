@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading
     = post.user.full_name
-    = " (#{post.group.group_name})"
+    = " (#{post.trip.name_place})"
   .panel-body
     = image_tag post.photo.medium.url, class: "img-thumbnail"
     p= post.description
@@ -20,10 +20,10 @@
       |  
 
       - if user_signed_in? && post.user_id.eql?(current_user.id)
-          = link_to group_post_path(post.group, post), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-sm btn-warning" do
+          = link_to trip_post_path(post.trip, post), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-sm btn-warning" do
             i.fa.fa-trash-o
           |  
-          = link_to edit_group_post_path(post.group, post), class: "btn btn-sm btn-info" do
+          = link_to edit_trip_post_path(post.trip, post), class: "btn btn-sm btn-info" do
             i.fa.fa-pencil
     hr
 
