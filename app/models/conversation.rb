@@ -2,28 +2,16 @@
 #
 # Table name: conversations
 #
-#  id           :integer          not null, primary key
-#  sender_id    :integer
-#  recipient_id :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id         :integer          not null, primary key
+#  members    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 # Indexes
 #
-#  index_conversations_on_recipient_id  (recipient_id)
-#  index_conversations_on_sender_id     (sender_id)
+#  index_conversations_on_members  (members)
 #
 
 class Conversation < ActiveRecord::Base
-    belongs_to :sender, :foreign_key => :sender_id, class_name: 'User'
-    belongs_to :recipient, :foreign_key => :recipient_id, class_name: 'User'
-    has_many :messages, dependent: :destroy
-    validates_uniqueness_of :sender_id, :scope => :recipient_id
-    scope :involving, -> (user) do
-      where("conversations.sender_id =? OR conversations.recipient_id =?",user.id,user.id)
-    end
-    
-    scope :between, -> (sender_id,recipient_id) do
-      where("(conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.sender_id = ? AND conversations.recipient_id =?)", sender_id,recipient_id, recipient_id, sender_id)
-    end
+  has_and_belongs_to_many :users
 end

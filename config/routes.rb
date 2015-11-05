@@ -32,7 +32,11 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    resources :users do
-    resources :messages, only: [:index, :create]
+    resources :messages, only: [:index, :create] do
+      collection do
+        get :inbox
+      end
+    end  
     member do
       get :follow
       get :unfollow

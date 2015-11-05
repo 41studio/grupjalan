@@ -68,10 +68,12 @@ class User < ActiveRecord::Base
     has_many :owned_groups, class_name: "Group"
     has_many :comments
     has_many :messages
-    has_many :conversations, :foreign_key => :sender_id
-  end
 
+  end
+  
+  has_and_belongs_to_many :conversations
   has_and_belongs_to_many :groups
+
 
   enum role: ['user', 'admin', 'moderator']
 
