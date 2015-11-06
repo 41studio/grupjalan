@@ -1,5 +1,6 @@
 .col-md-8
   .panel.panel-default
     - @conversations.each do |conversation|
-      = conversation.members
+      - to = (conversation.users - [current_user]).first
+      p = link_to (to.full_name), user_messages_path(to.id)
     

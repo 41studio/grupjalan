@@ -9,6 +9,8 @@
 //= require googlemap
 //= require chat
 //= require turbolinks
+//= require nprogress
+//= require nprogress-turbolinks
 //= require private_pub
 
 

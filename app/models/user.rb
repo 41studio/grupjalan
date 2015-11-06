@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
 
   end
   
-  has_and_belongs_to_many :conversations
+  has_and_belongs_to_many :conversations, uniq: true
   has_and_belongs_to_many :groups
 
 

@@ -3,7 +3,7 @@
 # Table name: conversations
 #
 #  id         :integer          not null, primary key
-#  members    :integer
+#  members    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

@@ -1,26 +1,28 @@
 class MessagesController < ApplicationController
+  before_filter :find_message, only: [:create]
 
 	def create
+    @message = current_user.messages.build(message_params)
+
     if params[:group_id]
-      
-      message.group_id = params[:group_id]
+
+      @message.group_id = params[:group_id]
+
     else
       user_id   = current_user.id
       to        = params[:user_id].to_i  
-      members  = [user_id, to].sort
+      members   = [user_id, to].sort
       members.sort!
-      members.join('-')
+      members = members.join('-')
       conversation = Conversation.find_or_create_by(members: members)
       user1 = current_user
       user2 = User.find(params[:message][:to])
-      conversation.users << user1
-      conversation.users << user2
-
-      message = current_user.messages.build(message_params)
-      message.conversation_id = conversation.id
+      conversation.users << user1 unless conversation.users.include?(user1)
+      conversation.users << user2 unless conversation.users.include?(user2)
+      @message.conversation_id = conversation.id
     end
 
-    if message.save
+    if @message.save
       flash[:success] = 'Pesan berhasil dibuat.'
     else
       flash[:danger]  = 'Pesan gagal dibuat.'
@@ -29,9 +31,16 @@ class MessagesController < ApplicationController
   end
 
   def index
+    user_id   = current_user.id
+    to        = params[:user_id].to_i  
+    members   = [user_id, to].sort
+    members.sort!
+    members = members.join('-')
+
     @user = User.find(params[:user_id])
-    @messages = current_user.messages.where("messages.to = ?", @user.id) 
-    @message = Message.new
+    @conversation = Conversation.find_or_create_by(members: members)
+    @messages = @conversation.messages.includes(:user).order("created_at desc")
+    @message  = Message.new
   end
 
   def inbox
@@ -51,9 +60,8 @@ class MessagesController < ApplicationController
 
   private
     def find_message
-      @message = current_user.messages.find(params[:id])
+      @message = current_user.messages.new
     end
-
 
     def message_params
       params.require(:message).permit(:body, :group_id, :to, :user_id)
