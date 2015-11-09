@@ -63,11 +63,11 @@ class User < ActiveRecord::Base
   GENDERS = [['Male', 'male'], ['Female', 'female']]
 
   with_options dependent: :destroy do |assoc|
-    has_many :posts
-    has_many :trips
-    has_many :owned_groups, class_name: "Group"
-    has_many :comments
-    has_many :messages
+    assoc.has_many :posts
+    assoc.has_many :trips
+    assoc.has_many :owned_groups, class_name: "Group"
+    assoc.has_many :comments
+    assoc.has_many :messages
 
   end
   

@@ -30,6 +30,9 @@
 #  index_posts_on_cached_weighted_average  (cached_weighted_average)
 #  index_posts_on_cached_weighted_score    (cached_weighted_score)
 #  index_posts_on_cached_weighted_total    (cached_weighted_total)
+#  index_posts_on_group_id                 (group_id)
+#  index_posts_on_trip_id                  (trip_id)
+#  index_posts_on_user_id                  (user_id)
 #
 
 class Post < ActiveRecord::Base

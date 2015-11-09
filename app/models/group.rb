@@ -17,6 +17,12 @@
 #  start_to_trip :date
 #  end_to_trip   :date
 #
+# Indexes
+#
+#  index_groups_on_category_id  (category_id)
+#  index_groups_on_trip_id      (trip_id)
+#  index_groups_on_user_id      (user_id)
+#
 
 class Group < ActiveRecord::Base
 	# searchkick text_start: [:name_place],autocomplete: ['name_place']
@@ -32,8 +38,11 @@ class Group < ActiveRecord::Base
 	has_and_belongs_to_many :users
 	belongs_to :category
 	belongs_to :trip
-	has_many   :posts, dependent: :destroy
-	has_many   :messages, dependent: :destroy
+  
+	with_options dependent: :destroy do |assoc|
+		assoc.has_many   :posts
+		assoc.has_many   :messages
+	end	
 	
 	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true
 	validates  :location, :lat, :lng, presence: true

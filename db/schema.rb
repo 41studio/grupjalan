@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106034357) do
+ActiveRecord::Schema.define(version: 20151109022519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,10 @@ ActiveRecord::Schema.define(version: 20151106034357) do
     t.date     "end_to_trip"
   end
 
+  add_index "groups", ["category_id"], name: "index_groups_on_category_id", using: :btree
+  add_index "groups", ["trip_id"], name: "index_groups_on_trip_id", using: :btree
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
+
   create_table "groups_users", force: :cascade do |t|
     t.integer "group_id"
     t.integer "user_id"
@@ -141,6 +145,7 @@ ActiveRecord::Schema.define(version: 20151106034357) do
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["group_id"], name: "index_messages_on_group_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
@@ -170,6 +175,9 @@ ActiveRecord::Schema.define(version: 20151106034357) do
   add_index "posts", ["cached_weighted_average"], name: "index_posts_on_cached_weighted_average", using: :btree
   add_index "posts", ["cached_weighted_score"], name: "index_posts_on_cached_weighted_score", using: :btree
   add_index "posts", ["cached_weighted_total"], name: "index_posts_on_cached_weighted_total", using: :btree
+  add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
+  add_index "posts", ["trip_id"], name: "index_posts_on_trip_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "trips", force: :cascade do |t|
     t.string   "name_place"
@@ -180,6 +188,7 @@ ActiveRecord::Schema.define(version: 20151106034357) do
   end
 
   add_index "trips", ["slug"], name: "index_trips_on_slug", unique: true, using: :btree
+  add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",     null: false

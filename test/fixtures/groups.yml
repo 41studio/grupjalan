@@ -17,6 +17,12 @@
 #  start_to_trip :date
 #  end_to_trip   :date
 #
+# Indexes
+#
+#  index_groups_on_category_id  (category_id)
+#  index_groups_on_trip_id      (trip_id)
+#  index_groups_on_user_id      (user_id)
+#
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
