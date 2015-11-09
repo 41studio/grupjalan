@@ -10,7 +10,7 @@ class GroupsController < ApplicationController
 
   def show
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
-    @group_messages = @group.messages.includes(:user)
+    @group_messages = @group.messages.includes(:user).order("created_at desc")
     @message = Message.new
 
   end  

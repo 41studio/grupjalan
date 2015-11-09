@@ -21,6 +21,8 @@ class Trip < ActiveRecord::Base
 
   searchkick text_start: [:name_place], autocomplete: ['name_place']
 
+  has_and_belongs_to_many :users
+  
   with_options dependent: :destroy do |assoc|
     assoc.has_many :posts
     assoc.has_many :groups

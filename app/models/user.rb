@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :conversations, uniq: true
   has_and_belongs_to_many :groups
+  has_and_belongs_to_many :trips
 
 
   enum role: ['user', 'admin', 'moderator']

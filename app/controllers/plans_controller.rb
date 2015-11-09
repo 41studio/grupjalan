@@ -24,7 +24,8 @@ class PlansController < ApplicationController
 
     if @group.save
       @group.users << current_user
-      flash[:notice] =  'Grup berhasil dibuat.'
+      # @group.trip.users << current_user
+      flash[:notice] =  'Plan anda berhasil dibuat.'
       redirect_to trip_group_path(@group.trip, @group)
     else
       render :new

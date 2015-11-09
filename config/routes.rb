@@ -72,6 +72,11 @@ Rails.application.routes.draw do
   resources :trips, only: :show do
     resources :groups, only: [:edit, :update, :show]
     resources :posts, except: [:new, :show]
+    member do 
+      post "join"
+      delete "leave"
+      get "members_trip"
+    end  
   end
 
   resources :groups, only: [:edit, :update, :show] do

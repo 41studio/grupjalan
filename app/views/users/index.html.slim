@@ -4,7 +4,6 @@
       - @users.each_with_index do |user, index| 
         hr
         p = image_tag user.photo.medium.url, class: "img-rounded", width: '15%'	
-        p = index +=1
         h5
           p = user.full_name
         p = link_to 'Show Profile', user_path(user), class: "btn3d btn btn-default btn-sm", style: 'margin-left: 600px'
