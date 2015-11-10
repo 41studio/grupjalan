@@ -1,7 +1,7 @@
 .container
   .row
     .col-md-8
-      - @users.each_with_index do |user, index| 
+      - @users.each do |user| 
         hr
         p = image_tag user.photo.medium.url, class: "img-rounded", width: '15%'	
         h5

@@ -77,6 +77,9 @@ Rails.application.routes.draw do
       delete "leave"
       get "members_trip"
     end  
+    collection do
+      get "popular"
+    end  
   end
 
   resources :groups, only: [:edit, :update, :show] do

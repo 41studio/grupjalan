@@ -146,16 +146,24 @@ class User < ActiveRecord::Base
   end
 
   def create_trip
-    trip = Trip.find_or_create_by(name_place: self.country)
-    trip.users << self
+    if self.country.present?
+      trip = Trip.find_or_create_by(name_place: self.country)
+      trip.users << self unless trip.users.include? self
+    end  
 
-    trip = Trip.find_or_create_by(name_place: self.province)
-    trip.users << self
+    if self.province.present?
+      trip = Trip.find_or_create_by(name_place: self.province)
+      trip.users << self unless trip.users.include? self
+    end
 
-    trip = Trip.find_or_create_by(name_place: self.city)
-    trip.users << self
-
-    trip = Trip.find_or_create_by(name_place: self.neighborhood)
-    trip.users << self
+    if self.city.present?
+      trip = Trip.find_or_create_by(name_place: self.city)
+      trip.users << self unless trip.users.include? self
+    end 
+    
+    if self.neighborhood.present?
+      trip = Trip.find_or_create_by(name_place: self.neighborhood)
+      trip.users << self unless trip.users.include? self
+    end  
   end  
 end
