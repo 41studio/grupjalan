@@ -1,4 +1,6 @@
 module TripsHelper
+  #this path for helper group
+
   def link_for_members(is_members)
     if is_members
       link_to 'Members', members_group_path(@group), class: "btn btn-primary btn-md btn-block"
@@ -14,6 +16,8 @@ module TripsHelper
       link_to 'Join', join_group_path(@group), class: "btn btn-success btn-md btn-block", method: :post
     end
   end
+
+  #this path for helper trip
 
   def link_for_members_trip(is_members)
     if is_members
