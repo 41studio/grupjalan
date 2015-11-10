@@ -1,5 +1,5 @@
 class Api::V1::UsersController < BaseApiController
-  skip_before_action :authenticate_user_from_token!, only: :sign_in_email
+  skip_before_action :authenticate_user_from_token!, only: [:sign_in_email, :register, :sign_out]
   before_action :set_user, only: [:show, :update]
   before_action :verify_user, only: :update
 
