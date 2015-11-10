@@ -11,7 +11,6 @@
 //= require turbolinks
 //= require nprogress
 //= require nprogress-turbolinks
-//= require private_pub
 
 
 $(function(){
