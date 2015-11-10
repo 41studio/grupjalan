@@ -40,8 +40,6 @@ gem 'bootstrap-kaminari-views'
 gem 'acts_as_follower'
 gem 'friendly_id', '~> 5.1.0'
 gem 'apipie-rails'
-gem 'private_pub'
-gem 'thin'
 gem 'nprogress-rails'
 
 
