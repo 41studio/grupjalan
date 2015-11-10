@@ -102,11 +102,11 @@ class Api::V1::UsersController < BaseApiController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :username)
     end
 
     def user_update_params
-      params.require(:user).permit(:first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :country, :city, :province)
+      params.require(:user).permit(:first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :country, :city, :province, :username)
     end
 
     def verify_user
