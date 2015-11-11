@@ -33,7 +33,7 @@ class GroupsController < ApplicationController
   end
 
   def join
-    @group.users << current_user 
+    @group.users << current_user unless @group.users.include? current_user
     flash[:success] = "Kamu berhasil join grup ini."
     redirect_to trip_group_path(@group.trip, @group)
   end

@@ -23,8 +23,8 @@ class PlansController < ApplicationController
     set_groups
 
     if @group.save
-      @group.users << current_user unless @trip.users.include? current_user
-      @group.trip.users << current_user unless @trip.users.include? current_user
+      @group.users << current_user unless @group.users.include? current_user
+      @group.trip.users << current_user unless @group.trip.users.include? current_user
       flash[:notice] =  'Plan anda berhasil dibuat.'
       redirect_to trip_group_path(@group.trip, @group)
     else
