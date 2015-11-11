@@ -47,6 +47,13 @@ class MessagesController < ApplicationController
     @conversations = current_user.conversations
   end  
 
+  def destroy
+    message = Message.find(params[:id])
+    message.destroy
+    flash[:success] = 'Message berhasil dihapus.'
+    redirect_to :back
+  end  
+
 
   # def create_personal
   #   @messages = current_user.messages.build(message_params)

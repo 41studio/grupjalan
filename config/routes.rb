@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    resources :users do
-    resources :messages, only: [:index, :create] do
+    resources :messages, only: [:index, :create, :destroy] do
       collection do
         get :inbox
       end
@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   end
 
   resources :groups, only: [:edit, :update, :show] do
-    resources :messages, only: [:create]
+    resources :messages, only: [:create, :destroy]
     member do
       post "join"
       delete "leave"
