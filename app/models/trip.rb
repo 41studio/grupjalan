@@ -31,7 +31,9 @@ class Trip < ActiveRecord::Base
     assoc.has_many :groups
   end
   belongs_to :user
-
+  
+  validates :name_place, uniqueness: true 
+  
   def calculate_member_size
     self.member_size = self.users.count
     self.save
