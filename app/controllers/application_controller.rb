@@ -7,9 +7,13 @@ class ApplicationController < ActionController::Base
   def redirect_https        
     redirect_to :protocol => "https://" unless request.ssl?
     return true              
-  end     
+  end  
 
   def authenticate_admin!
   	redirect_to new_user_session_path unless current_user.try(:is_admin?)
+  end
+
+  def find_resource
+    resource_class.is_a?(FriendlyId) ? scoped_collection.where(slug: params[:id]).first! : scoped_collection.where(id: params[:id]).first!
   end
 end

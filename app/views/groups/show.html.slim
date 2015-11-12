@@ -33,7 +33,7 @@
       .panel.panel-default
         - @group_messages.each do |message|
            = render message 
-           - if message.user_id.eql? current_user.id
+           - if current_user && current_user.id.eql?(message.user_id) || current_user.is_administrator?
               = link_to 'Delete', group_message_path(message.group, message), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger btn-sm" 
         hr      
         = render "messages/form" 

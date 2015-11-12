@@ -19,9 +19,9 @@
         span.badge = post.cached_votes_down
       |  
 
-      - if user_signed_in? && post.user_id.eql?(current_user.id)
+      - if user_signed_in? && post.user_id.eql?(current_user.id) || current_user.is_administrator?
           = link_to trip_post_path(post.trip, post), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-sm btn-warning" do
-            i.fa.fa-trash-o
+            i.fa.fa-trash-o 
           |  
           = link_to edit_trip_post_path(post.trip, post), class: "btn btn-sm btn-info" do
             i.fa.fa-pencil
@@ -35,7 +35,7 @@
         h4
           p.comment= comment.comment
       br/ 
-      - if current_user && current_user.id.eql?(comment.user_id)
+      - if current_user && current_user.id.eql?(comment.user_id) || current_user.is_administrator?
         = link_to "Delete",  post_comment_path(post, comment), method: :delete, class: "btn3d btn btn-danger btn-sm", data: { confirm: 'Are you sure?' }
 
     = render 'comments/new', post: post

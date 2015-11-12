@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
 
 
   enum role: ['user', 'admin', 'moderator']
+  ROLE = ['user', 'admin', 'moderator']
 
   
   validates :username, :first_name, :last_name, :email, presence: true
@@ -118,6 +119,10 @@ class User < ActiveRecord::Base
 
   def is_moderator?
     role.eql? 'moderator'
+  end
+
+  def is_administrator?
+    ['admin', 'moderator'].include? self.role
   end
 
   def full_name

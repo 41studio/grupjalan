@@ -42,7 +42,11 @@ class PostsController < ApplicationController
 
   private
     def find_post
-      @post = current_user.posts.find(params[:id])
+      if current_user.is_administrator?
+        @post = Post.find(params[:id])
+      else
+        @post = current_user.posts.find(params[:id])
+      end
     end
 
     def set_trip
