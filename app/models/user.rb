@@ -69,6 +69,7 @@ class User < ActiveRecord::Base
   end
 
   has_and_belongs_to_many :groups
+  has_and_belongs_to_many :joined_trips, class_name: "Trip"
 
   enum role: ['user', 'admin', 'moderator']
 
@@ -76,6 +77,7 @@ class User < ActiveRecord::Base
   validates :gender, inclusion: { in: %w(male female), message: '%{value} is not a valid gender.' }
 
   before_save :ensure_authentication_token
+  after_update :create_group
 
   def self.from_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?) OR email = ? ", auth.provider, auth.uid, auth.info.email).first_or_initialize
@@ -131,6 +133,24 @@ class User < ActiveRecord::Base
     loop do
       token = Devise.friendly_token
       break token unless User.where(auth_token: token).first
+    end
+  end
+
+  def create_group
+    group_names = self.attributes.keep_if {|k, v| ["country", "city", "province", "neighborhood"]
+      .include?(k) && !v.nil? && !v.blank? }
+
+    admin = User.find_by(role: 1)
+
+    group_names.each do |key, val|
+      group = Group.where(name: val).first_or_initialize do |g|
+        g.user_id = key.eql?('neighborhood') ? id : admin.id
+        g.location = val
+      end
+
+      group.save(validate: false)
+
+      group.users << self
     end
   end
 end

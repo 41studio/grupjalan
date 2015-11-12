@@ -5,10 +5,14 @@
   table.table.table-hover.table-bordered.table-striped
     thead
       tr
-        th Trip name
+        th Group
+        th Start to Trip
+        th End to Trip
         th Action
     tbody
       - @trips.each do |trip|
         tr
-          td = trip.name_place
-          td = link_to 'Show', trip_path(trip), class: "btn3d btn btn-primary btn-sm"
+          td= link_to trip.group.name, group_path(trip.group)
+          td= trip.start_to_trip
+          td= trip.end_to_trip
+          td= link_to 'Show', group_trip_path(trip.group, trip), class: "btn btn-primary btn-sm"

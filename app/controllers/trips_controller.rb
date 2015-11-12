@@ -1,10 +1,11 @@
 class TripsController < ApplicationController
-  before_action :set_trip_and_groups
-  before_action :build_post, only: :group
+  before_action :set_trip
+  before_action :build_post, only: [:show, :members]
   before_action :set_group, except: :show
 
   def show
-    @trip_posts = @trip.posts.includes(:user, :group, comments: [:user])
+    @group = @trip.group
+    @posts = @trip.posts.includes(:user, :group, comments: [:user])
   end
 
   def group
@@ -14,15 +15,27 @@ class TripsController < ApplicationController
   end
 
   def members
-    @members = @group.users
-
+    @members = @trip.users
+    @posts = @trip.posts.includes(:user, :group, comments: [:user])
+    
     render "show"
   end
 
+  def leave
+    @trip.users.delete(current_user)
+    flash[:success] = "Kamu berhasil keluar dari trip ini."
+    redirect_to group_trip_path(@group, @trip)
+  end
+
+  def join
+    @trip.users << current_user
+    flash[:success] = "Kamu berhasil join trip ini."
+    redirect_to group_trip_path(@group, @trip)
+  end
+
   private
-    def set_trip_and_groups
-      @trip = Trip.friendly.find(params[:id])
-      @groups = @trip.groups
+    def set_trip
+      @trip = Trip.find(params[:id])
     end
 
     def build_post
@@ -30,7 +43,7 @@ class TripsController < ApplicationController
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.friendly.find(params[:group_id])
     end
 
     def trip_params

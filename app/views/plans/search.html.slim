@@ -5,15 +5,15 @@
         h2 Cari Grup
         hr
         
-        = simple_form_for(@group, url: new_plan_path, method: :get) do |f|
-
+        = simple_form_for('', url: new_plan_path, method: :get) do |f|
           = f.error_notification
 
-          = f.input :trip_id, as: :hidden, input_html: { id: "trip_id" }
-          = f.input :query, label: 'Tujuan', placeholder: 'ex: Pangandaran', input_html: { class: 'typeahead', autocomplete: "off", value: '', autofocus: true }
+          = f.input :destination_id, as: :hidden, input_html: { id: "group_id" }
+          = f.input :query, label: 'Tujuan', placeholder: 'ex: Pangandaran', input_html: { class: 'typeahead', autocomplete: "off", value: '', autofocus: true, required: true }
 
-          = f.input :start_to_trip, as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from" }
-          = f.input :end_to_trip, as: :string, label: 'Mengakhiri Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_to", disabled: true }
+          = f.input "trip[start_to_trip]", as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from", required: true }
+          
+          = f.input "trip[end_to_trip]", as: :string, label: 'Mengakhiri Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_to", disabled: true, required: true }
           
           .form-group
             = f.submit 'Lanjut', class: "btn btn-primary btn-block"

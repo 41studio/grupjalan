@@ -1,25 +1,23 @@
 # == Schema Information
 #
-# Table name: trips
+# Table name: destinations
 #
 #  id         :integer          not null, primary key
-#  name_place :string
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer
-#  slug       :string
 #
 # Indexes
 #
-#  index_trips_on_destination_id  (destination_id)
-#  index_trips_on_group_id        (group_id)
-#  index_trips_on_slug            (slug) UNIQUE
+#  index_destinations_on_name  (name) UNIQUE
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name_place: MyString
+  name: MyString
+  group_id: 1
 
 two:
-  name_place: MyString
+  name: MyString
+  group_id: 1

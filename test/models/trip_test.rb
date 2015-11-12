@@ -11,7 +11,9 @@
 #
 # Indexes
 #
-#  index_trips_on_slug  (slug) UNIQUE
+#  index_trips_on_destination_id  (destination_id)
+#  index_trips_on_group_id        (group_id)
+#  index_trips_on_slug            (slug) UNIQUE
 #
 
 require 'test_helper'

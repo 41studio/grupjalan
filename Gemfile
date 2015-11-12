@@ -54,7 +54,6 @@ group :development do
   gem 'rails_best_practices'
   gem 'letter_opener'
   gem 'bullet'
-  gem ''
 end
 
 group :production do 

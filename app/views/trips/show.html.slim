@@ -9,7 +9,7 @@
 
     .col-md-4
       .panel.panel-default
-        .panel-heading= @group.group_name
+        .panel-heading= @group.name
         .panel-body
           = image_tag @group.image_url(:logo), class: 'img-thumbnail'
           br
@@ -17,6 +17,8 @@
           = link_for_members(@members.nil?)
           
           = link_for_join(@group.user_ids.include?(current_user.id))
+
+          = link_for_join_trip(@trip.user_ids.include?(current_user.id), @trip)
 
           - if @group.user_id.eql? current_user.id
             = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
@@ -27,28 +29,21 @@
     .clearfix
 
 .row
-  h1= @trip.name_place
+  / h1= @trip.name
   hr
   .col-md-8
-    - if @group
-      - if @members
-        = render "trips/members", members: @members
-      - else
-        = render 'trips/new_post'
-        - @group_posts.each do |post|
-          = render post
-    - else
-      - @trip_posts.each do |post|
-        = render post
+    = render 'trips/new_post'
+    - @posts.each do |post|
+      = render post
 
   .col-md-4
     .panel.panel-default
       .panel-heading Grup bergabung
-      = render "trips/groups", groups: @groups.joined(current_user.id)
+      / = render "trips/groups", groups: @groups.joined(current_user.id)
               
     .panel.panel-default
       .panel-heading Grup Tidak Bergabung
-      = render "trips/groups", groups: @groups.not_joined(current_user.id)
+      / = render "trips/groups", groups: @groups.not_joined(current_user.id)
 
 - if @group
   javascript:

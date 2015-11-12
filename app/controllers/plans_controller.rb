@@ -2,31 +2,25 @@ class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
 
   def search
-    @group = Group.new
+    @trip = Trip.new
   end
 
   def new
+    @destination = Destination.first_or_create(name: params[:query].capitalize)
     @group = Group.new
-    trip =  if params["group"]["trip_id"].blank?
-              current_user.trips.create(name_place: params['group']['query'])
-            else
-              Trip.find(params["group"]["trip_id"])
-            end
 
-    @group = trip.groups.new(group_params)
-
-    set_groups
+    set_trips
   end
 
   def create
     @group = current_user.owned_groups.new(group_params)
-    set_groups
-
+    
     if @group.save
       @group.users << current_user
       flash[:notice] =  'Grup berhasil dibuat.'
-      redirect_to group_trip_path(@group.trip, @group)
+      redirect_to group_url(@group)
     else
+      set_trips
       render :new
     end
   end
@@ -37,18 +31,18 @@ class PlansController < ApplicationController
       @group = Group.find(params[:id])
     end
 
-    def set_groups
-      @groups = Group.where(
-        "trip_id = :trip_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+    def set_trips
+      @trips = Trip.joins(:group).where(
+        "destination_id = :destination_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
         {
-          start_to_trip: params[:group][:start_to_trip],
-          end_to_trip: params[:group][:end_to_trip],
-          trip_id: @group.trip.id
+          start_to_trip: params[:trip][:start_to_trip],
+          end_to_trip: params[:trip][:end_to_trip],
+          destination_id: @destination.id
         }
       )
     end
 
     def group_params
-      params.require(:group).permit(:trip_id, :start_to_trip, :end_to_trip, :lat, :lng, :group_name, :image, :photo, :category_id, :location)
+      params.require(:group).permit(:start_to_trip, :end_to_trip, :lat, :lng, :name, :image, :photo, :location)
     end
 end

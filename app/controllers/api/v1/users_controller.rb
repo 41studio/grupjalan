@@ -12,6 +12,7 @@ class Api::V1::UsersController < BaseApiController
       param :first_name, String, required: true
       param :last_name, String, required: true
       param :email, String, required: true
+      param :username, String, required: true
       param :password, String
       param :password_confirmation, String
     end

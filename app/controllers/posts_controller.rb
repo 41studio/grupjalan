@@ -12,7 +12,6 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
 
-    @post.group = @group
     @post.trip = @group.trip
 
     if @post.save
@@ -46,7 +45,7 @@ class PostsController < ApplicationController
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.friendly.find(params[:group_id])
     end
 
     def post_params
