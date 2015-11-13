@@ -88,6 +88,19 @@ ActiveRecord::Schema.define(version: 20151111061920) do
   add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "conversations", force: :cascade do |t|
+    t.string   "members"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "conversations", ["members"], name: "index_conversations_on_members", using: :btree
+
+  create_table "conversations_users", force: :cascade do |t|
+    t.integer "conversation_id"
+    t.integer "user_id"
+  end
+
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -102,6 +115,19 @@ ActiveRecord::Schema.define(version: 20151111061920) do
   end
 
   add_index "destinations", ["name"], name: "index_destinations_on_name", unique: true, using: :btree
+
+  create_table "follows", force: :cascade do |t|
+    t.integer  "followable_id",                   null: false
+    t.string   "followable_type",                 null: false
+    t.integer  "follower_id",                     null: false
+    t.string   "follower_type",                   null: false
+    t.boolean  "blocked",         default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
+  add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -130,11 +156,26 @@ ActiveRecord::Schema.define(version: 20151111061920) do
   end
 
   add_index "groups", ["slug"], name: "index_groups_on_slug", unique: true, using: :btree
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
   create_table "groups_users", force: :cascade do |t|
     t.integer "group_id"
     t.integer "user_id"
   end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "group_id"
+    t.integer  "to"
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["group_id"], name: "index_messages_on_group_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -163,28 +204,37 @@ ActiveRecord::Schema.define(version: 20151111061920) do
   add_index "posts", ["cached_weighted_average"], name: "index_posts_on_cached_weighted_average", using: :btree
   add_index "posts", ["cached_weighted_score"], name: "index_posts_on_cached_weighted_score", using: :btree
   add_index "posts", ["cached_weighted_total"], name: "index_posts_on_cached_weighted_total", using: :btree
+  add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
+  add_index "posts", ["trip_id"], name: "index_posts_on_trip_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "trips", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
     t.string   "slug"
     t.date     "start_to_trip"
     t.date     "end_to_trip"
     t.integer  "group_id"
+    t.integer  "member_size",    default: 0
     t.integer  "destination_id"
   end
 
   add_index "trips", ["destination_id"], name: "index_trips_on_destination_id", using: :btree
   add_index "trips", ["group_id"], name: "index_trips_on_group_id", using: :btree
+  add_index "trips", ["member_size"], name: "index_trips_on_member_size", using: :btree
   add_index "trips", ["slug"], name: "index_trips_on_slug", unique: true, using: :btree
+  add_index "trips", ["user_id"], name: "index_trips_on_user_id", using: :btree
 
-  create_table "trips_users", id: false, force: :cascade do |t|
+  create_table "trips_users", force: :cascade do |t|
     t.integer  "trip_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "trips_users", ["trip_id"], name: "index_trips_users_on_trip_id", using: :btree
+  add_index "trips_users", ["user_id"], name: "index_trips_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",     null: false
@@ -245,4 +295,5 @@ ActiveRecord::Schema.define(version: 20151111061920) do
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
+  add_foreign_key "messages", "users"
 end

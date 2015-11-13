@@ -1,10 +1,7 @@
 user = User.first_or_create(:username => 'Agung', :first_name => 'agung', :last_name => '41studio', :email => 'agung@41studio.com', :role => 1, :password => 'top secret', confirmed_at: Time.now)
 
-user = User.create :username => 'Kris', :first_name => 'Kris', :last_name => 'Dhinal', :email => 'kris@41studio.com', :role => 'admin', :password => '24121987', :password_confirmation => '24121987' 
-user.trips.create([
-  {
-    name_place: 'pangandaran'
-  },
+user = User.create :username => 'Kris', :first_name => 'Kris', :last_name => 'Dhinal', :email => 'kris@41studio.com', :role => 1, :password => '24121987', :confirmed_at => Time.now
+
 destinations = ['Pangandaran', 'Bali', 'Bukit Moko']
 
 destinations.each do |destination|
