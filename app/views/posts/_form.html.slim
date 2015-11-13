@@ -1,18 +1,12 @@
-.container
-  .row
-    .col-md-8
-      = simple_form_for @post do |f|
-        = f.error_notification
-        .form-group
-          = f.input :title, input_html: { class: 'form-control' }
-          = f.input :description, input_html: { class: 'form-control' }
-          b 
-           | Photo
-          = f.file_field :photo, input_html: { class: 'form-control' }, class: "btn3d btn btn-info btn-sm"
-        .field
-          b 
-           | Video
-          = f.file_field :video, input_html: { class: 'form-control' }, class: "btn3d btn btn-info btn-sm"
-        br/
-        = f.button :submit, class: "btn3d btn btn-primary btn-md", id: "myBtn"
-        = link_to 'Back', posts_path, class: "btn3d btn btn-default btn-md"
+= simple_form_for @post do |f|
+  = f.error_notification
+
+  = f.input :description, label: 'Content', input_html: { class: 'form-control', rows: 5 } 
+  
+  = f.input :photo, as: :file
+
+  = f.input :video, as: :file
+
+  .form-group
+    = f.button :submit, class: "btn3d btn btn-primary btn-md", id: "myBtn"
+    = link_to 'Back', trip_posts_path, class: "btn3d btn btn-default btn-md"

@@ -2,62 +2,41 @@
   .row
     .col-md-8
       h2 Edit Profile
+      hr
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
         = devise_error_messages!
-        .form-group
-          = f.input :status, as: :text, autofocus: true, placeholder: "Apa yang anda pikirkan ?", input_html: { class: "form-control", maxlength: 255, rows: 4 }
 
-        .form-group
-          = f.input :handphone, placeholder: "0813-23xx-xxxx", input_html: { class: "form-control" }
+        = f.input :status, as: :text, autofocus: true, placeholder: "Apa yang anda pikirkan ?", input_html: { class: "form-control", maxlength: 255, rows: 4 }
 
-        .form-group
-          = f.input :gender, as: :radio_buttons, :collection => User::GENDERS, :checked => ['male', 'male']
+        = f.input :handphone, placeholder: "0813-23xx-xxxx", input_html: { class: "form-control" }
 
-        .form-group
-          .input-daterange
-            = f.input :brithday, placeholder: "mm/dd/yyyy", input_html: { class: "form-control"  }
-        .form-group
-          = f.input :country, :collection => CS.countries.invert, input_html: { class: "form-control country-dropdown" }
+        = f.input :gender, as: :radio_buttons, :collection => User::GENDERS
+
+        = f.input :birthday, as: :string, placeholder: "yyyy-mm-dd", input_html: { class: "form-control datepicker" }
+
+        = f.input :country, collection: Country::ALL, input_html: { class: "form-control country-dropdown" }
         
-        .form-group
-          = f.input :province, :collection => [], input_html: { class: "form-control province-dropdown" }
+        = f.input :province, :collection => options_provinces(current_user), input_html: { class: "form-control province-dropdown", disabled: current_user.province.blank? }
           
-        .form-group
-          = f.input :city, :collection => [], input_html: { class: "form-control city-dropdown" }
+        = f.input :city, :collection => options_cities(current_user), input_html: { class: "form-control city-dropdown", disabled: current_user.province.blank? }
           
-        .form-group
-          = f.input :neighborhood, placeholder: "Daerah mu", input_html: { class: "form-control" }
+        = f.input :neighborhood, placeholder: "Daerah mu", input_html: { class: "form-control" }
         
-        .form-group
-          = f.input :address, as: :text, placeholder: "Alamat kamu", input_html: { class: "form-control" }
+        = f.input :address, as: :text, placeholder: "Alamat kamu", input_html: { class: "form-control" }
         
-        .form-group
-          = f.input :email, input_html: { class: "form-control" }
+        = f.input :email, input_html: { class: "form-control" }
         
-        .form-group
-          = f.input :photo, as: :file
-          
+        = f.input :photo, as: :file, label: 'Photo profile'
+        
+        = f.input :password, autocomplete: "off", hint: "Leave blank if you don't want to change.", input_html: { class: "form-control" }
+        
+        = f.input :password_confirmation, autocomplete: "off", input_html: { class: "form-control" }
 
-        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-          .form-group
-            | Currently waiting confirmation for: 
-            = resource.unconfirmed_email
-            i
-              | (leave blank if you don't want to change it)
-
-        .form-group
-          = f.input :password, autocomplete: "off", input_html: { class: "form-control" }
-        
-        .form-group
-          = f.input :password_confirmation, autocomplete: "off", input_html: { class: "form-control" }
-          
-        .form-group
-          i
-            | (we need your current password to confirm your changes)
-          = f.input :current_password, autocomplete: "off", input_html: { class: "form-control" }
+        = f.input :current_password, autocomplete: "off", hint: 'We need your current password to confirm your changes.', input_html: { class: "form-control" }
 
         .form-group
           = f.submit "Update", class: "btn3d btn btn-primary btn-md"
+          | &nbsp;
           = link_to "Back", root_path, class: "btn3d btn btn-default btn-md"
     
     .col-md-4

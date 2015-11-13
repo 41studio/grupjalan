@@ -1,0 +1,11 @@
+.container
+  .row
+    .col-md-8
+      - @users.each do |user| 
+        hr
+        p = image_tag user.photo.medium.url, class: "img-rounded", width: '15%'	
+        h5
+          p = user.full_name
+        p = link_to 'Show Profile', user_path(user), class: "btn3d btn btn-default btn-sm", style: 'margin-left: 600px'
+  = paginate @users, theme: 'twitter-bootstrap-3',
+                     pagination_class: "pagination-md"

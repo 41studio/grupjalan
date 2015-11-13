@@ -1,0 +1,31 @@
+.row
+  .col-md-6
+    h1 Buat Grup Baru
+    hr
+    == render 'form'
+
+  .col-md-6
+    h1 Join Grup
+    hr
+    table.table.table-hover.table-bordered.table-striped
+      thead
+        th Nama Grup
+        th Start Date
+        th End Date
+        th
+      
+      tbody
+      - if @trips.empty?
+        tr
+          td colspan="4" No Trips Created.
+      - else
+        - @trips.each do |trip|
+            tr
+              td = trip.group.name
+              td = trip.start_to_trip
+              td = trip.end_to_trip
+              td
+                - if trip.user_ids.include? current_user.id
+                  = link_to 'Keluar', leave_group_trip_path(trip.group, trip), class: 'btn btn-danger btn-sm', method: :delete
+                - else
+                  = link_to 'Join', join_group_trip_path(trip.group, trip), class: "btn btn-primary btn-sm", method: :post

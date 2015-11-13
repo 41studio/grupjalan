@@ -12,19 +12,29 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
       - if user_signed_in?
         ul.nav.navbar-nav
           li
-            = link_to "Profile", index_path
+
+            = link_to "Users", users_path
           li
-            = link_to "Messages", index_path
-          li.dropdown
-            a.dropdown-toggle data-toggle="dropdown" href="#" 
-              | Opsi
-              b.caret
-            ul.dropdown-menu
-              li
-                =link_to "Buat Plan Baru", new_plan_step1_path
+            = link_to "Popular Trips", popular_trips_path
+            
+          li  
+
+            = link_to "My Posts", posts_path
+
+          li
+            = link_to "New Plan", search_plans_path
+          / li.dropdown
+          /   a.dropdown-toggle data-toggle="dropdown" href="#" 
+          /     | Opsi
+          /     b.caret
+          /   ul.dropdown-menu
+          /     li
+          /       =link_to "Buat Plan Baru", new_plan_step1_path
         ul.nav.navbar-nav.navbar-right
           li
             = link_to "Sign Out", destroy_user_session_path, method: :delete
+          li
+            = link_to "Inbox", inbox_user_messages_path(current_user)  
           li
             = link_to image_tag(current_user.photo_url(:thumb), size: "20x20", class: "img-circle"), edit_user_registration_path
       - else

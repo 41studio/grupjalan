@@ -2,6 +2,7 @@
 #
 # Table name: posts
 #
+<<<<<<< HEAD
 #  id                      :integer          not null, primary key
 #  title                   :string
 #  photo                   :string
@@ -20,6 +21,19 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+=======
+#  id             :integer          not null, primary key
+#  title          :string
+#  photo          :string
+#  video          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#  description    :text
+#  trip_id        :integer
+#  group_id       :integer
+#  comments_count :integer          default(0)
+>>>>>>> 4d29a427b4f50836ca7ab627803659d2d6c5f9f5
 #
 # Indexes
 #
@@ -30,6 +44,12 @@
 #  index_posts_on_cached_weighted_average  (cached_weighted_average)
 #  index_posts_on_cached_weighted_score    (cached_weighted_score)
 #  index_posts_on_cached_weighted_total    (cached_weighted_total)
+<<<<<<< HEAD
+=======
+#  index_posts_on_group_id                 (group_id)
+#  index_posts_on_trip_id                  (trip_id)
+#  index_posts_on_user_id                  (user_id)
+>>>>>>> 4d29a427b4f50836ca7ab627803659d2d6c5f9f5
 #
 
 class Post < ActiveRecord::Base

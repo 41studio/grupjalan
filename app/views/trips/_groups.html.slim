@@ -1,0 +1,11 @@
+.list-group
+  - if groups.empty?
+    a.list-group-item
+      h4 Tidak ada grup.
+  - else
+    - groups.each do |group|
+      = link_to trip_group_path(@trip, group), class: 'list-group-item' do
+        h4.list-group-item-heading= group.group_name
+        p.list-group-item-text= "Mulai Perjalanan: #{group.start_to_trip.strftime('%B %d, %Y')}"
+        p.list-group-item-text= "Akhir Perjalanan: #{group.end_to_trip.strftime('%B %d, %Y')}"
+        

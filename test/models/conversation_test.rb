@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: conversations
+#
+#  id         :integer          not null, primary key
+#  members    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_conversations_on_members  (members)
+#
+
+require 'test_helper'
+
+class ConversationTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

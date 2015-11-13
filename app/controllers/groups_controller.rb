@@ -1,63 +1,58 @@
-class GroupsController < InheritedResources::Base
+class GroupsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_group, only: [:edit, :update]  
+  before_filter :set_group, except: :autocomplete
   
-  def new_plan_step1
-
-  end
-
-
-  def new_plan_step2
-    unless params[:trip_id].present?
-      trip = current_user.trips.first_or_create(name_place: params[:group][:query])
-      params[:trip_id] = trip.id
-    end
-    @group = Group.new(group_params)
-    @groups = Group.where("trip_id = :trip_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip", { start_to_trip: params[:group][:start_to_trip], end_to_trip: params[:group][:end_to_trip], trip_id: params[:group][:trip_id]})
-  end
-
   def autocomplete
-    render json: Trip.search(params[:query], autocomplete: true, limit: 10).map {|trip| {name_place: trip.name_place, value: trip.id}}
-  end  
-
-  def new_plan_create_group
-    @group = current_user.owned_groups.new(group_params)
-
-    if @group.save
-      @group.users << current_user
-      redirect_to @group, notice: 'grup jalan-jalan sudah berhasil di buat'
-    else
-      @groups = Group.where(group_params)
-      render :new_plan_step2
-    end
-    
+    render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
   end
-  
-  def new_plan_join_group
-    group = Group.find(params[:group_id])
-    group.users << current_user
-    redirect_to group, notice: 'Kamu sudah join dengan grup ini'
-  end 
+
+  def show
+  end
+
+  def show
+    @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
+    @group_messages = @group.messages.includes(:user).order("created_at desc")
+    @message = Message.new
+
+  end  
 
   def edit
 
   end 
 
+  def members
+    @members = @group.users
+  end
+
   def update
-     respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to mytrips_show_path(@group.trip.id, group_id: @group.id), notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @group }
-      else
-        format.html { render :edit }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
+    if @group.update(group_params)
+      flash[:success] = 'Grup berhasil diupdate.'
+      redirect_to trip_group_path(@group.trip, @group)
+    else
+      render :edit
     end
-  end  
+  end
+
+  def join
+    @group.users << current_user unless @group.users.include? current_user
+    flash[:success] = "Kamu berhasil join grup ini."
+    redirect_to group_path(@group)
+  end
+
+  def leave
+    @group.users.delete(current_user)
+    flash[:success] = "Kamu berhasil keluar dari grup ini."
+    redirect_to group_path(@group)
+  end
 
   private
+
+    def set_trip
+      @trip = Trip.friendly.find(params[:trip_id])
+    end
+
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group.friendly.find(params[:id])
     end  
 
     def group_params

@@ -1,7 +1,8 @@
-.container
-  .row
-    .col-md-8
-      h1 Editing group
+.row
+  h1= "Edit Grup #{@group.group_name}"
+  hr
 
-      == render 'form'
-
+  .col-md-6
+    == render 'form'
+  .col-md-6
+    div id="us2" style="width: 100%; height: 400px;"

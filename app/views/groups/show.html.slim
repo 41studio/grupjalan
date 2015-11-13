@@ -1,15 +1,38 @@
-p#notice = notice
+h1= @group.name
+hr
+.col-md-8
+  .panel.panel-default
+    .panel-heading List Trips
+    table.table.table-striped.table-hover.table-bordered
+      thead
+        th Start to Trip
+        th End to Trip
+        th Owner
+        th 
+      tbody
+        - @group.trips.each do |trip|
+          tr
+            td= trip.start_to_trip
+            td= trip.end_to_trip
+            td= trip.user.full_name
+            td= link_to "View", group_trip_path(trip.group, trip)
+.col-md-4
+  .panel.panel-default
+    .panel-heading Members
+    table.table.table-stripped.table-hover.table-bordered
+      thead
+        th Full Name
+      tbody
+        - @group.users.each do |user|
+          tr
+            td= user.full_name
 
-p
-  strong Group name:
-  = @group.group_name
-p
-  strong Start to trip:
-  = @group.start_to_trip
-p
-  strong End to trip:
-  = @group.end_to_trip
 
-= link_to 'Edit', edit_group_path(@group)
-'|
-= link_to 'Back', groups_path
+javascript:
+  $(document).ready(function(){
+    $("#map").googleMap();
+    $("#map").addMarker({
+      zoom: 10, // Initial zoom level (optional)
+      coords: ["#{@group.lat}", "#{@group.lng}"]
+    });
+  })          

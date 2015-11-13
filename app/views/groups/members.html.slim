@@ -1,0 +1,14 @@
+h3 Members
+
+table.table.table-striped.table-hover
+  thead
+    th Photo
+    th Nama
+    th Email
+
+  tbody
+    - @members.each do |member|
+      tr
+        td= image_tag member.photo_url(:thumb), class: 'img-thumbnail'
+        td= member.full_name
+        td= member.email

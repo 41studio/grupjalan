@@ -1,0 +1,24 @@
+.countainer
+  .row
+    .col-md-8
+      h1 Popular Trip List
+      hr
+
+      table.table.table-hover.table-bordered.table-striped
+        thead
+          tr
+            th Trip name
+            th Member
+            th Action
+        tbody    
+          - @popular_trips.each do |popular|
+            tr 
+              td = popular.name_place
+              td = popular.member_size
+              td = link_to 'Show', trip_path(popular.id), class: "btn btn-primary btn-sm"
+
+  = paginate @popular_trips, theme: 'twitter-bootstrap-3',
+                     pagination_class: "pagination-md"      
+
+
+
