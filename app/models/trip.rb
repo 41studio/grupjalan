@@ -17,10 +17,10 @@
 #
 
 class Trip < ActiveRecord::Base
-  with_options dependent: :destroy do |assoc|
-    assoc.has_many :posts
-  end
-  has_and_belongs_to_many :users
+  # with_options dependent: :destroy do |assoc|
+  #   assoc.has_many :posts
+  # end
+  # has_and_belongs_to_many :users
   belongs_to :user
   belongs_to :group
   belongs_to :destination

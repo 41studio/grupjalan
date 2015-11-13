@@ -1,15 +1,16 @@
 .row
-  .col-md-6
+  .col-md-5
     h1 Buat Grup Baru
     hr
     == render 'form'
 
-  .col-md-6
+  .col-md-7
     h1 Join Grup
     hr
     table.table.table-hover.table-bordered.table-striped
       thead
         th Nama Grup
+        th User
         th Start Date
         th End Date
         th
@@ -17,15 +18,16 @@
       tbody
       - if @trips.empty?
         tr
-          td colspan="4" No Trips Created.
+          td colspan="5" No Trips Created.
       - else
         - @trips.each do |trip|
             tr
               td = trip.group.name
+              td = trip.user.full_name
               td = trip.start_to_trip
               td = trip.end_to_trip
               td
-                - if trip.user_ids.include? current_user.id
-                  = link_to 'Keluar', leave_group_trip_path(trip.group, trip), class: 'btn btn-danger btn-sm', method: :delete
+                - if trip.user_id.eql? current_user.id
+                  = link_to 'Keluar', leave_group_path(trip.group), class: 'btn btn-danger btn-sm', method: :delete
                 - else
-                  = link_to 'Join', join_group_trip_path(trip.group, trip), class: "btn btn-primary btn-sm", method: :post
+                  = link_to 'Join', join_group_path(trip.group, start_to_trip: params.fetch(:trip)[:start_to_trip], end_to_trip: params.fetch(:trip)[:end_to_trip], destination_id: @destination.id), class: "btn btn-primary btn-sm", method: :post

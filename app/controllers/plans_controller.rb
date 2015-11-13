@@ -39,7 +39,7 @@ class PlansController < ApplicationController
           end_to_trip: params[:trip][:end_to_trip],
           destination_id: @destination.id
         }
-      )
+      ).order(start_to_trip: :desc)
     end
 
     def group_params

@@ -5,6 +5,6 @@ class PagesController < ApplicationController
   end
 
   def mytrips
-    @trips = current_user.joined_trips.includes(:group)
+    @trips = current_user.trips
   end
 end

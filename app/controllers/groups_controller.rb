@@ -23,7 +23,12 @@ class GroupsController < ApplicationController
   end
 
   def join
-    @group.users << current_user
+    @group.trips.create({
+      destination_id: params[:destination_id],
+      start_to_trip: params[:start_to_trip],
+      end_to_trip: params[:end_to_trip],
+      user_id: current_user.id
+    })
     flash[:success] = "Kamu berhasil join grup ini."
     redirect_to group_path(@group)
   end
