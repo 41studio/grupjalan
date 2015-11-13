@@ -12,3 +12,5 @@
 !/log/.keep
 /tmp
 /public/uploads
+/db/schema.rb
+/config/database.yml
