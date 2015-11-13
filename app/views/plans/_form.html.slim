@@ -1,19 +1,14 @@
 = simple_form_for @group, url: plans_path, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, wrapper_mappings: { file: :horizontal_file_input } do |f|
   = f.error_notification
 
-  = f.input  :trip_id, as: :hidden, input_html: { value: @group.trip_id }
-  = f.input  :start_to_trip, as: :hidden
-  = f.input  :end_to_trip, as: :hidden
-  = f.input  :lat, as: :hidden, input_html: { id: "us2-lat"}
-  = f.input  :lng, as: :hidden, input_html: { id: "us2-lon"}
+  = f.input :lat, as: :hidden, input_html: { id: "us2-lat"}
+  = f.input :lng, as: :hidden, input_html: { id: "us2-lon"}
 
-  = f.input  :group_name, label: 'Nama Grup', input_html: { class: "form-control" }
+  = f.input :name, label: 'Nama Grup', input_html: { class: "form-control" }
 
   = f.input :image, as: :file, label: 'Logo'
 
   = f.input :photo, as: :file, label: 'Cover'
-
-  = f.input :category_id, collection: Group::CATEGORIES, include_blank: true, input_html: { class: 'form-control'}
 
   = f.input  :location, input_html: { class: "form-control", id: "us2-address"}
 

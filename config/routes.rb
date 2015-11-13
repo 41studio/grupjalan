@@ -69,22 +69,14 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :trips, only: :show do
-    resources :groups, only: [:edit, :update, :show]
-    resources :posts, except: [:new, :show]
-    member do 
-      post "join"
-      delete "leave"
-      get "members_trip"
-    end  
-    collection do
-      get "popular"
-    end  
+  resources :trips, only: nil do
+    member do
+      # get "group/:group_id", to: "trips#group", as: :group
+      # get "group/:group_id/members", to: "trips#members", as: :members_group
+    end
   end
 
   resources :groups, only: [:edit, :update, :show] do
-    resources :messages, only: [:create, :destroy]
-    member do
       post "join"
       delete "leave"
       get "members"
@@ -93,6 +85,16 @@ Rails.application.routes.draw do
     collection do 
       get :autocomplete
     end
+
+    resources :trips, only: :show do
+      member do 
+        delete "leave"
+        post "join"
+        get "members"
+      end
+    end
+
+    resources :posts, except: [:new, :show]
   end
 
   resources :posts do

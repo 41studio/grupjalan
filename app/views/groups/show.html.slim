@@ -1,42 +1,32 @@
-.row
-  .col-md-8
-    = image_tag @group.photo_url, class: 'img-thumbnail'
-    
-    h4 Lokasi: 
-    blockquote
-      = @group.location 
+h1= @group.name
+hr
+.col-md-8
+  .panel.panel-default
+    .panel-heading List Trips
+    table.table.table-striped.table-hover.table-bordered
+      thead
+        th Start to Trip
+        th End to Trip
+        th Owner
+        th 
+      tbody
+        - @group.trips.each do |trip|
+          tr
+            td= trip.start_to_trip
+            td= trip.end_to_trip
+            td= trip.user.full_name
+            td= link_to "View", group_trip_path(trip.group, trip)
+.col-md-4
+  .panel.panel-default
+    .panel-heading Members
+    table.table.table-stripped.table-hover.table-bordered
+      thead
+        th Full Name
+      tbody
+        - @group.users.each do |user|
+          tr
+            td= user.full_name
 
-  .col-md-4
-    .panel.panel-default
-      .panel-heading= @group.group_name
-      .panel-body
-        = image_tag @group.image_url(:logo), class: 'img-thumbnail'
-        br
-        br
-        = link_for_members(@members.nil?)
-        
-        = link_for_join(@group.user_ids.include?(current_user.id))
-
-        - if @group.user_id.eql? current_user.id
-          = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
-
-  .col-md-12
-    #map style="width: 100%; height: 400px;"
-    br
-  .clearfix
-
-  .row
-    h1= @trip.name_place
-    hr
-
-    .col-md-8
-      .panel.panel-default
-        - @group_messages.each do |message|
-           = render message 
-           - if current_user && current_user.id.eql?(message.user_id) || current_user.is_administrator?
-              = link_to 'Delete', group_message_path(message.group, message), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-danger btn-sm" 
-        hr      
-        = render "messages/form" 
 
 javascript:
   $(document).ready(function(){

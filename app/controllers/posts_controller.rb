@@ -14,7 +14,8 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
 
-    @post.trip  = @trip
+    @post.trip = @group.trip
+
     if @post.save
       flash[:success] = 'Post berhasil dibuat.'
       redirect_to :back
@@ -49,8 +50,8 @@ class PostsController < ApplicationController
       end
     end
 
-    def set_trip
-      @trip = Trip.friendly.find(params[:trip_id])
+    def set_group
+      @group = Group.friendly.find(params[:group_id])
     end
 
     def post_params

@@ -15,17 +15,17 @@
         th
       
       tbody
-      - if @groups.empty?
+      - if @trips.empty?
         tr
-          td colspan="4" No Group Created.
+          td colspan="4" No Trips Created.
       - else
-        - @groups.each do |group|
+        - @trips.each do |trip|
             tr
-              td = group.group_name
-              td = group.start_to_trip
-              td = group.end_to_trip
+              td = trip.group.name
+              td = trip.start_to_trip
+              td = trip.end_to_trip
               td
-                - if group.user_ids.include? current_user.id
-                  = link_to 'Keluar', leave_group_path(group), class: 'btn btn-danger btn-sm', method: :delete
+                - if trip.user_ids.include? current_user.id
+                  = link_to 'Keluar', leave_group_trip_path(trip.group, trip), class: 'btn btn-danger btn-sm', method: :delete
                 - else
-                  = link_to 'Join', join_group_path(group), class: "btn btn-primary btn-sm", method: :post
+                  = link_to 'Join', join_group_trip_path(trip.group, trip), class: "btn btn-primary btn-sm", method: :post

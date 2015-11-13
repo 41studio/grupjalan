@@ -1,11 +1,11 @@
 class TripsController < ApplicationController
-  before_action :set_trip_and_groups, except: :popular
-  before_action :build_post, only:   :group
-  before_action :set_group,  except: [:show, :join, :leave, :members_trip, :popular]
-  before_filter :build_post, only:   :show
+  before_action :set_trip
+  before_action :build_post, only: [:show, :members]
+  before_action :set_group, except: :show
 
   def show
-    @trip_posts  = @trip.posts.includes(:user, comments: [:user]).order("created_at desc")
+    @group = @trip.group
+    @posts = @trip.posts.includes(:user, :group, comments: [:user])
   end
 
   def join
@@ -15,37 +15,33 @@ class TripsController < ApplicationController
     redirect_to trip_path(@trip)
   end
 
-  def leave
-    @trip.users.delete(current_user)
-    @trip.calculate_member_size
-    flash[:success] = "Kamu berhasil keluar dari trip ini."
-    redirect_to trip_path(@trip)
-  end  
-
-  def members_trip
-    @members_trip = @trip.users
+  def members
+    @members = @trip.users
+    @posts = @trip.posts.includes(:user, :group, comments: [:user])
+    
+    render "show"
   end
 
-  def popular
-    @popular_trips = Trip.order(member_size: :desc).page params[:page]
-  end  
+  def leave
+    @trip.users.delete(current_user)
+    flash[:success] = "Kamu berhasil keluar dari trip ini."
+    redirect_to group_trip_path(@group, @trip)
+  end
 
-
+  def join
+    @trip.users << current_user
+    flash[:success] = "Kamu berhasil join trip ini."
+    redirect_to group_trip_path(@group, @trip)
+  end
 
   private
-
-    def build_post
-      @post = Post.new
-    end
-
-    def set_trip_and_groups
-      @trip = Trip.friendly.find(params[:id])
-      @groups = @trip.groups
+    def set_trip
+      @trip = Trip.find(params[:id])
     end
 
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.friendly.find(params[:group_id])
     end
 
     def trip_params

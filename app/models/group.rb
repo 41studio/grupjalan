@@ -2,20 +2,22 @@
 #
 # Table name: groups
 #
-#  id            :integer          not null, primary key
-#  group_name    :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  trip_id       :integer
-#  user_id       :integer
-#  location      :string
-#  lat           :float
-#  lng           :float
-#  photo         :string
-#  image         :string
-#  category_id   :integer
-#  start_to_trip :date
-#  end_to_trip   :date
+#  id             :integer          not null, primary key
+#  name           :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#  location       :string
+#  lat            :float
+#  lng            :float
+#  photo          :string
+#  image          :string
+#  destination_id :integer
+#  slug           :string
+#
+# Indexes
+#
+#  index_groups_on_slug  (slug) UNIQUE
 #
 # Indexes
 #
@@ -25,6 +27,9 @@
 #
 
 class Group < ActiveRecord::Base
+	extend FriendlyId
+	friendly_id :name, use: :slugged
+
 	# searchkick text_start: [:name_place],autocomplete: ['name_place']
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
@@ -37,13 +42,15 @@ class Group < ActiveRecord::Base
 
 	has_and_belongs_to_many :users
 	belongs_to :category
-	belongs_to :trip
+	belongs_to :user
   
 	with_options dependent: :destroy do |assoc|
 		assoc.has_many   :posts
 		assoc.has_many   :messages
 	end	
+
+	has_many :trips, dependent: :destroy
+	has_many :posts, dependent: :destroy
 	
-	validates  :group_name, :start_to_trip, :end_to_trip, :trip_id, :user_id, presence: true
-	validates  :location, :lat, :lng, presence: true
+	validates :name, :user_id, :location, :lat, :lng, presence: true
 end

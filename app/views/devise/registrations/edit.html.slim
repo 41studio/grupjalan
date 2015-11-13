@@ -14,11 +14,11 @@
 
         = f.input :birthday, as: :string, placeholder: "yyyy-mm-dd", input_html: { class: "form-control datepicker" }
 
-        = f.input :country, :collection => CS.countries.invert, input_html: { class: "form-control country-dropdown" }
+        = f.input :country, collection: Country::ALL, input_html: { class: "form-control country-dropdown" }
         
-        = f.input :province, :collection => [], input_html: { class: "form-control province-dropdown" }
+        = f.input :province, :collection => options_provinces(current_user), input_html: { class: "form-control province-dropdown", disabled: current_user.province.blank? }
           
-        = f.input :city, :collection => [], input_html: { class: "form-control city-dropdown" }
+        = f.input :city, :collection => options_cities(current_user), input_html: { class: "form-control city-dropdown", disabled: current_user.province.blank? }
           
         = f.input :neighborhood, placeholder: "Daerah mu", input_html: { class: "form-control" }
         

@@ -1,9 +1,11 @@
 class SyncController < ApplicationController
   def get_provinces
-    @provinces = CS.states(params[:country_code])
+    country = Country.find_by(name: params[:country])
+    @provinces = country.areas.pluck(:name)
   end
 
   def get_cities
-    @cities = CS.cities(params[:province_code]) 
+    area = Area.find_by(name: params[:province])
+    @cities = area.cities.pluck(:name)
   end
 end

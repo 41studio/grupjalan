@@ -1,11 +1,12 @@
 class GroupsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_group, only: [:edit, :update, :leave, :join, :show, :members]
-  before_filter :set_trip, only: [:show]
- 
+  before_filter :set_group, except: :autocomplete
   
   def autocomplete
-    render json: Trip.search(params[:query], autocomplete: true, limit: 10).map {|trip| {name_place: trip.name_place, value: trip.id}}
+    render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
+  end
+
+  def show
   end
 
   def show
@@ -35,13 +36,13 @@ class GroupsController < ApplicationController
   def join
     @group.users << current_user unless @group.users.include? current_user
     flash[:success] = "Kamu berhasil join grup ini."
-    redirect_to trip_group_path(@group.trip, @group)
+    redirect_to group_path(@group)
   end
 
   def leave
     @group.users.delete(current_user)
     flash[:success] = "Kamu berhasil keluar dari grup ini."
-    redirect_to trip_group_path(@group.trip, @group)
+    redirect_to group_path(@group)
   end
 
   private
@@ -51,7 +52,7 @@ class GroupsController < ApplicationController
     end
 
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group.friendly.find(params[:id])
     end  
 
     def group_params
