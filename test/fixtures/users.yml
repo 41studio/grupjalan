@@ -23,8 +23,7 @@
 #  last_name              :string
 #  neighborhood           :string
 #  address                :text
-#  gender                 :string
-#  brithday               :string
+#  gender                 :string           default("male")
 #  handphone              :string
 #  status                 :string
 #  video                  :string
@@ -36,9 +35,12 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  birthday               :date
+#  auth_token             :string
 #
 # Indexes
 #
+#  index_users_on_auth_token            (auth_token) UNIQUE
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_provider              (provider)

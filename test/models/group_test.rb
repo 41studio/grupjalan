@@ -2,20 +2,21 @@
 #
 # Table name: groups
 #
-#  id            :integer          not null, primary key
-#  group_name    :string
-#  start_to_trip :string
-#  end_to_trip   :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  trip_id       :integer
-#  user_id       :integer
-#  location      :string
-#  lat           :float
-#  lng           :float
-#  photo         :string
-#  image         :string
-#  category_id   :integer
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  location   :string
+#  lat        :float
+#  lng        :float
+#  photo      :string
+#  image      :string
+#  slug       :string
+#
+# Indexes
+#
+#  index_groups_on_slug  (slug) UNIQUE
 #
 
 require 'test_helper'
