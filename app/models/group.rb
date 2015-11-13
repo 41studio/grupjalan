@@ -2,24 +2,24 @@
 #
 # Table name: groups
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  location   :string
-#  lat        :float
-#  lng        :float
-#  photo      :string
-#  image      :string
-#  slug       :string
+#  id             :integer          not null, primary key
+#  name           :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#  location       :string
+#  lat            :float
+#  lng            :float
+#  photo          :string
+#  image          :string
+#  destination_id :integer
+#  slug           :string
 #
 # Indexes
 #
 #  index_groups_on_slug     (slug) UNIQUE
 #  index_groups_on_user_id  (user_id)
 #
-
 
 class Group < ActiveRecord::Base
 	extend FriendlyId
@@ -29,14 +29,14 @@ class Group < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
 
-	CATEGORIES = Category.pluck(:plan_category, :id)
+	# CATEGORIES = Category.pluck(:plan_category, :id)
 
 	scope :by_trip, -> (trip) { where(trip: trip) }
 	scope :joined, -> (user_id) { where(user_id: user_id) }
 	scope :not_joined, -> (user_id) { where.not(user_id: user_id) }
 
 	has_and_belongs_to_many :users
-	belongs_to :category
+	# belongs_to :category
 	belongs_to :user
   
 	with_options dependent: :destroy do |assoc|

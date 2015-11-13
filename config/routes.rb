@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
+
   
   resources :trips, only: nil do
     member do
