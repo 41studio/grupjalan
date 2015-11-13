@@ -2,24 +2,24 @@
 #
 # Table name: groups
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  location   :string
-#  lat        :float
-#  lng        :float
-#  photo      :string
-#  image      :string
-#  slug       :string
+#  id             :integer          not null, primary key
+#  name           :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#  location       :string
+#  lat            :float
+#  lng            :float
+#  photo          :string
+#  image          :string
+#  destination_id :integer
+#  slug           :string
 #
 # Indexes
 #
 #  index_groups_on_slug     (slug) UNIQUE
 #  index_groups_on_user_id  (user_id)
 #
-
 
 class Group < ActiveRecord::Base
 	extend FriendlyId
