@@ -31,27 +31,27 @@ Rails.application.routes.draw do
   end
 
   # You can have the root of your site routed with "root"
-   # resources :users do
-   #  resources :messages, only: [:index, :create, :destroy] do
-   #    collection do
-   #      get :inbox
-   #    end
-   #  end  
-   #  member do
-   #    get :follow
-   #    get :unfollow
-   #  end
-   # end
+   resources :users do
+    resources :messages, only: [:index, :create, :destroy] do
+      collection do
+        get :inbox
+      end
+    end  
+    member do
+      get :follow
+      get :unfollow
+    end
+   end
    # root 'posts#home'
 
-   # get 'index', to: 'posts#index', as: :index
-   # get 'current_user_show', to: 'posts#current_user_show', as: :current_show
-   # get 'show_profile',   to: 'posts#show_profile', as: :show_profile
-   # get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
-   # get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
-   # get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
-   # post 'new_plan_create_group', to: 'groups#new_plan_create_group', as: :new_plan_create_group
-   # get 'new_plan_join_group', to: 'groups#new_plan_join_group', as: :new_plan_join_group
+   get 'index', to: 'posts#index', as: :index
+   get 'current_user_show', to: 'posts#current_user_show', as: :current_show
+   get 'show_profile',   to: 'posts#show_profile', as: :show_profile
+   get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
+   get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
+   get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
+   post 'new_plan_create_group', to: 'groups#new_plan_create_group', as: :new_plan_create_group
+   get 'new_plan_join_group', to: 'groups#new_plan_join_group', as: :new_plan_join_group
   ActiveAdmin.routes(self)
 
   root "pages#index"
@@ -74,6 +74,9 @@ Rails.application.routes.draw do
     member do
       # get "group/:group_id", to: "trips#group", as: :group
       # get "group/:group_id/members", to: "trips#members", as: :members_group
+    end
+    collection do 
+      get "popular"
     end
   end
 
