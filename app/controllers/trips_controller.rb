@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip
-  before_action :build_post, only: [:show, :members]
+  # before_action :build_post, only: [:show, :members]
   before_action :set_group, except: :show
 
   def show

@@ -1,0 +1,501 @@
+.group{
+  #header{
+    border:1px solid #ddd;
+    margin-bottom:20px;
+  }
+  .navbar{
+    border-radius:0;
+    margin-bottom:0;
+    border:none;
+  }
+  .navbar-brand{
+    width:160px;
+    height:160px !important;
+    float:left;
+    padding:0;
+    margin-top:-130px;
+    overflow:hidden;
+    border:3px solid #eee;
+    margin-left:15px;
+    background:#333;
+    text-align:center;
+    line-height:160px;
+    color:#fff !important;
+    font-size:2em;
+  }
+  .site-name{
+    color:#fff;
+    font-size:2em;
+    float:left;
+    margin-top:-65px !important;
+    margin-left:15px;
+  } 
+  .site-description{
+    color:#fff;
+    font-size:1.3em;
+    float:left;
+    margin-top:-30px !important;
+    margin-left:15px;
+    }
+    
+  .main-menu{
+    position:absolute;
+    left:190px;
+    }
+    
+  .slider, .carousel{
+    max-height:360px;
+    overflow:hidden;
+    }
+    
+  .carousel-control .fa-angle-left,
+  .carousel-control .fa-angle-right {
+    position: absolute;
+    top: 50%;
+    font-size:2em;
+    z-index: 5;
+    display: inline-block;
+  }
+
+  .carousel-control{
+    background-color:transparent;
+    background-image:none !important;
+  }
+    
+  .carousel-control:hover,
+  .carousel-control:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color:transparent !important;
+    background-image:none !important;
+    outline: 0;
+  }
+
+  .article .panel-heading,
+  .article .panel-footer{
+    background-color:transparent;
+  }
+    
+  .article .panel-heading h3{
+    font-size:2em;
+  }
+
+  /*Post-meta*/
+    
+  .entry-meta{
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-size:0.8em;
+  }
+    
+  .entry-meta li{
+    display:inline;
+  }
+  .entry-meta li a{
+    text-decoration:none;
+  }
+      
+  /*Widgets
+  =================================================================*/
+    
+  .widget ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+    text-decoration:none;
+  }
+    
+  .widget ul li{
+    margin-bottom:7px;
+    border-bottom:1px solid #ddd;
+    padding-bottom:3px;
+  }
+  
+  .widget ul.recent-post li{
+    margin-bottom:10px;
+    font-size:13px;
+    padding-bottom:15px;
+  }
+    
+  .widget ul.recent-post  img{
+    max-height:40px;
+    float:left;
+    margin-right:7px;
+  }
+    
+  .widget ul.recent-post .entry-meta li{
+    border-bottom:none;
+    font-size:10px;
+  }
+
+  /* Footer
+  ==================================================================*/
+  .footer{
+    background:#f1f1f1;
+    border-top:1px solid #ddd;
+  }
+    
+  .bottom{
+    padding:20px 0;
+    background:#f3f3f3;
+    border-top:1px solid #ddd;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-brand{
+      max-width: 100px;
+      max-height:100px;
+      float:left;
+      margin-top:-65px;
+      margin-left:15px;
+      -webkit-transition:  all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -o-transition:  all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out ;
+    }
+    
+    .navbar{
+      border-radius:0;
+      margin-bottom:0;
+      border:none;
+    }
+      
+    .main-menu{
+      left:0;
+      position:relative;
+    }
+  }
+
+  @media (max-width: 490px) {
+    .site-name{
+      color:#fff;
+      font-size:1.5em;
+      float:left;
+      line-height:20px;
+      margin-top:-100px !important;
+      margin-left:125px;
+    } 
+    .site-description{
+      color:#fff;
+      font-size:1.3em;
+      float:left;
+      margin-top:-80px !important;
+      margin-left:125px;
+    }
+  }
+
+  // members
+
+
+  .card {
+      padding-top: 20px;
+      margin: 10px 0 20px 0;
+      background-color: rgba(214, 224, 226, 0.2);
+      border-top-width: 0;
+      border-bottom-width: 2px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+  }
+
+  .card .card-heading {
+      padding: 0 20px;
+      margin: 0;
+  }
+
+  .card .card-heading.simple {
+      font-size: 20px;
+      font-weight: 300;
+      color: #777;
+      border-bottom: 1px solid #e5e5e5;
+  }
+
+  .card .card-heading.image img {
+      display: inline-block;
+      width: 46px;
+      height: 46px;
+      margin-right: 15px;
+      vertical-align: top;
+      border: 0;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+  }
+
+  .card .card-heading.image .card-heading-header {
+      display: inline-block;
+      vertical-align: top;
+  }
+
+  .card .card-heading.image .card-heading-header h3 {
+      margin: 0;
+      font-size: 14px;
+      line-height: 16px;
+      color: #262626;
+  }
+
+  .card .card-heading.image .card-heading-header span {
+      font-size: 12px;
+      color: #999999;
+  }
+
+  .card .card-body {
+      padding: 0 20px;
+      margin-top: 20px;
+  }
+
+  .card .card-media {
+      padding: 0 20px;
+      margin: 0 -14px;
+  }
+
+  .card .card-media img {
+      max-width: 100%;
+      max-height: 100%;
+  }
+
+  .card .card-actions {
+      min-height: 30px;
+      padding: 0 20px 20px 20px;
+      margin: 20px 0 0 0;
+  }
+
+  .card .card-comments {
+      padding: 20px;
+      margin: 0;
+      background-color: #f8f8f8;
+  }
+
+  .card .card-comments .comments-collapse-toggle {
+      padding: 0;
+      margin: 0 20px 12px 20px;
+  }
+
+  .card .card-comments .comments-collapse-toggle a,
+  .card .card-comments .comments-collapse-toggle span {
+      padding-right: 5px;
+      overflow: hidden;
+      font-size: 12px;
+      color: #999;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+
+  .card-comments .media-heading {
+      font-size: 13px;
+      font-weight: bold;
+  }
+
+  .card.people {
+      position: relative;
+      display: inline-block;
+      width: 170px;
+      height: 300px;
+      padding-top: 0;
+      margin-left: 20px;
+      overflow: hidden;
+      vertical-align: top;
+  }
+
+  .card.people:first-child {
+      margin-left: 0;
+  }
+
+  .card.people .card-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: 170px;
+      height: 150px;
+      background-color: #ffffff;
+  }
+
+  .card.people .card-top.green {
+      background-color: #53a93f;
+  }
+
+  .card.people .card-top.blue {
+      background-color: #427fed;
+  }
+
+  .card.people .card-info {
+      position: absolute;
+      top: 150px;
+      display: inline-block;
+      width: 100%;
+      height: 101px;
+      overflow: hidden;
+      background: #ffffff;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+  }
+
+  .card.people .card-info .title {
+      display: block;
+      margin: 8px 14px 0 14px;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 18px;
+      color: #404040;
+  }
+
+  .card.people .card-info .desc {
+      display: block;
+      margin: 8px 14px 0 14px;
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 16px;
+      color: #737373;
+      text-overflow: ellipsis;
+  }
+
+  .card.people .card-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      padding: 10px 20px;
+      line-height: 29px;
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+  }
+
+  .card.hovercard {
+      position: relative;
+      padding-top: 0;
+      overflow: hidden;
+      text-align: center;
+      background-color: rgba(214, 224, 226, 0.2);
+  }
+
+  .card.hovercard .cardheader {
+      background: url("http://lorempixel.com/850/280/nature/4/");
+      background-size: cover;
+      height: 135px;
+  }
+
+  .card.hovercard .avatar {
+      position: relative;
+      top: -50px;
+      margin-bottom: -50px;
+  }
+
+  .card.hovercard .avatar img {
+      width: 100px;
+      height: 100px;
+      max-width: 100px;
+      max-height: 100px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,0.5);
+  }
+
+  .card.hovercard .info {
+      padding: 4px 8px 10px;
+  }
+
+  .card.hovercard .info .title {
+      margin-bottom: 4px;
+      font-size: 24px;
+      line-height: 1;
+      color: #262626;
+      vertical-align: middle;
+  }
+
+  .card.hovercard .info .desc {
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 20px;
+      color: #737373;
+      text-overflow: ellipsis;
+  }
+
+  // .btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }
+  
+  .detail{
+    figcaption.ratings{
+      margin-top:20px;
+    }
+  figcaption.ratings a
+  {
+      color:#f1c40f;
+      font-size:11px;
+      }
+  figcaption.ratings a:hover
+  {
+      color:#f39c12;
+      text-decoration:none;
+      }
+  .divider 
+  {
+      border-top:1px solid rgba(0,0,0,0.1);
+      }
+  .emphasis 
+  {
+      border-top: 4px solid transparent;
+      }
+  .emphasis:hover 
+  {
+      border-top: 4px solid #1abc9c;
+      }
+  .emphasis h2
+  {
+      margin-bottom:0;
+      }
+  span.tags 
+  {
+      background: #1abc9c;
+      border-radius: 2px;
+      color: #f5f5f5;
+      font-weight: bold;
+      padding: 2px 4px;
+      }
+  .dropdown-menu 
+  {
+      background-color: #34495e;    
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      width: 250px;
+      margin-left: -125px;
+      left: 50%;
+      }
+  .dropdown-menu .divider 
+  {
+      background:none;    
+      }
+  .dropdown-menu>li>a
+  {
+      color:#f5f5f5;
+      }
+  .dropup .dropdown-menu 
+  {
+      margin-bottom:10px;
+      }
+  .dropup .dropdown-menu:before 
+  {
+      content: "";
+      border-top: 10px solid #34495e;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      margin-left: -10px;
+      z-index: 10;
+      }
+  }
+}

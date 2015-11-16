@@ -1,38 +1,92 @@
-h1= @group.name
-hr
-.col-md-8
-  .panel.panel-default
-    .panel-heading List Trips
-    table.table.table-striped.table-hover.table-bordered
-      thead
-        th Start to Trip
-        th End to Trip
-        th Owner
-        th 
-      tbody
-        - @group.trips.each do |trip|
-          tr
-            td= trip.start_to_trip
-            td= trip.end_to_trip
-            td= trip.user.full_name
-            td= link_to "View", group_trip_path(trip.group, trip)
-.col-md-4
-  .panel.panel-default
-    .panel-heading Members
-    table.table.table-stripped.table-hover.table-bordered
-      thead
-        th Full Name
-      tbody
-        - @group.users.each do |user|
-          tr
-            td= user.full_name
+.group
+  header#header
+    .slider
+      #carousel-example-generic.carousel.slide data-ride="carousel" 
+        .carousel-inner role="listbox" 
+          .item.active
+            = image_tag @group.photo_url
+    
+    nav.navbar.navbar-default
+      .navbar-header
+        button.navbar-toggle.collapsed data-target="#mainNav" data-toggle="collapse" type="button" 
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand href="#"
+          = image_tag @group.image_url(:logo), class: 'img-responsive'
+        span.site-name= @group.name
+        span.site-description= @group.categories.join(" - ")
+      #mainNav.collapse.navbar-collapse
+        ul.nav.main-menu.navbar-nav
+          li
+            = link_to "Tentang", group_path(@group)
+          li
+            = link_to "Postingan", posts_group_path(@group)
+          li
+            = link_to "Anggota", members_group_path(@group)
+        ul.nav.navbar-nav.navbar-right
+          li
+            = link_to "Edit Grup", edit_group_path(@group)
+      /! /.navbar-collapse
+  /! /#HEADER
+
+  = render params[:action]
 
 
-javascript:
-  $(document).ready(function(){
-    $("#map").googleMap();
-    $("#map").addMarker({
-      zoom: 10, // Initial zoom level (optional)
-      coords: ["#{@group.lat}", "#{@group.lng}"]
-    });
-  })          
+/ .col-md-10
+/   = image_tag @group.photo_url, class: 'img-thumbnail'
+  
+/   h4 Lokasi: 
+/   blockquote
+/     = @group.location 
+
+/ .col-md-2
+/   .panel.panel-default
+/     .panel-heading= @group.name
+/     .panel-body
+/       = image_tag @group.image_url(:logo), class: 'img-thumbnail'
+/ .col-md-12
+/   #map style="width: 100%; height: 400px;"
+/   br
+/ .clearfix
+
+
+/ h1= @group.name
+/ hr
+/ .col-md-8
+/   .panel.panel-default
+/     .panel-heading List Trips
+/     table.table.table-striped.table-hover.table-bordered
+/       thead
+/         th Start to Trip
+/         th End to Trip
+/         th Owner
+/         th 
+/       tbody
+/         - @group.trips.each do |trip|
+/           tr
+/             td= trip.start_to_trip
+/             td= trip.end_to_trip
+/             td= trip.user.full_name
+/             td= link_to "View", group_trip_path(trip.group, trip)
+/ .col-md-4
+/   .panel.panel-default
+/     .panel-heading Members
+/     table.table.table-stripped.table-hover.table-bordered
+/       thead
+/         th Full Name
+/       tbody
+/         - @group.users.each do |user|
+/           tr
+/             td= user.full_name
+
+
+/ javascript:
+/   $(document).ready(function(){
+/     $("#map").googleMap();
+/     $("#map").addMarker({
+/       zoom: 10, // Initial zoom level (optional)
+/       coords: ["#{@group.lat}", "#{@group.lng}"]
+/     });
+/   })          

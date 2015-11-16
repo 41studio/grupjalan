@@ -1,0 +1,35 @@
+.panel.panel-default
+  .panel-heading Edit Grup
+  .panel-body
+    = simple_form_for(@group, wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes }) do |f|
+      = f.error_notification
+      = f.input  :lat, as: :hidden, input_html: { id: "us2-lat"}
+      = f.input  :lng, as: :hidden, input_html: { id: "us2-lon"}
+
+      .col-md-6
+        = f.input :name, label: 'Nama Grup', input_html: { class: "form-control" }
+        = f.input :image, as: :file, label: 'Logo'
+        = f.input :photo, as: :file, label: 'Cover'
+        = f.input :categories, as: :check_boxes, collection: Group::CATEGORIES, label: 'Kategori'
+        = f.input :description, label: 'Deskripsi', input_html: { class: 'form-control', rows: '5' }
+      .col-md-6
+        = f.input :location, label: 'Lokasi', input_html: { class: "form-control", id: "us2-address" }
+        
+        .form-group
+          label Geser marker
+          #map style="width: 100%; height: 400px;"
+        
+        .form-actions
+          = f.button :submit, class: "btn btn-primary btn-md"
+          = link_to 'Cancel', group_path(@group), class: "btn btn-default btn-md"
+      .clearfix
+
+
+javascript:
+  $(document).ready(function(){
+    $("#map").googleMap();
+    $("#map").addMarker({
+      zoom: 10, // Initial zoom level (optional)
+      coords: ["#{@group.lat}", "#{@group.lng}"]
+    });
+  })   

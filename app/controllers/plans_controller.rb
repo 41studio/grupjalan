@@ -6,7 +6,7 @@ class PlansController < ApplicationController
   end
 
   def new
-    @destination = Destination.first_or_create(name: params[:query].capitalize)
+    @destination = Destination.where(name: params[:query].capitalize).first_or_create
     @group = Group.new
 
     set_trips
@@ -16,7 +16,9 @@ class PlansController < ApplicationController
     @group = current_user.owned_groups.new(group_params)
     
     if @group.save
-      @group.users << current_user
+      trip = @group.trips.new(trip_params)
+      trip.user = current_user
+      trip.save
       flash[:notice] =  'Grup berhasil dibuat.'
       redirect_to group_url(@group)
     else
@@ -33,7 +35,7 @@ class PlansController < ApplicationController
 
     def set_trips
       @trips = Trip.joins(:group).where(
-        "destination_id = :destination_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+        "groups.destination_id = :destination_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
         {
           start_to_trip: params[:trip][:start_to_trip],
           end_to_trip: params[:trip][:end_to_trip],
@@ -42,7 +44,11 @@ class PlansController < ApplicationController
       )
     end
 
+    def trip_params
+      params.permit(:start_to_trip, :end_to_trip)
+    end
+
     def group_params
-      params.require(:group).permit(:start_to_trip, :end_to_trip, :lat, :lng, :name, :image, :photo, :location)
+      params.require(:group).permit(:lat, :lng, :name, :image, :photo, :location, :destination_id)
     end
 end
