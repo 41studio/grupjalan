@@ -12,13 +12,16 @@
 #  lng            :float
 #  photo          :string
 #  image          :string
-#  destination_id :integer
 #  slug           :string
+#  destination_id :integer
+#  categories     :text             default([]), is an Array
+#  description    :text
 #
 # Indexes
 #
-#  index_groups_on_slug     (slug) UNIQUE
-#  index_groups_on_user_id  (user_id)
+#  index_groups_on_destination_id  (destination_id)
+#  index_groups_on_slug            (slug) UNIQUE
+#  index_groups_on_user_id         (user_id)
 #
 
 class Group < ActiveRecord::Base
@@ -29,7 +32,7 @@ class Group < ActiveRecord::Base
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
 
-	# CATEGORIES = Category.pluck(:plan_category, :id)
+	CATEGORIES = ['Pantai', 'Wisata', 'Laut', 'Taman']
 
 	scope :by_trip, -> (trip) { where(trip: trip) }
 	scope :joined, -> (user_id) { where(user_id: user_id) }
@@ -46,6 +49,7 @@ class Group < ActiveRecord::Base
 
 	has_many :trips, dependent: :destroy
 	has_many :posts, dependent: :destroy
+	belongs_to :destination
 	
 	validates :name, :user_id, :location, :lat, :lng, presence: true
 end

@@ -12,13 +12,16 @@
 #  lng            :float
 #  photo          :string
 #  image          :string
-#  destination_id :integer
 #  slug           :string
+#  destination_id :integer
+#  categories     :text             default([]), is an Array
+#  description    :text
 #
 # Indexes
 #
-#  index_groups_on_slug     (slug) UNIQUE
-#  index_groups_on_user_id  (user_id)
+#  index_groups_on_destination_id  (destination_id)
+#  index_groups_on_slug            (slug) UNIQUE
+#  index_groups_on_user_id         (user_id)
 #
 
 <<<<<<< HEAD
