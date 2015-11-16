@@ -11,7 +11,9 @@
     "dependencies": {
       "bootstrap-datepicker": "latest",
       "fontawesome": "latest",
-      "typeahead.js": "latest"
+      "typeahead.js": "latest",
+      "selectize": "latest",
+      "momentjs": "latest"
     }
   }
 }
