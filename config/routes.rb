@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
       resources :groups do
         collection do
-          post "search"
+          get "search"
         end
       end
 
@@ -80,11 +80,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :groups, only: [:edit, :update, :show] do
+  resources :groups, only: [:edit, :update, :show], path: "grup" do
     member do
       post "join"
       delete "leave"
-      get "members"
+      get "members", path: 'anggota'
+      get "about", path: 'tentang'
+      get "posts", path: 'postingan'
     end
 
     collection do 

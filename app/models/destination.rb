@@ -13,5 +13,5 @@
 #
 
 class Destination < ActiveRecord::Base
-  has_one :group
+  has_many :groups
 end

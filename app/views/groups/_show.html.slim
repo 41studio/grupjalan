@@ -1,0 +1,47 @@
+.detail
+  .well.profile
+    .col-sm-12.col-md-12
+      .col-xs-12.col-sm-8
+        h2= "Detail #{@group.name}"
+        dl.dl-horizontal
+          dt Lokasi :
+          dd= @group.location
+          
+          dt Kategori :
+          dd
+            - @group.categories.each do |category|
+              span.tags= category
+
+          dt Deskripsi : 
+          dd= strip_tags(@group.description)
+
+          dt Pemilik :
+          dd= @group.user.full_name
+
+          dt Dibuat pada :
+          dd
+            span.timetostr= @group.created_at
+      .col-xs-12.col-sm-4.text-center
+        figure
+          = image_tag current_user.photo_url(:small), class: 'img-circle img-responsive'
+          figcaption.ratings
+            p
+              | Ratings
+              a href="#" 
+                span.fa.fa-star
+              a href="#" 
+                span.fa.fa-star
+              a href="#" 
+                span.fa.fa-star
+              a href="#" 
+                span.fa.fa-star
+              a href="#" 
+                span.fa.fa-star-o
+      .clearfix
+    .col-xs-12.divider.text-center
+      .col-xs-12.col-sm-4.col-sm-offset-4.emphasis
+        h2
+          strong= @group.trips.count
+        p
+          small Anggota
+    .clearfix

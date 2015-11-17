@@ -18,7 +18,7 @@
           
           = link_for_join(@group.user_ids.include?(current_user.id))
 
-          = link_for_join_trip(@trip.user_ids.include?(current_user.id))
+          / = link_for_join_trip(@trip.user_ids.include?(current_user.id), @trip)
 
           - if @group.user_id.eql? current_user.id
             = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"
@@ -31,23 +31,23 @@
 .row
   / h1= @trip.name
   hr
-  .col-md-8
-    = render 'trips/new_post'
-    - @posts.each do |post|
-      = render post
+  / .col-md-8
+  /   = render 'trips/new_post'
+  /   - @posts.each do |post|
+  /     = render post
 
-  .col-md-4
-    .panel.panel-default
-      .panel-heading 
-        h6 = @trip.name_place
-      .panel-body
-         = link_for_members_trip(@members.nil?)
-         = link_for_join_trip(@trip.users.include?(current_user))
-    .panel.panel-default
-      .panel-heading Grup bergabung
-      / = render "trips/groups", groups: @groups.joined(current_user.id)
+  / .col-md-4
+  /   .panel.panel-default
+  /     .panel-heading 
+  /       h6 = @trip.name_place
+  /     .panel-body
+  /        = link_for_members_trip(@members.nil?)
+  /        = link_for_join_trip(@trip.users.include?(current_user))
+  /   .panel.panel-default
+  /     .panel-heading Grup bergabung
+  /     / = render "trips/groups", groups: @groups.joined(current_user.id)
               
-    .panel.panel-default
-      .panel-heading Grup Tidak Bergabung
-      / = render "trips/groups", groups: @groups.not_joined(current_user.id)
+  /   .panel.panel-default
+  /     .panel-heading Grup Tidak Bergabung
+  /     / = render "trips/groups", groups: @groups.not_joined(current_user.id)
 

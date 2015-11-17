@@ -6,7 +6,6 @@ class GroupsController < ApplicationController
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
   end
 
-
   def show
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
     @group_messages = @group.messages.includes(:user).order("created_at desc")
@@ -15,19 +14,20 @@ class GroupsController < ApplicationController
   end  
 
   def edit
-
+    render :show
   end 
 
   def members
-    @members = @group.users
+    @members = @group.trips.includes(:user)
+    render "show"
   end
 
   def update
     if @group.update(group_params)
       flash[:success] = 'Grup berhasil diupdate.'
-      redirect_to trip_group_path(@group.trip, @group)
+      redirect_to group_path(@group)
     else
-      render :edit
+      render :show
     end
   end
 
@@ -43,6 +43,12 @@ class GroupsController < ApplicationController
     redirect_to group_path(@group)
   end
 
+  def posts
+    @post = Post.new
+    @posts = @group.posts.includes(:user)
+    render :show
+  end
+
   private
 
     def set_trip
@@ -54,7 +60,7 @@ class GroupsController < ApplicationController
     end  
 
     def group_params
-      params.require(:group).permit(:group_name, :start_to_trip, :end_to_trip, :trip_id, :location, :lat, :lng, :photo, :image, :category_id)
+      params.require(:group).permit(:name, :location, :lat, :lng, :photo, :image, :categories, :description)
     end
 end
 

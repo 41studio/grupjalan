@@ -1,0 +1,21 @@
+- @members.each do |member|
+  .col-md-3.col-xs-6
+    .card.hovercard
+      .cardheader
+      .avatar
+        = image_tag member.user.photo_url(:small)
+      .info
+        .title
+          = link_to member.user.full_name, ''
+        .desc
+          strong Mulai Perjalanan : 
+          span.timetostr= member.start_to_trip
+          
+        .desc
+          strong Akhir Perjalanan : 
+          span.timetostr= member.end_to_trip
+
+      .bottom
+        = link_to user_messages_path(current_user), class: 'btn btn-info' do
+          i.fa.fa-envelope
+          |  Kirim Pesan

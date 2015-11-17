@@ -1,4 +1,11 @@
-json.(@group, :group_name, :lat, :lng, :location, :image, :photo)
+json.(@group, :id, :name, :lat, :lng, :location, :image, :photo, :categories, :description, :created_at)
+
+json.members @group.trips do |trip|
+  json.user_id trip.user.id
+  json.full_name trip.user.full_name
+  json.start_to_trip trip.start_to_trip
+  json.end_to_trip trip.end_to_trip
+end
 
 json.posts @group.posts do |post|
   json.post_id post.id

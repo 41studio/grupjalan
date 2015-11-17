@@ -5,13 +5,14 @@
 //= require bootstrap
 //= require bootstrap-datepicker/dist/js/bootstrap-datepicker
 //= require typeahead.js/dist/typeahead.bundle
+//= require momentjs/moment
 //= require locationpicker
 //= require googlemap
 //= require chat
 //= require turbolinks
 //= require nprogress
 //= require nprogress-turbolinks
-
+//= require tooltip
 
 $(function(){
   $('#quote-carousel').carousel({
@@ -125,12 +126,7 @@ $(function(){
 
   var promise = numbers.initialize();
 
-  promise
-  .done(function() { console.log('success!'); })
-  .fail(function() { console.log('err!'); });
-  
-
-  // instantiate the typeahead UI
+    // instantiate the typeahead UI
   $('.typeahead').typeahead(null, {
     displayKey: 'name',
     source: numbers.ttAdapter()
@@ -140,7 +136,8 @@ $(function(){
     $("#group_id").val(datum.value);
   });
 
-  
+  moment.locale('id');
+
+  var time = $('.timetostr').html();
+  var toStr = $('.timetostr').html(moment(new Date(time)).format('ddd, DD MMM YYYY'))
 });
-
-
