@@ -6,8 +6,6 @@ class GroupsController < ApplicationController
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
   end
 
-  def show
-  end
 
   def show
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)

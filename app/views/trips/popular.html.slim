@@ -13,7 +13,7 @@
         tbody    
           - @popular_trips.each do |popular|
             tr 
-              td = popular.name_place
+              td = popular.destination.name
               td = popular.member_size
               td = link_to 'Show', trip_path(popular.id), class: "btn btn-primary btn-sm"
 

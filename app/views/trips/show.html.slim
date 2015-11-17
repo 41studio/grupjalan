@@ -18,7 +18,7 @@
           
           = link_for_join(@group.user_ids.include?(current_user.id))
 
-          = link_for_join_trip(@trip.user_ids.include?(current_user.id), @trip)
+          = link_for_join_trip(@trip.user_ids.include?(current_user.id))
 
           - if @group.user_id.eql? current_user.id
             = link_to 'Edit Group', edit_group_path(id: @group.id), class: "btn btn-default btn-md btn-block"

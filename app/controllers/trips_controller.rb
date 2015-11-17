@@ -1,7 +1,6 @@
 class TripsController < ApplicationController
-  before_action :set_trip
-  before_action :build_post, only: [:show, :members]
-  before_action :set_group, except: :show
+  before_action :set_trip, except: :popular
+  before_action :set_group, except: [:show, :popular]
 
   def show
     @group = @trip.group
@@ -27,6 +26,10 @@ class TripsController < ApplicationController
     flash[:success] = "Kamu berhasil keluar dari trip ini."
     redirect_to group_trip_path(@group, @trip)
   end
+
+  def popular
+   @popular_trips = Trip.order(member_size: :desc).page params[:page]
+  end  
 
   def join
     @trip.users << current_user
