@@ -17,7 +17,7 @@ class BaseApiController < ApplicationController
       user = params[:auth_token].present? && User.find_by(auth_token: params[:auth_token])
 
       unless user && Devise.secure_compare(user.auth_token, params[:auth_token])
-        render json: { error: "You don't have access." }, status: :upprocessable_entity
+        render json: { error: "Kamu tidak punya akses." }, status: :upprocessable_entity
       end
     end
 end

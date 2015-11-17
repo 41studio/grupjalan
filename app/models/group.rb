@@ -38,10 +38,9 @@ class Group < ActiveRecord::Base
 	scope :joined, -> (user_id) { where(user_id: user_id) }
 	scope :not_joined, -> (user_id) { where.not(user_id: user_id) }
 
-	has_and_belongs_to_many :users
-	# belongs_to :category
 	belongs_to :user
-  
+  has_many :users, through: :trips, source: 'user'
+
 	with_options dependent: :destroy do |assoc|
 		assoc.has_many   :posts
 		assoc.has_many   :messages

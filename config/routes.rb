@@ -24,9 +24,9 @@ Rails.application.routes.draw do
         collection do
           get "search"
         end
-      end
 
-      resources :trips, only: :index
+        resources :trips, only: [:create, :update, :destroy]
+      end
     end
   end
 
