@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get "users/:user_id", to: "users#show"
       put "users/:user_id", to: "users#update"
 
-      resources :groups do
+      resources :groups, except: [:edit, :new] do
         collection do
           get "search"
         end

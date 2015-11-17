@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
   #   return true              
   # end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    if request.format.json?
+      render json: { error: 'Kamu tidak punya akses.' }
+    else
+      redirect_to root_url, :alert => exception.message
+    end
+  end
+
   def authenticate_admin!
   	redirect_to new_user_session_path unless current_user.try(:is_admin?)
   end

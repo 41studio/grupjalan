@@ -1,4 +1,6 @@
 class Api::V1::GroupsController < BaseApiController
+  load_and_authorize_resource
+  
   before_action :set_group, only: [:update, :destroy]
 
   def_param_group :search_group do
