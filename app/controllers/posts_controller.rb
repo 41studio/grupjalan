@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   before_action :find_post, only: [:edit, :update, :destroy]
-  before_action :set_trip, only:  [:new, :show, :edit, :create]
+  before_action :set_group, only: :create
 
   def index
     @posts = current_user.posts.includes(:trip) 
@@ -13,8 +13,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-
-    @post.trip = @group.trip
+    @post.group = @group
 
     if @post.save
       flash[:success] = 'Post berhasil dibuat.'
@@ -55,6 +54,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :description, :photo, :video, :group_id, :trip_id)
+      params.require(:post).permit(:description, :photo)
     end
 end

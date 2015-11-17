@@ -43,7 +43,6 @@ class Post < ActiveRecord::Base
   acts_as_votable
   
   belongs_to :user
-  belongs_to :trip
   belongs_to :group
 
   scope :by_group, -> (group_id) { where(group_id: group_id) }

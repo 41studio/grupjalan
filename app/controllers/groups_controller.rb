@@ -44,6 +44,8 @@ class GroupsController < ApplicationController
   end
 
   def posts
+    @post = Post.new
+    @posts = @group.posts.includes(:user)
     render :show
   end
 
