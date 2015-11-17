@@ -6,6 +6,19 @@ class Api::V1::GroupsController < BaseApiController
     param :name, String, "Group name"
   end
 
+  def_param_group :create_group do
+    param :group, Hash do
+      param :name, String, required: true, desc: "Name for group"
+      param :lat, String, required: true, desc: "Latitude map"
+      param :lng, String, required: true, desc: "Longitude map"
+      param :image, ActionDispatch::Http::UploadedFile, "logo image for group"
+      param :photo, ActionDispatch::Http::UploadedFile, "cover image for group"
+      param :location, String, required: true, desc: "location or address"
+      param :categories, Array, in: ['Laut', 'Wisata', 'Taman', 'Pantai'], desc: "categories ex: ['Laut', 'Wisata', 'Taman']"
+      param :description, String
+    end
+  end
+
   api :GET, "/v1/groups/search"
   param_group :search_group
   def search
@@ -24,4 +37,30 @@ class Api::V1::GroupsController < BaseApiController
   def show
     @group = Group.includes(posts: [:user, comments: [:user]]).find(params[:id])
   end
+
+  api :POST, "v1/groups"
+  param_group :create_group
+  def create
+    user = User.find_by(auth_token: params[:auth_token])
+    @group = user.owned_groups.new(group_params)
+    
+    if @group.save
+      trip = @group.trips.new(trip_params)
+      trip.user_id = user.id
+      trip.save
+      
+      render json: { id: @group.id, name: @group.name }, status: :ok
+    else
+      render json: { errors: @group.errors }, status: 401
+    end
+  end
+
+  private
+    def trip_params
+      params.permit(:start_to_trip, :end_to_trip)
+    end
+
+    def group_params
+      params.require(:group).permit(:name, :location, :lat, :lng, :photo, :image, :categories, :description)
+    end
 end
