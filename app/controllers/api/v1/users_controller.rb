@@ -58,7 +58,7 @@ class Api::V1::UsersController < BaseApiController
   param_group :authentication
   def sign_out
     user = User.find(params[:user_id])
-    user.auth_token = user.generate_auth_token
+    user.auth_token = nil
 
     if user.save
       render json: { success: 'Anda berhasil keluar.' }, status: :ok
