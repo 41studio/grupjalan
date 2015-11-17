@@ -1,4 +1,5 @@
 class Api::V1::GroupsController < BaseApiController
+  before_action :set_group, only: [:update, :destroy]
 
   def_param_group :search_group do
     param :start_to_trip, String, "Start to trip for group, format: 'dd/mm/yyyy'"
@@ -55,7 +56,30 @@ class Api::V1::GroupsController < BaseApiController
     end
   end
 
+  api :DELETE, "v1/groups/:id"
+  param :id, String, "Group id"
+  def destroy
+    @group.destroy
+
+    render json: { success: 'Grup berhasil dihapus' }, status: :ok
+  end
+
+  api :PUT, "v1/groups/:id"
+  param :id, String, "Group id"
+  param_group :create_group
+  def update
+    if @group.update(group_params)
+      render :show
+    else
+      render json: { errors: @group.errors }, status: 401
+    end
+  end
+
   private
+    def set_group
+      @group = Group.find(params[:id])
+    end
+
     def trip_params
       params.permit(:start_to_trip, :end_to_trip)
     end
