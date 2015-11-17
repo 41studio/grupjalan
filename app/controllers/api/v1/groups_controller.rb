@@ -35,13 +35,13 @@ class Api::V1::GroupsController < BaseApiController
     )
   end
 
-  api :GET, "v1/groups/:id", 'get detail group'
+  api :GET, "/v1/groups/:id", 'get detail group'
   param :id, String, "Group id"
   def show
     @group = Group.includes(posts: [:user, comments: [:user]]).find(params[:id])
   end
 
-  api :POST, "v1/groups", 'create group and create new trip'
+  api :POST, "/v1/groups", 'create group and create new trip'
   param_group :create_group
   def create
     user = User.find_by(auth_token: params[:auth_token])
@@ -58,7 +58,7 @@ class Api::V1::GroupsController < BaseApiController
     end
   end
 
-  api :DELETE, "v1/groups/:id", 'delete group'
+  api :DELETE, "/v1/groups/:id", 'delete group'
   param :id, String, "Group id"
   def destroy
     @group.destroy
@@ -66,7 +66,7 @@ class Api::V1::GroupsController < BaseApiController
     render json: { success: 'Grup berhasil dihapus' }, status: :ok
   end
 
-  api :PUT, "v1/groups/:id", 'update group'
+  api :PUT, "/v1/groups/:id", 'update group'
   param :id, String, "Group id"
   param_group :create_group
   def update

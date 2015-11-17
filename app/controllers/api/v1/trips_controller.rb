@@ -11,7 +11,7 @@ class Api::V1::TripsController < BaseApiController
     end
   end
 
-  api :POST, "v1/groups/:group_id/trips", 'For join to group, should create trip.'
+  api :POST, "/v1/groups/:group_id/trips", 'For join to group, should create trip.'
   param_group :trip_params
   def create
     if @group.user_ids.include? current_user.id
@@ -28,7 +28,7 @@ class Api::V1::TripsController < BaseApiController
     end
   end
 
-  api :PUT, "v1/groups/:group_id/trips/:id", 'Update trip'
+  api :PUT, "/v1/groups/:group_id/trips/:id", 'Update trip'
   param_group :trip_params
   def update
     if @trip.update(trip_params)
@@ -36,6 +36,14 @@ class Api::V1::TripsController < BaseApiController
     else
       render json: { errors: @trip.errors }, status: 401
     end
+  end
+
+  api :DELETE, "/v1/groups/:group_id/trips/:id", 'Delete trip'
+  param :id, String, desc: 'trip id'
+  def destroy
+    @trip.destroy
+
+    render json: { success: 'Kamu sudah tidak bergabung dengan grup.' }, status: :ok
   end
 
   private
