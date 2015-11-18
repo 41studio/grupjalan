@@ -24,12 +24,12 @@ class Api::V1::UsersController < BaseApiController
       param :status, String
       param :neighborhood, String
       param :address, String
-      param :gender, String
-      param :brithday, Date
+      param :gender, String, desc: "value should 'male' or 'female'"
+      param :birthday, String, desc: 'dd/mm/yyyy'
       param :handphone, String
-      param :country, String
-      param :city, String
-      param :province, String
+      param :country, String, desc: 'data from /api/v1/countries'
+      param :city, String, desc: 'data from /api/v1/cities'
+      param :province, String, desc: 'data from /api/v1/provinces'
     end
   end
 
@@ -107,7 +107,7 @@ class Api::V1::UsersController < BaseApiController
     end
 
     def user_update_params
-      params.require(:user).permit(:first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :country, :city, :province, :username)
+      params.require(:user).permit(:email, :first_name, :last_name, :neighborhood, :address, :gender, :birthday, :handphone, :status, :country, :city, :province, :username)
     end
 
     def verify_user

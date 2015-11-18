@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
     assoc.has_many :owned_groups, class_name: "Group"
     assoc.has_many :comments
     assoc.has_many :messages
-
   end
   
   has_and_belongs_to_many :conversations, uniq: true
@@ -87,7 +86,7 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
-  after_update :create_group
+  # after_update :create_group # disable auto grouping
 
   def self.from_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?) OR email = ? ", auth.provider, auth.uid, auth.info.email).first_or_initialize
