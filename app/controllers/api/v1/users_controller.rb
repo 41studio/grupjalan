@@ -82,7 +82,6 @@ class Api::V1::UsersController < BaseApiController
   api :GET, '/v1/users/:user_id', "Get user's detail"
   param :user_id, String
   def show
-    render json: @user, status: :ok
   end
 
   api :PUT, '/v1/users/:user_id', "Update user"
