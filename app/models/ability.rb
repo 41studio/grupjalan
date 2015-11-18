@@ -5,7 +5,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     alias_action :update, :destroy, :edit, to: :modify
-    alias_action :index, :show, :posts, :members, to: :read
+    alias_action :index, :show, :posts, :members, :search, to: :read
     
     if user.is_admin?
       can :manage, :all
