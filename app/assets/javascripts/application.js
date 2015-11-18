@@ -6,6 +6,7 @@
 //= require bootstrap-datepicker/dist/js/bootstrap-datepicker
 //= require typeahead.js/dist/typeahead.bundle
 //= require momentjs/moment
+//= require momentjs/locale/id
 //= require locationpicker
 //= require googlemap
 //= require chat
@@ -13,6 +14,7 @@
 //= require nprogress
 //= require nprogress-turbolinks
 //= require tooltip
+//= require groups
 
 $(function(){
   $('#quote-carousel').carousel({
@@ -135,8 +137,6 @@ $(function(){
   $('.typeahead').on('typeahead:selected', function(event, datum) {
     $("#group_id").val(datum.value);
   });
-
-  moment.locale('id');
 
   var time = $('.timetostr').html();
   var toStr = $('.timetostr').html(moment(new Date(time)).format('ddd, DD MMM YYYY'))

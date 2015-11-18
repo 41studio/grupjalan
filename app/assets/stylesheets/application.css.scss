@@ -19,6 +19,9 @@ body{
   .no-padding-right{
     padding-right: 0;
   }
+  textarea.no-resize{
+    resize: none;
+  }
 }
 .bs-example{
   margin: 20px;
