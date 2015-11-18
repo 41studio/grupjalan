@@ -11,6 +11,11 @@ class Api::V1::PostsController < BaseApiController
     end
   end
 
+  def_param_group :set_param do
+    param :group_id, String, required: true, desc: 'Group id'
+    param :id, String, required: true, desc: 'Post id'
+  end
+
   api :POST, "/v1/groups/:group_id/posts", 'Create post for group'
   param :group_id, String, required: true, desc: 'Group id'
   param_group :group
@@ -26,8 +31,7 @@ class Api::V1::PostsController < BaseApiController
   end
 
   api :DELETE, "/v1/groups/:group_id/posts/:id", 'Delete post by id'
-  param :group_id, String, required: true, desc: 'Group id'
-  param :id, String, required: true, desc: 'Post id'
+  param_group :set_param
   def destroy
     @post.destroy
     
@@ -35,8 +39,7 @@ class Api::V1::PostsController < BaseApiController
   end
 
   api :PUT, "/v1/groups/:group_id/posts/:id", 'Update post by id'
-  param :group_id, String, required: true, desc: 'Group id'
-  param :id, String, required: true, desc: 'Post id'
+  param_group :set_param
   param_group :group
   def update
     if @post.update(post_params)
@@ -44,6 +47,22 @@ class Api::V1::PostsController < BaseApiController
     else
       render json: { errors: @post.errors }, status: 401
     end
+  end
+
+  api :POST, "/v1/groups/:group_id/posts/:id/upvote", "Upvote/like post by id"
+  param_group :set_param
+  def upvote
+    @post.upvote_by current_user
+
+    render json: { success: 'Berhasil like postingan.' }, status: :ok
+  end
+
+  api :DELETE, "/v1/groups/:group_id/posts/:id/downvote", "Downvote/dislike post by id"
+  param_group :set_param
+  def downvote
+    @post.downvote_by current_user
+
+    render json: { success: 'Berhasil dislike postingan.' }, status: :ok
   end
 
   private

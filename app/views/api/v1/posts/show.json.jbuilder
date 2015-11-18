@@ -1,4 +1,5 @@
 json.(@post, :id, :description, :group_id, :created_at)
+json.votes @post.cached_votes_up
 
 json.photo do
   json.original @post.photo_url

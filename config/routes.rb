@@ -32,8 +32,17 @@ Rails.application.routes.draw do
 
         with_options only: [:create, :update, :destroy] do |option|
           option.resources :trips
-          option.resources :posts
+          option.resources :posts do
+            member do
+              post "upvote"
+              delete "downvote"
+            end
+          end
         end
+      end
+
+      resources :posts, only: nil do
+        resources :comments, only: [:create, :update, :destroy]
       end
     end
   end

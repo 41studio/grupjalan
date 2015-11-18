@@ -6,15 +6,14 @@ class Ability
 
     alias_action :update, :destroy, :edit, to: :modify
     alias_action :index, :show, :posts, :members, :search, to: :read
+    alias_action :upvote, :downvote, to: :votes
     
     if user.is_admin?
       can :manage, :all
     elsif user.is_user?
-      can :modify, Group, user_id: user.id
-      can :create, Group
-      can :create, Post
-      can :modify, Post, user_id: user.id
-      can :modify, Trip, user_id: user.id
+      can :create, [Group, Post]
+      can :modify, [Post, Trip, Group], user_id: user.id
+      can :votes, Post
       can :read, :all
     else
       can :read, :all
