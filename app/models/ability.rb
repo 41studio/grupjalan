@@ -11,8 +11,8 @@ class Ability
     if user.is_admin?
       can :manage, :all
     elsif user.is_user?
-      can :create, [Group, Post]
-      can :modify, [Post, Trip, Group], user_id: user.id
+      can :create, [Group, Post, Comment]
+      can :modify, [Post, Trip, Group, Comment], user_id: user.id
       can :votes, Post
       can :read, :all
     else
