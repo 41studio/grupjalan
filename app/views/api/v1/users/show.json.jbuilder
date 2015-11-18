@@ -1,5 +1,5 @@
 json.(@user, :id, :email, :username, :first_name, :last_name, :country, :province, :city, :neighborhood,
-  :address, :gender, :handphone, :status, :birthday, :created_at, :provider, :uid)
+  :address, :gender, :handphone, :status, :birthday, :created_at, :provider, :uid, :auth_token)
 
 json.photo do
   json.original @user.photo_url

@@ -40,12 +40,12 @@ class Api::V1::UsersController < BaseApiController
     email = params[:email]
     password = params[:password]
 
-    if (email.present? && password.present?) && ((user = User.find_by(email: email)) && user.valid_password?(password))
-      if user.confirmed?
-        user.auth_token = user.generate_auth_token
-        user.save
+    if (email.present? && password.present?) && ((@user = User.find_by(email: email)) && @user.valid_password?(password))
+      if @user.confirmed?
+        @user.auth_token = @user.generate_auth_token
+        @user.save
 
-        render json: user, status: :ok
+        render :show, status: :ok
       else
         render json: { error: "Mohon konfirm email kamu." }, status: :unprocessable_entity
       end
