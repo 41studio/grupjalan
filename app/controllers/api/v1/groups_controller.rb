@@ -46,15 +46,14 @@ class Api::V1::GroupsController < BaseApiController
   api :POST, "/v1/groups", 'create group and create new trip'
   param_group :create_group
   def create
-    user = User.find_by(auth_token: params[:auth_token])
-    @group = user.owned_groups.new(group_params)
+    @group = current_user.owned_groups.new(group_params)
     
     if @group.save
       trip = @group.trips.new(trip_params)
-      trip.user_id = user.id
+      trip.user_id = current_user.id
       trip.save
       
-      render json: { id: @group.id, name: @group.name }, status: :ok
+      render :show
     else
       render json: { errors: @group.errors }, status: 401
     end
@@ -89,6 +88,6 @@ class Api::V1::GroupsController < BaseApiController
     end
 
     def group_params
-      params.require(:group).permit(:name, :location, :lat, :lng, :photo, :image, :categories, :description)
+      params.require(:group).permit(:name, :location, :lat, :lng, :photo, :image, :description, categories: [])
     end
 end

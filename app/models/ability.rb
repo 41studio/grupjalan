@@ -11,6 +11,7 @@ class Ability
       can :manage, :all
     elsif user.is_user?
       can :modify, Group, user_id: user.id
+      can :create, Group
       can :modify, Trip, user_id: user.id
       can :read, :all
     else

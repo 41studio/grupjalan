@@ -45,7 +45,7 @@ class Api::V1::UsersController < BaseApiController
         @user.auth_token = @user.generate_auth_token
         @user.save
 
-        render :show, status: :ok
+        render :show
       else
         render json: { error: "Mohon konfirm email kamu." }, status: :unprocessable_entity
       end
@@ -90,7 +90,7 @@ class Api::V1::UsersController < BaseApiController
     @user.update(user_update_params)
 
     if @user.save
-      render json: { success: 'Profil anda berhasil diupdate.' }, status: :ok
+      render :show
     else
       render json: { errors: @user.errors }, status: :unprocessable_entity
     end
