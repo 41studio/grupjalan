@@ -1,4 +1,16 @@
-json.(@group, :id, :name, :lat, :lng, :location, :image, :photo, :categories, :description, :created_at)
+json.(@group, :id, :name, :lat, :lng, :location, :categories, :description, :created_at)
+
+json.image do
+  json.original @group.image_url
+  json.small @group.image_url(:logo)
+end
+
+json.photo do
+  json.original @group.photo_url
+  json.small @group.photo_url(:small)
+  json.medium @group.photo_url(:medium)
+  json.cover @group.photo_url(:cover)
+end
 
 json.members @group.trips do |trip|
   json.user_id trip.user.id
@@ -9,12 +21,18 @@ end
 
 json.posts @group.posts do |post|
   json.post_id post.id
-  json.photo post.photo
+
   json.description post.description
   json.comments_count post.comments_count
   json.votes_up post.cached_votes_up
-  json.votes_down post.cached_votes_down
   json.created_at post.created_at
+
+  json.photo do
+    json.original post.photo_url
+    json.small post.photo_url(:small)
+    json.medium post.photo_url(:medium)
+    json.cover post.photo_url(:cover)
+  end
 
   # user
   json.owner_id post.user.id
