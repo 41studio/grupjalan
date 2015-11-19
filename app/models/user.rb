@@ -158,4 +158,8 @@ class User < ActiveRecord::Base
       group.users << self
     end
   end
+
+  def birthday_format
+    birthday.strftime("%d/%m/%Y") rescue nil
+  end
 end
