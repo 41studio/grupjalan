@@ -2,16 +2,12 @@
 #
 # Table name: trips
 #
-#  id             :integer          not null, primary key
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
-#  slug           :string
-#  start_to_trip  :date
-#  end_to_trip    :date
-#  group_id       :integer
-#  member_size    :integer          default(0)
-#  destination_id :integer
+#  id         :integer          not null, primary key
+#  name_place :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  slug       :string
 #
 # Indexes
 #
