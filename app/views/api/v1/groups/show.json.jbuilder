@@ -15,8 +15,8 @@ end
 json.members @group.trips do |trip|
   json.user_id trip.user.id
   json.full_name trip.user.full_name
-  json.start_to_trip trip.start_to_trip
-  json.end_to_trip trip.end_to_trip
+  json.start_to_trip trip.start_to_trip.strftime("%d/%m/%Y")
+  json.end_to_trip trip.end_to_trip.strftime("%d/%m/%Y")
 end
 
 json.posts @group.posts do |post|
