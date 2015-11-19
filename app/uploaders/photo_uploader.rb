@@ -15,7 +15,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # default image when no picture uploaded
   def default_url
-    "nopic.jpg"
+    ActionController::Base.helpers.asset_path "nopic.jpg"
   end
 
   version :thumb do
