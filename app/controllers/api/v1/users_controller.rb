@@ -57,10 +57,7 @@ class Api::V1::UsersController < BaseApiController
   api :DELETE, '/v1/users/sign_out', 'Sign out user'
   param_group :authentication
   def sign_out
-    user = User.find(params[:user_id])
-    user.auth_token = nil
-
-    if user.save
+    if current_user && current_user.update(auth_token: nil)
       render json: { success: 'Anda berhasil keluar.' }, status: :ok
     else
       render json: { error: 'Kamu sudah log out.' }, status: :unprocessable_entity
