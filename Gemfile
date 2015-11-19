@@ -42,6 +42,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'apipie-rails'
 gem 'nprogress-rails'
 gem 'cancancan', '~> 1.10'
+gem "fog"
 
 group :development, :test do
   gem 'byebug'
