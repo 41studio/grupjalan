@@ -83,6 +83,9 @@ class Api::V1::UsersController < BaseApiController
 
   api :PUT, '/v1/users/:user_id', "Update user"
   param_group :user_update
+  see link: 'addresses#countries', desc: "countries data"
+  see link: 'addresses#provinces', desc: "provinces data"
+  see link: 'addresses#cities', desc: "cities data"
   def update
     @user.update(user_update_params)
 

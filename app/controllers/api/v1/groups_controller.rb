@@ -25,6 +25,48 @@ class Api::V1::GroupsController < BaseApiController
 
   api :GET, "/v1/groups/search", 'search group by name group, trip start_to_trip and trip end_to_trip'
   param_group :search_group
+  example '[
+    {
+      "id": 7,
+      "name": "Bali Grup",
+      "lat": -8.71913635551828,
+      "lng": 115.161450179688,
+      "location": "Jl. Raya Kuta No.4, Kuta, Kabupaten Badung, Bali 80361, Indonesia",
+      "categories": ["Taman", "Laut", "Wisata"],
+      "description": "Lorem ipsum",
+      "created_at": "2015-11-18T10:41:51.448+07:00",
+      "image": {
+        "original": "/uploads/group/image/7/rainbow.png",
+        "small": "/uploads/group/image/7/logo_rainbow.png"
+      },
+      "photo": {
+        "original": "/uploads/group/photo/7/glacier_national_park_dual_monitor-other.jpg",
+        "small": "/uploads/group/photo/7/small_glacier_national_park_dual_monitor-other.jpg",
+        "medium": "/uploads/group/photo/7/medium_glacier_national_park_dual_monitor-other.jpg",
+        "cover": "/uploads/group/photo/7/cover_glacier_national_park_dual_monitor-other.jpg"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Bali Grup AGain",
+      "lat": -8.7237964,
+      "lng": 115.1752277,
+      "location": "Jl. Buni Sari No.24, Kuta, Kabupaten Badung, Bali 80361, Indonesia",
+      "categories": ["Laut", "Wisata"],
+      "description": "Lorem ipsum",
+      "created_at": "2015-11-18T10:42:44.317+07:00",
+      "image": {
+        "original": "/uploads/group/image/8/Eiffel_Tower__Paris.jpg",
+        "small": "/uploads/group/image/8/logo_Eiffel_Tower__Paris.jpg"
+      },
+      "photo": {
+        "original": "/uploads/group/photo/8/14588_10152526541956989_2051647669486688192_n.jpg",
+        "small": "/uploads/group/photo/8/small_14588_10152526541956989_2051647669486688192_n.jpg",
+        "medium": "/uploads/group/photo/8/medium_14588_10152526541956989_2051647669486688192_n.jpg",
+        "cover": "/uploads/group/photo/8/cover_14588_10152526541956989_2051647669486688192_n.jpg"
+      }
+    }
+  ]'
   def search
     @groups = Group.joins(:trips).where(
       "LOWER(groups.name) ILIKE :name AND (trips.start_to_trip <= :start_to_trip AND trips.end_to_trip >= :end_to_trip)
