@@ -51,4 +51,14 @@ class Group < ActiveRecord::Base
 	belongs_to :destination
 	
 	validates :name, :user_id, :location, :lat, :lng, presence: true
+
+	def self.order_by(column = 'created_at', type = 'desc')
+		columns = ['created_at', 'name']
+
+		if ['desc', 'asc'].include?(type) && columns.include?(column)
+			order(column.to_sym => type.to_sym)
+		else
+			order(created_at: :desc)
+		end
+	end
 end

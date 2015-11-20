@@ -79,6 +79,14 @@ class Api::V1::GroupsController < BaseApiController
     ).page(params[:page])
   end
 
+  api :GET, '/v1/groups', "get groups, with pagination, order"
+  param :page, String, desc: 'Pagination page'
+  param :order_by, String, desc: 'Order by column'
+  param :order_type, String, desc: 'Order type desc or asc'
+  def index
+    @groups = Group.order_by(params[:order_by], params[:order_type]).page(params[:page])
+  end
+
   api :GET, "/v1/groups/:id", 'get detail group'
   param :id, String, "Group id"
   def show
