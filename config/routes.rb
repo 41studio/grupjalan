@@ -30,6 +30,11 @@ Rails.application.routes.draw do
           get "search"
         end
 
+        member do
+          get "members"
+          get "posts"
+        end
+
         with_options only: [:create, :update, :destroy] do |option|
           option.resources :trips
           option.resources :posts do
