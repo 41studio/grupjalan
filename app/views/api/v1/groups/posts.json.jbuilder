@@ -1,4 +1,4 @@
-json.array! @group.posts do |post|
+json.array! @posts do |post|
   json.(post, :id, :description, :comments_count, :created_at)
   json.votes_up post.cached_votes_up
   

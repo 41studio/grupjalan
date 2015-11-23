@@ -162,7 +162,7 @@ class Api::V1::GroupsController < BaseApiController
   param :id, String, required: true, desc: "Group id"
   param :page, String, desc: "Pagination page number"
   def posts
-    @posts = @group.posts.order(created_at: :desc)
+    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
   end
 
   private
