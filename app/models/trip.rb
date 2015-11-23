@@ -30,7 +30,7 @@ class Trip < ActiveRecord::Base
   end
   has_and_belongs_to_many :users
   belongs_to :user
-  belongs_to :group
+  belongs_to :group, counter_cache: :members_count
   belongs_to :destination
   
   def calculate_member_size

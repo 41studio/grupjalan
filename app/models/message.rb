@@ -17,10 +17,6 @@
 #  index_messages_on_group_id         (group_id)
 #  index_messages_on_user_id          (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_273a25a7a6  (user_id => users.id)
-#
 
 class Message < ActiveRecord::Base
   belongs_to :user

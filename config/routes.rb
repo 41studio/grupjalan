@@ -66,14 +66,6 @@ Rails.application.routes.draw do
    end
    # root 'posts#home'
 
-   get 'index', to: 'posts#index', as: :index
-   get 'current_user_show', to: 'posts#current_user_show', as: :current_show
-   get 'show_profile',   to: 'posts#show_profile', as: :show_profile
-   get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
-   get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
-   get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
-   post 'new_plan_create_group', to: 'groups#new_plan_create_group', as: :new_plan_create_group
-   get 'new_plan_join_group', to: 'groups#new_plan_join_group', as: :new_plan_join_group
   ActiveAdmin.routes(self)
 
   root "pages#index"
@@ -102,7 +94,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :groups, only: [:edit, :update, :show], path: "grup" do
+  resources :groups, only: [:edit, :update, :show, :index], path: "grup" do
     member do
       post "join"
       delete "leave"

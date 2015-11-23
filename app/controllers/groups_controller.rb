@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   load_and_authorize_resource
   
   before_filter :authenticate_user!
-  before_filter :set_group, except: :autocomplete
+  before_filter :set_group, except: [:autocomplete, :index]
   
   def autocomplete
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
     @group_messages = @group.messages.includes(:user).order("created_at desc")
     @message = Message.new
-
   end  
 
   def edit
@@ -49,6 +48,10 @@ class GroupsController < ApplicationController
     @post = Post.new
     @posts = @group.posts.includes(:user)
     render :show
+  end
+
+  def index
+    @groups = Group.explore(params[:search]).page(params[:page])
   end
 
   private

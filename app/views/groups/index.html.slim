@@ -1,0 +1,26 @@
+.explore-groups
+  .col-md-8.no-padding-left
+    .list-group
+      - @groups.each do |group|
+        = link_to group_path(group), class: 'list-group-item item-group' do
+          .col-md-4.no-padding-left
+            figure
+              = image_tag(group.photo_url(:medium))
+          .col-md-8.no-padding-right
+            h4.list-group-item-heading= group.name
+            p.list-group-item-text= group.location
+          .clearfix
+    .text-center
+      = paginate @groups
+  .col-md-4.no-padding-right
+    .panel.panel-default
+      .panel-heading Cari Grup
+      .panel-body
+        = simple_form_for(:search, url: groups_path, method: :get) do |f|
+          
+          = f.input :name, label: 'Nama Grup', input_html: { value: value_name(params[:search]) }
+          = f.input :categories, as: :check_boxes, collection: Group::CATEGORIES, label: 'Kategori', checked: checked_categories(params[:search])
+          = f.input :sort, as: :select, collection: [['Terbaru', 'newest'], ['Terlama', 'oldest'], ['Anggota Terbanyak', 'members']], class: 'form-control', selected: selected_sort(params[:search]), label: 'Urutkan'
+
+          .form-group
+            = f.submit "Filter", class: 'btn btn-default btn-block'

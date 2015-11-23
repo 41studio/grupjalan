@@ -16,6 +16,7 @@
 #  destination_id :integer
 #  categories     :text             default([]), is an Array
 #  description    :text
+#  members_count  :integer
 #
 # Indexes
 #
@@ -37,6 +38,8 @@ class Group < ActiveRecord::Base
 	scope :by_trip, -> (trip) { where(trip: trip) }
 	scope :joined, -> (user_id) { where(user_id: user_id) }
 	scope :not_joined, -> (user_id) { where.not(user_id: user_id) }
+	scope :by_name, -> (name) { where('LOWER(name) ILIKE ?', "%#{name.downcase}%") }
+	scope :by_categories, -> (categories) { where("categories @> string_to_array(?, '')", categories) }
 
 	belongs_to :user
   has_many :users, through: :trips, source: 'user'
@@ -60,5 +63,30 @@ class Group < ActiveRecord::Base
 		else
 			order(created_at: :desc)
 		end
+	end
+
+	def self.explore(params)
+		if params.nil?
+			self.all
+		else
+			name = params[:name] if params[:name]
+			categories = params[:categories] if params[:categories]
+			sort = params[:sort] if params[:sort]
+
+			by_name(name).by_categories(categories).order_explore(sort)
+		end
+	end
+
+	def self.order_explore(type)
+		sort =  case type
+						when 'oldest'
+							'created_at asc'
+						when 'members'
+							'members_count desc'
+						else
+							'created_at desc'
+						end
+
+		order(sort)
 	end
 end
