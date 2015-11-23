@@ -1,4 +1,6 @@
 class Api::V1::AddressesController < BaseApiController
+  skip_before_action :authenticate_user_from_token!
+  
   api :GET, '/v1/countries', 'Get all countries'
   example JSON.pretty_generate Country.select(:id, :name).map {|country| country.attributes}
   def countries
