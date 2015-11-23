@@ -91,7 +91,7 @@ class Api::V1::GroupsController < BaseApiController
   api :GET, "/v1/groups/:id", 'get detail group'
   param :id, String, "Group id"
   def show
-    @group = Group.includes(posts: [:user, comments: [:user]]).find(params[:id])
+    @group = Group.find(params[:id])
   end
 
   api :POST, "/v1/groups", 'create group and create new trip'
