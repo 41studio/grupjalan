@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
 
   def posts
     @post = Post.new
-    @posts = @group.posts.includes(:user).order(created_at: :desc)
+    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
     render :show
   end
 
