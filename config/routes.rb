@@ -111,7 +111,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create, :destroy]
 
-    post "downvote", to: 'votes#downvote'
+    delete "downvote", to: 'votes#downvote'
     post "upvote", to: 'votes#upvote'
   end
   

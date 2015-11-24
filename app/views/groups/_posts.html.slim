@@ -1,5 +1,5 @@
 .posts
-  .col-md-6.no-padding-left
+  .new-post
     .widget-area.no-padding.blank
       .status-upload
         = simple_form_for @post, url: group_posts_path(@group) do |f|
@@ -14,27 +14,23 @@
     /! Widget Area
   
   - @posts.each_with_index do |post, index|
-    div class="col-md-6 post #{set_class_post(index)}"
-      .panel.panel-default.panel-google-plus 
-        .dropdown
-          span.dropdown-toggle data-toggle="dropdown" type="button" 
-            span.glyphicon.glyphicon-chevron-down 
-          ul.dropdown-menu role="menu" 
-            li role="presentation" 
-              a href="#" role="menuitem" tabindex="-1"  Action
-            li role="presentation" 
-              a href="#" role="menuitem" tabindex="-1"  Another action
-            li role="presentation" 
-              a href="#" role="menuitem" tabindex="-1"  Something else here
-            li.divider role="presentation" 
-            li role="presentation" 
-              a href="#" role="menuitem" tabindex="-1"  Separated link
-        / .panel-google-plus-tags
+    div class="post #{set_class_post(index)}"
+      .panel.panel-default.panel-posts 
+        - if can? :modify, post
+          .dropdown
+            span.dropdown-toggle data-toggle="dropdown" type="button" 
+              span.glyphicon.glyphicon-chevron-down 
+            ul.dropdown-menu role="menu"
+              li role="presentation"
+                = link_to "Hapus", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }
+              li role="presentation"
+                = link_to "Edit", edit_post_path(post)
+        / .panel-posts-tags
         /   ul
         /     li #Millennials
         /     li #Generation
         .panel-heading
-          = image_tag post.user.photo_url(:small), class: 'img-circle pull-left'
+          = image_tag post.user.photo_url(:thumb), class: 'img-circle pull-left', size: '50x50'
           h3= post.user.full_name
           h5
             span Diposting pada 
@@ -42,14 +38,34 @@
         .panel-body
           p= strip_tags(post.description)
         .panel-footer
-          button.btn.btn-default type="button" +1
-          button.btn.btn-default type="button" 
-            span.glyphicon.glyphicon-share-alt 
-          .input-placeholder Add a comment...
-        .panel-google-plus-comment
-          img.img-circle alt=("User Image") src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" /
-          .panel-google-plus-textarea
-            textarea rows="4" 
-            button.btn.btn-success.disabled type="submit"  Post comment
-            button.btn.btn-default type="reset"  Cancel
+          .input-group
+            .input-group-btn
+              - if current_user.voted_up_on? post
+                = link_to post_downvote_path(post), class: 'btn btn-primary', method: :delete do
+                  i.fa.fa-thumbs-o-up
+                  |  
+                  = post.cached_votes_up
+              - else
+                = link_to post_upvote_path(post), class: 'btn btn-default', method: :post do
+                  i.fa.fa-thumbs-o-up
+                  |  
+                  = post.cached_votes_up
+            input.form-control.input-comment placeholder="Add a comment..."
+        .panel-posts-comments.list-group
+          - post.comments.each do |comment|
+            .list-group-item
+              .col-md-2
+                = image_tag(comment.user.photo_url(:thumb), class: 'img-circle', size: '50x50')
+              .col-md-10
+                h4.list-group-item-heading= comment.user.full_name
+                span.timetostr.list-group-item-text= comment.created_at
+                p.list-group-item-text= comment.comment
+              .clearfix
+        .panel-posts-comment
+          = image_tag(current_user.photo_url(:thumb), class: 'img-circle', size: '50x50')
+          .panel-posts-textarea
+            = simple_form_for(:comment, url: post_comments_path(post)) do |f|
+              = f.input :comment, as: :text, input_html: { rows: 4 }, label: false
+              = f.submit "Komen", class: 'btn btn-success disabled'
+              button.btn.btn-default.btn-close type="reset" Cancel
           .clearfix
