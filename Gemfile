@@ -43,6 +43,7 @@ gem 'apipie-rails'
 gem 'nprogress-rails'
 gem 'cancancan', '~> 1.10'
 gem "fog"
+gem 'mailboxer'
 
 group :development, :test do
   gem 'byebug'

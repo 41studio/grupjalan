@@ -2,32 +2,7 @@ class MessagesController < ApplicationController
   before_filter :find_message, only: [:create]
 
 	def create
-    @message = current_user.messages.build(message_params)
-
-    if params[:group_id]
-
-      @message.group_id = params[:group_id]
-
-    else
-      user_id   = current_user.id
-      to        = params[:user_id].to_i  
-      members   = [user_id, to].sort
-      members.sort!
-      members = members.join('-')
-      conversation = Conversation.find_or_create_by(members: members)
-      user1 = current_user
-      user2 = User.find(params[:message][:to])
-      conversation.users << user1 unless conversation.users.include?(user1)
-      conversation.users << user2 unless conversation.users.include?(user2)
-      @message.conversation_id = conversation.id
-    end
-
-    if @message.save
-      flash[:success] = 'Pesan berhasil dibuat.'
-    else
-      flash[:danger]  = 'Pesan gagal dibuat.'
-    end
-    redirect_to :back
+    
   end
 
   def index
@@ -44,7 +19,7 @@ class MessagesController < ApplicationController
   end
 
   def inbox
-    @conversations = current_user.conversations
+    @conversations = current_user.conversations.includes(receiver: [:receiver])
   end  
 
   def destroy
@@ -64,6 +39,11 @@ class MessagesController < ApplicationController
   #   end
   #   redirect_to :back 
   # end  
+
+  def inbox
+    @conversations = current_user.mailbox.conversations
+    @messages = @conversations.first.messages.order(created_at: :asc)
+  end
 
   private
     def find_message

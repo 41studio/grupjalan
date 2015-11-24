@@ -1,15 +1,4 @@
 Rails.application.routes.draw do
-  get 'conversations/create'
-
-  get 'conversations/show'
-
-
-  # devise_for :admin_users, ActiveAdmin::Devise.config
-  devise_for :users, controllers: {
-    registrations: "users/registrations", 
-    omniauth_callbacks: "users/omniauth_callbacks"
-  }   
-
   apipie
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
@@ -52,8 +41,26 @@ Rails.application.routes.draw do
     end
   end
 
-  # You can have the root of your site routed with "root"
-   resources :users do
+  # admin
+  ActiveAdmin.routes(self)
+
+  # frontend
+  root "pages#index"
+  get 'conversations/create'
+  get 'conversations/show'
+  get 'mytrips', to: 'pages#mytrips', as: :mytrips
+  get 'sync/get_provinces'
+  get 'sync/get_cities'
+  get 'inbox', path: 'pesan', to: 'messages#inbox', as: :inbox
+
+  devise_for :users, controllers: {
+    registrations: "users/registrations", 
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
+
+  resources :messages, only: :create
+
+  resources :users do
     resources :messages, only: [:index, :create, :destroy] do
       collection do
         get :inbox
@@ -63,32 +70,15 @@ Rails.application.routes.draw do
       get :follow
       get :unfollow
     end
-   end
-   # root 'posts#home'
-
-  ActiveAdmin.routes(self)
-
-  root "pages#index"
+  end
   
-  get 'mytrips', to: 'pages#mytrips', as: :mytrips
-
-  get 'sync/get_provinces'
-  get 'sync/get_cities'
-
-  get 'quotes', to: 'posts#quotes', as: :quotes
-
   resources :plans, only: [:new, :create] do
     collection do
       get :search
     end
   end
 
-  
   resources :trips, only: nil do
-    member do
-      # get "group/:group_id", to: "trips#group", as: :group
-      # get "group/:group_id/members", to: "trips#members", as: :members_group
-    end
     collection do 
       get "popular"
     end

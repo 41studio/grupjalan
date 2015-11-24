@@ -1,8 +1,34 @@
-.col-md-8
+.btn-group
+  a.btn.btn-default data-toggle="modal" data-target="#new-message" New Message
+  a.btn.btn-default Sent Messages
+  a.btn.btn-default Inbox Messages
+br
+br
+.col-md-5.no-padding-left
   .panel.panel-default
-    - @conversations.each do |conversation|
-      - to = (conversation.users - [current_user]).first
-      p = link_to (to.full_name), user_messages_path(to.id)
-      p = link_to (image_tag to.photo.small.url, class: "img-circle"), user_messages_path(to.id)
+    .panel-heading Pesan
+    .list-group
+      - @conversations.each do |conversation|
+        a.list-group-item href=""
+          .row
+            .col-md-2
+              = image_tag(conversation.recipients.first.photo_url(:small), class: 'img-circle img-responsive')
+            .col-md-10
+              h4.list-group-item-heading= conversation.recipients.first.full_name
+              p.list-group-item-text= conversation.subject
 
-    
+.col-md-7.no-padding-right
+  .panel.panel-default.inbox
+    .panel-heading Chat
+    .panel-body
+      ul.chat
+        - @messages.each do |message|
+          = render partial: 'message', locals: { message: message }
+    .panel-footer
+      .input-group
+        input#btn-input.form-control.input-sm placeholder=("Type your message here...") type="text" /
+        span.input-group-btn
+          button#btn-chat.btn.btn-warning.btn-sm
+            | Send
+
+= render 'form'

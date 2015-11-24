@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader 
   mount_uploader :video, VideoUploader
 
+  acts_as_followable
+  acts_as_follower
+  acts_as_messageable
+
   GENDERS = [['Male', 'male'], ['Female', 'female']]
 
   with_options dependent: :destroy do |assoc|
@@ -70,18 +74,15 @@ class User < ActiveRecord::Base
     assoc.has_many :messages
   end
   
-  has_and_belongs_to_many :conversations, uniq: true
+  # has_and_belongs_to_many :conversations, uniq: true
   has_and_belongs_to_many :groups
-  has_and_belongs_to_many :joined_trips, class_name: "Trip"
+  # has_and_belongs_to_many :joined_trips, class_name: "Trip"
 
   enum role: ['user', 'admin', 'moderator']
   ROLE = ['user', 'admin', 'moderator']
-
   
   validates :username, :first_name, :last_name, :email, presence: true
-  validates :username, uniqueness: true  
-  acts_as_followable
-  acts_as_follower
+  validates :username, uniqueness: true
   validates :gender, inclusion: { in: %w(male female), message: '%{value} is not a valid gender.' }
 
   # after_update :create_group # disable auto grouping
@@ -161,5 +162,9 @@ class User < ActiveRecord::Base
 
   def birthday_format
     birthday.strftime("%d/%m/%Y") rescue nil
+  end
+
+  def mailboxer_email(object)
+    email
   end
 end

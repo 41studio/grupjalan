@@ -1,10 +1,13 @@
-.panel.panel-default
-  .panel-heading New Message
-  .panel-body
-    = simple_form_for [(@group || @user), @message] do |f|
-      = f.input :to, as: :hidden, input_html: { value: @user.id } if @user
-      = f.input :body, placeholder: "Tulis Pesan Kamu disini", label: false, input_html: { class: "form-control", rows: 4 }
-
-      
-      .form-group
-        = f.button :submit, 'Create Message', class: "btn3d btn btn-primary btn-md"  
+#new-message.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true" &times;
+        h4.modal-title New Message
+      .modal-body
+        = simple_form_for(:message, url: messages_path) do |f|
+          = f.input :recipient
+          = f.input :subject
+          = f.input :body, as: :text
+          = f.submit "Send Message", class: 'btn btn-success'
