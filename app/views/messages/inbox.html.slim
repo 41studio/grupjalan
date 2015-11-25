@@ -1,11 +1,11 @@
-.btn-group
-  a.btn.btn-default data-toggle="modal" data-target="#new-message" New Message
-  a.btn.btn-default Sent Messages
-  a.btn.btn-default Inbox Messages
-br
-br
+/ .btn-group
+/   a.btn.btn-default data-toggle="modal" data-target="#new-message" New Message
+/   a.btn.btn-default Sent Messages
+/   a.btn.btn-default Inbox Messages
+/ br
+/ br
 .col-md-5.no-padding-left
-  .panel.panel-default
+  .panel.panel-default.inbox
     .panel-heading Pesan
     .list-group
       - @conversations.each do |conversation|
@@ -30,4 +30,4 @@ br
           span.input-group-btn
             = f.submit "Send", class: 'btn-chat btn btn-warning btn-sm'
 
-= render 'form'
+/ = render 'form'

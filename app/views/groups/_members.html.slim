@@ -16,6 +16,13 @@
           span.timetostr= member.end_to_trip
 
       .bottom
-        = link_to user_messages_path(current_user), class: 'btn btn-info' do
-          i.fa.fa-envelope
-          |  Kirim Pesan
+        - unless member.user_id.eql? current_user.id
+          = link_to new_messages_path(member.user), class: 'btn btn-info', remote: true do
+            i.fa.fa-envelope
+            |  Kirim Pesan
+        - else
+          a.btn.btn-info disabled=""
+            i.fa.fa-envelope
+            |  Kirim Pesan
+
+= render partial: 'messages/form'

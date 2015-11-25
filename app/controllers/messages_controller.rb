@@ -45,6 +45,10 @@ class MessagesController < ApplicationController
     redirect_to inbox_url
   end
 
+  def new
+    @recipient = User.find params[:recipient_id]
+  end
+
   private
     def message_params
       params.require(:message).permit(:body, :group_id, :to, :user_id)
