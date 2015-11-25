@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   
   # has_and_belongs_to_many :conversations, uniq: true
   has_and_belongs_to_many :groups
-  # has_and_belongs_to_many :joined_trips, class_name: "Trip"
+  has_and_belongs_to_many :joined_trips, class_name: "Trip"
 
   enum role: ['user', 'admin', 'moderator']
   ROLE = ['user', 'admin', 'moderator']
