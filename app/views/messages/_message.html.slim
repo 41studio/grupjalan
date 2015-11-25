@@ -1,22 +1,23 @@
-- if message.sender_id.eql? current_user.id
-  li.left.clearfix
-    span.chat-img.pull-left
-      = image_tag current_user.photo_url(:small), class: 'img-circle', size: '50x50'
-    .chat-body.clearfix
-      .header
-        strong.primary-font= current_user.full_name
-        small.pull-right.text-muted
-          span.glyphicon.glyphicon-time
-          | 12 mins ago
-      p= message.body
-- else
-  li.right.clearfix
-    span.chat-img.pull-right
-      = image_tag message.sender.photo_url(:small), class: 'img-circle', size: '50x50'
-    .chat-body.clearfix
-      .header
-        small.text-muted
-          span.glyphicon.glyphicon-time
-          | 13 mins ago
-        strong.pull-right.primary-font= message.sender.full_name
-      p.pull-right= message.body
+- @messages.each do |message|
+  - if message.sender_id.eql? current_user.id
+    li.left.clearfix
+      span.chat-img.pull-left
+        = image_tag current_user.photo_url(:small), class: 'img-circle', size: '50x50'
+      .chat-body.clearfix
+        .header
+          strong.primary-font= current_user.full_name
+          small.pull-right.text-muted
+            span.glyphicon.glyphicon-time
+            = "#{time_ago_in_words(message.created_at)} ago"
+        p= message.body
+  - else
+    li.right.clearfix
+      span.chat-img.pull-right
+        = image_tag message.sender.photo_url(:small), class: 'img-circle', size: '50x50'
+      .chat-body.clearfix
+        .header
+          small.text-muted
+            span.glyphicon.glyphicon-time
+            = "#{time_ago_in_words(message.created_at)} ago"
+          strong.pull-right.primary-font= message.sender.full_name
+        p.pull-right= message.body

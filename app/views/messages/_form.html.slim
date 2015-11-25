@@ -6,8 +6,8 @@
           span aria-hidden="true" &times;
         h4.modal-title New Message
       .modal-body
-        = simple_form_for(:message, url: messages_path) do |f|
-          = f.input :recipient
+        = simple_form_for('', url: messages_path) do |f|
+          = f.input :recipient_id, label: 'Recipient'
           = f.input :subject
-          = f.input :body, as: :text
+          = f.input :body, as: :text, input_html: { rows: 5 }
           = f.submit "Send Message", class: 'btn btn-success'

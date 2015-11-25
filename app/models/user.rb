@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     assoc.has_many :trips
     assoc.has_many :owned_groups, class_name: "Group"
     assoc.has_many :comments
-    assoc.has_many :messages
+    # assoc.has_many :messages
   end
   
   # has_and_belongs_to_many :conversations, uniq: true

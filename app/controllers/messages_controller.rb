@@ -1,8 +1,10 @@
 class MessagesController < ApplicationController
-  before_filter :find_message, only: [:create]
-
 	def create
-    
+    recipient = User.find(params[:recipient_id])
+    message = current_user.send_message(recipient, params[:body], params[:subject])
+
+    flash[:success] = 'Pesan terkirim.'
+    redirect_to inbox_url
   end
 
   def index
@@ -18,10 +20,6 @@ class MessagesController < ApplicationController
     @message  = Message.new
   end
 
-  def inbox
-    @conversations = current_user.conversations.includes(receiver: [:receiver])
-  end  
-
   def destroy
     message = Message.find(params[:id])
     message.destroy
@@ -29,29 +27,26 @@ class MessagesController < ApplicationController
     redirect_to :back
   end  
 
-
-  # def create_personal
-  #   @messages = current_user.messages.build(message_params)
-  #   if @message.save
-  #     flash[:primary] = 'Pesan kamu berhasil dikirim'
-  #   else
-  #     flash[:danger]  = 'Pesan kamu gagal dikirim'
-  #   end
-  #   redirect_to :back 
-  # end  
-
   def inbox
     @conversations = current_user.mailbox.conversations
     @messages = @conversations.first.messages.order(created_at: :asc)
   end
 
-  private
-    def find_message
-      @message = current_user.messages.new
-    end
+  def show
+    conversation = Mailboxer::Conversation.find(params[:id])
+    @messages = Mailboxer::Message.conversation(conversation).includes(:sender, :conversation).order(created_at: :asc)
+  end
 
+  def reply
+    conversation = Mailboxer::Conversation.find(params[:conversation_id])
+    current_user.reply_to_conversation(conversation, params[:body])
+    
+    flash[:success] = 'Pesan berhasil dibalas.'
+    redirect_to inbox_url
+  end
+
+  private
     def message_params
       params.require(:message).permit(:body, :group_id, :to, :user_id)
     end
-
 end

@@ -1,0 +1,2 @@
+$('#chats').html("<%= j render(partial: 'messages/message', object: @messages) %>");
+$('#reply').attr('action', "<%= reply_messages_path(@messages.first.conversation) %>");

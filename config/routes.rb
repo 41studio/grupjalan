@@ -58,7 +58,11 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  resources :messages, only: :create
+  resources :messages, path: 'pesan', only: [:create, :show] do
+    collection do
+      post "reply/:conversation_id", to: 'messages#reply', as: :reply
+    end
+  end
 
   resources :users do
     resources :messages, only: [:index, :create, :destroy] do

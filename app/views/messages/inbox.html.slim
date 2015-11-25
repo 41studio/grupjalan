@@ -9,7 +9,7 @@ br
     .panel-heading Pesan
     .list-group
       - @conversations.each do |conversation|
-        a.list-group-item href=""
+        = link_to message_path(conversation.id), class: 'list-group-item', remote: true do
           .row
             .col-md-2
               = image_tag(conversation.recipients.first.photo_url(:small), class: 'img-circle img-responsive')
@@ -21,14 +21,13 @@ br
   .panel.panel-default.inbox
     .panel-heading Chat
     .panel-body
-      ul.chat
-        - @messages.each do |message|
-          = render partial: 'message', locals: { message: message }
+      ul.chat#chats
+        = render partial: 'message', object: @messages
     .panel-footer
-      .input-group
-        input#btn-input.form-control.input-sm placeholder=("Type your message here...") type="text" /
-        span.input-group-btn
-          button#btn-chat.btn.btn-warning.btn-sm
-            | Send
+      = simple_form_for('', url: reply_messages_path(@messages.first.conversation), html: {id: 'reply'}) do |f|
+        .input-group
+          = f.input :body, label: false, input_html: { class: 'btn-input form-control input-sm', placeholder: 'Type your message here...' }
+          span.input-group-btn
+            = f.submit "Send", class: 'btn-chat btn btn-warning btn-sm'
 
 = render 'form'
