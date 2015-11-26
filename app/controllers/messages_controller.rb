@@ -29,7 +29,6 @@ class MessagesController < ApplicationController
 
   def inbox
     @conversations = current_user.mailbox.conversations
-    @messages = @conversations.last.messages.order(created_at: :asc) unless @conversations.empty?
   end
 
   def show
