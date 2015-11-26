@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
-    alias_action :update, :destroy, :edit, to: :modify
+    alias_action :update, :destroy, :edit, :join, to: :modify
     alias_action :index, :show, :posts, :members, :search, to: :read
     alias_action :upvote, :downvote, to: :votes
     
