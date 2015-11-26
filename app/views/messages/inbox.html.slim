@@ -22,9 +22,8 @@
     .panel-heading Chat
     .panel-body
       ul.chat#chats
-        = render partial: 'message', object: @messages
     .panel-footer
-      = simple_form_for('', url: reply_messages_path(@messages.first.conversation), html: {id: 'reply'}) do |f|
+      = simple_form_for('', url: '', html: {id: 'reply'}) do |f|
         .input-group
           = f.input :body, label: false, input_html: { class: 'btn-input form-control input-sm', placeholder: 'Type your message here...' }
           span.input-group-btn
