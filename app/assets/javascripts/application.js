@@ -10,11 +10,12 @@
 //= require locationpicker
 //= require googlemap
 //= require chat
-//= require turbolinks
 //= require nprogress
 //= require nprogress-turbolinks
 //= require tooltip
 //= require groups
+
+//= require turbolinks
 
 $(function(){
   $('#quote-carousel').carousel({
