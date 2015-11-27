@@ -16,7 +16,7 @@
   - @posts.each_with_index do |post, index|
     div class="post #{set_class_post(index)}"
       .panel.panel-default.panel-posts 
-        - if can? :modify, post
+        - if post.user_id.eql?(current_user.id)
           .dropdown
             span.dropdown-toggle data-toggle="dropdown" type="button" 
               span.glyphicon.glyphicon-chevron-down 
