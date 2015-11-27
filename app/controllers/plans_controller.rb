@@ -6,7 +6,6 @@ class PlansController < ApplicationController
   end
 
   def new
-    @destination = Destination.where(name: params[:query].capitalize).first_or_create
     @group = Group.new
 
     set_trips
@@ -35,11 +34,11 @@ class PlansController < ApplicationController
 
     def set_trips
       @trips = Trip.joins(:group).where(
-        "groups.destination_id = :destination_id AND start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+        "LOWER(groups.name) ILIKE :name AND start_to_trip <= :start_to_trip AND end_to_trip >= :end_to_trip",
         {
-          start_to_trip: params[:trip][:start_to_trip],
-          end_to_trip: params[:trip][:end_to_trip],
-          destination_id: @destination.id
+          start_to_trip: params[:trip][:start_to_trip].to_date,
+          end_to_trip: params[:trip][:end_to_trip].to_date,
+          name: "%#{params[:query].downcase}%"
         }
       )
     end

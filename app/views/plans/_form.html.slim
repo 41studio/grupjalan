@@ -3,7 +3,6 @@
 
   = hidden_field_tag :start_to_trip, params.fetch(:trip)[:start_to_trip]
   = hidden_field_tag :end_to_trip, params.fetch(:trip)[:end_to_trip]
-  = f.input :destination_id, as: :hidden, input_html: { value: @destination.id }
 
   = f.input :lat, as: :hidden, input_html: { id: "us2-lat"}
   = f.input :lng, as: :hidden, input_html: { id: "us2-lon"}
