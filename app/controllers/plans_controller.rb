@@ -36,8 +36,8 @@ class PlansController < ApplicationController
       @trips = Trip.joins(:group).where(
         "LOWER(groups.name) ILIKE :name AND start_to_trip <= :start_to_trip AND end_to_trip >= :end_to_trip",
         {
-          start_to_trip: params[:trip][:start_to_trip].to_date,
-          end_to_trip: params[:trip][:end_to_trip].to_date,
+          start_to_trip: (params[:trip][:start_to_trip].to_date rescue nil),
+          end_to_trip: (params[:trip][:end_to_trip].to_date rescue nil),
           name: "%#{params[:query].downcase}%"
         }
       )
