@@ -37,6 +37,8 @@
             span.timetostr= post.created_at
         .panel-body
           p= strip_tags(post.description)
+          - unless post.photo.file.nil?
+            = image_tag post.photo_url, class: 'img-responsive'
         .panel-footer
           .input-group
             .input-group-btn
