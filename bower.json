@@ -13,7 +13,8 @@
       "fontawesome": "latest",
       "typeahead.js": "latest",
       "selectize": "latest",
-      "momentjs": "latest"
+      "momentjs": "latest",
+      "spinjs": "latest"
     }
   }
 }

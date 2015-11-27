@@ -9,12 +9,13 @@
 //= require momentjs/locale/id
 //= require locationpicker
 //= require googlemap
+//= require spinjs/spin
 //= require chat
 //= require nprogress
 //= require nprogress-turbolinks
 //= require tooltip
 //= require groups
-
+//= require spin.ajax
 //= require turbolinks
 
 $(function(){
