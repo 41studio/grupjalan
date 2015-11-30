@@ -68,6 +68,6 @@
           .panel-posts-textarea
             = simple_form_for(:comment, url: post_comments_path(post)) do |f|
               = f.input :comment, as: :text, input_html: { rows: 4 }, label: false
-              = f.submit "Komen", class: 'btn btn-success disabled'
+              = f.submit "Komen", class: 'btn btn-success', disabled: ''
               button.btn.btn-default.btn-close type="reset" Cancel
           .clearfix

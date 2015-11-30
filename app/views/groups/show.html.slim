@@ -29,8 +29,9 @@
           - if user_signed_in? && !@group.user_ids.include?(current_user.id)
             li
               = link_to "Join", "#join", "data-toggle": 'modal', "data-target": '#join-group'
-          li
-            = link_to "Edit Grup", edit_group_path(@group)
+          - if can? :edit, @group
+            li
+              = link_to "Edit Grup", edit_group_path(@group)
       /! /.navbar-collapse
   /! /#HEADER
 

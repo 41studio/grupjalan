@@ -1,18 +1,17 @@
-$ ->
+$(document).ready ->
   $('.input-comment, .panel-posts-comment .btn-close').on 'click', (event) ->
     $panel = $(this).closest('.panel-posts')
     $comment = $panel.find('.panel-posts-comment')
-    $comment.find('.btn:first-child').addClass 'disabled'
     $comment.find('textarea').val ''
     $panel.toggleClass 'panel-posts-show-comment'
     $panel.find('.input-comment').toggleClass 'hide'
     if $panel.hasClass('panel-posts-show-comment')
       $comment.find('textarea').focus()
     return
-  $('.panel-posts-comment > .panel-posts-textarea > textarea').on 'keyup', (event) ->
+  $('.panel-posts-comment #comment_comment').on 'keyup', (event) ->
     $comment = $(this).closest('.panel-posts-comment')
-    $comment.find('button[type="submit"]').addClass 'disabled'
+    $comment.find('.btn-success').attr('disabled', '')
     if $(this).val().length >= 1
-      $comment.find('button[type="submit"]').removeClass 'disabled'
+      $comment.find('.btn-success').removeAttr 'disabled'
     return
   return
