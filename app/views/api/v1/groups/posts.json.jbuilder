@@ -1,6 +1,7 @@
 json.array! @posts do |post|
   json.(post, :id, :description, :comments_count, :created_at)
   json.votes_up post.cached_votes_up
+  json.liked (user_signed_in? ? current_user.voted_up_on?(post) : false)
   
   if post.photo.file.nil?
     json.photo nil
