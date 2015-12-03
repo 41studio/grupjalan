@@ -98,14 +98,13 @@ Rails.application.configure do
 
   config.assets.precompile << Proc.new { |path| path =~ /font-awesome\/fonts/ and File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff']) }  
 
-  CarrierWave.configure do |config|
+    CarrierWave.configure do |config|
     config.fog_credentials = {
       provider: 'AWS',
-      aws_access_key_id: 'AKIAJA24JJUKFLQDIC5Q',
-      aws_secret_access_key: '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',
+      aws_access_key_id: ENV['S3_ACCESS_KEY'],
+      aws_secret_access_key: ENV['S3_SECRET_KEY'],
     }
     
-    config.fog_directory = 'grupjalan'
+    config.fog_directory = ENV['S3_BUCKET']
   end
-
 end
