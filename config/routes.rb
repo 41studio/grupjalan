@@ -20,13 +20,30 @@ Rails.application.routes.draw do
       get "users/:user_id", to: "users#show"
       put "users/:user_id", to: "users#update"
 
-      resources :groups do
+      # addresses
+      get "countries", to: 'addresses#countries'
+      get "provinces", to: 'addresses#provinces'
+      get "cities", to: 'addresses#cities'
+
+      resources :groups, except: [:edit, :new] do
         collection do
           get "search"
         end
+
+        with_options only: [:create, :update, :destroy] do |option|
+          option.resources :trips
+          option.resources :posts do
+            member do
+              post "upvote"
+              delete "downvote"
+            end
+          end
+        end
       end
 
-      resources :trips, only: :index
+      resources :posts, only: nil do
+        resources :comments, only: [:create, :update, :destroy]
+      end
     end
   end
 

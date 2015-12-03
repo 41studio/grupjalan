@@ -38,5 +38,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
 
+  validates :description, presence: true
+
   scope :by_group, -> (group_id) { where(group_id: group_id) }
 end

@@ -24,12 +24,12 @@ class Api::V1::UsersController < BaseApiController
       param :status, String
       param :neighborhood, String
       param :address, String
-      param :gender, String
-      param :brithday, Date
+      param :gender, String, desc: "value should 'male' or 'female'"
+      param :birthday, String, desc: 'dd/mm/yyyy'
       param :handphone, String
-      param :country, String
-      param :city, String
-      param :province, String
+      param :country, String, desc: 'data from /api/v1/countries'
+      param :city, String, desc: 'data from /api/v1/cities'
+      param :province, String, desc: 'data from /api/v1/provinces'
     end
   end
 
@@ -40,12 +40,12 @@ class Api::V1::UsersController < BaseApiController
     email = params[:email]
     password = params[:password]
 
-    if (email.present? && password.present?) && ((user = User.find_by(email: email)) && user.valid_password?(password))
-      if user.confirmed?
-        user.auth_token = user.generate_auth_token
-        user.save
+    if (email.present? && password.present?) && ((@user = User.find_by(email: email)) && @user.valid_password?(password))
+      if @user.confirmed?
+        @user.auth_token = @user.generate_auth_token
+        @user.save
 
-        render json: user, status: :ok
+        render :show
       else
         render json: { error: "Mohon konfirm email kamu." }, status: :unprocessable_entity
       end
@@ -57,10 +57,7 @@ class Api::V1::UsersController < BaseApiController
   api :DELETE, '/v1/users/sign_out', 'Sign out user'
   param_group :authentication
   def sign_out
-    user = User.find(params[:user_id])
-    user.auth_token = nil
-
-    if user.save
+    if current_user && current_user.update(auth_token: nil)
       render json: { success: 'Anda berhasil keluar.' }, status: :ok
     else
       render json: { error: 'Kamu sudah log out.' }, status: :unprocessable_entity
@@ -82,16 +79,18 @@ class Api::V1::UsersController < BaseApiController
   api :GET, '/v1/users/:user_id', "Get user's detail"
   param :user_id, String
   def show
-    render json: @user, status: :ok
   end
 
   api :PUT, '/v1/users/:user_id', "Update user"
   param_group :user_update
+  see link: 'addresses#countries', desc: "countries data"
+  see link: 'addresses#provinces', desc: "provinces data"
+  see link: 'addresses#cities', desc: "cities data"
   def update
     @user.update(user_update_params)
 
     if @user.save
-      render json: { success: 'Profil anda berhasil diupdate.' }, status: :ok
+      render :show
     else
       render json: { errors: @user.errors }, status: :unprocessable_entity
     end
@@ -107,7 +106,7 @@ class Api::V1::UsersController < BaseApiController
     end
 
     def user_update_params
-      params.require(:user).permit(:first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :country, :city, :province, :username)
+      params.require(:user).permit(:email, :first_name, :last_name, :neighborhood, :address, :gender, :birthday, :handphone, :status, :country, :city, :province, :username)
     end
 
     def verify_user

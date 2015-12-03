@@ -1,9 +1,9 @@
-.post
+.posts
   .col-md-6.no-padding-left
     .widget-area.no-padding.blank
       .status-upload
         = simple_form_for @post, url: group_posts_path(@group) do |f|
-          = f.input :description, label: false, input_html: { placeholder: 'What you have done here?' }
+          = f.input :description, label: false, input_html: { placeholder: 'What you have done here?', class: 'no-resize' }
           ul
             li
               = f.input :photo, label_html: { "data-original-title": 'Picture', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default' }, label: '<i class="fa fa-picture-o"></i>'.html_safe, input_html: { class: 'hide' }
@@ -14,11 +14,11 @@
     /! Widget Area
   
   - @posts.each_with_index do |post, index|
-    div class="col-md-6 #{set_class_post(index)}"
-      .panel.panel-default.panel-google-plus class=("[ ]") 
+    div class="col-md-6 post #{set_class_post(index)}"
+      .panel.panel-default.panel-google-plus 
         .dropdown
           span.dropdown-toggle data-toggle="dropdown" type="button" 
-            span.glyphicon.glyphicon-chevron-down class=("[ ]") 
+            span.glyphicon.glyphicon-chevron-down 
           ul.dropdown-menu role="menu" 
             li role="presentation" 
               a href="#" role="menuitem" tabindex="-1"  Action
@@ -37,20 +37,19 @@
           = image_tag post.user.photo_url(:small), class: 'img-circle pull-left'
           h3= post.user.full_name
           h5
-            span Shared publicly
-            |  
+            span Diposting pada 
             span.timetostr= post.created_at
         .panel-body
           p= strip_tags(post.description)
         .panel-footer
-          button.btn.btn-default class=("[ ]") type="button"  +1
-          button.btn.btn-default class=("[ ]") type="button" 
-            span.glyphicon.glyphicon-share-alt class=("[ ]") 
+          button.btn.btn-default type="button" +1
+          button.btn.btn-default type="button" 
+            span.glyphicon.glyphicon-share-alt 
           .input-placeholder Add a comment...
         .panel-google-plus-comment
           img.img-circle alt=("User Image") src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" /
           .panel-google-plus-textarea
             textarea rows="4" 
-            button.btn.btn-success.disabled class=("[ ]") type="submit"  Post comment
-            button.btn.btn-default class=("[ ]") type="reset"  Cancel
+            button.btn.btn-success.disabled type="submit"  Post comment
+            button.btn.btn-default type="reset"  Cancel
           .clearfix

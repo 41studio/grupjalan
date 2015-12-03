@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
     assoc.has_many :owned_groups, class_name: "Group"
     assoc.has_many :comments
     assoc.has_many :messages
-
   end
   
   has_and_belongs_to_many :conversations, uniq: true
@@ -85,9 +84,7 @@ class User < ActiveRecord::Base
   acts_as_follower
   validates :gender, inclusion: { in: %w(male female), message: '%{value} is not a valid gender.' }
 
-  before_save :ensure_authentication_token
-
-  after_update :create_group
+  # after_update :create_group # disable auto grouping
 
   def self.from_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?) OR email = ? ", auth.provider, auth.uid, auth.info.email).first_or_initialize
@@ -137,12 +134,6 @@ class User < ActiveRecord::Base
   end
 
   # authentication
-  def ensure_authentication_token
-    if auth_token.nil?
-      self.auth_token = generate_auth_token
-    end
-  end
-
   def generate_auth_token
     loop do
       token = Devise.friendly_token

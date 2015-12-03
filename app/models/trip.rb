@@ -34,4 +34,5 @@ class Trip < ActiveRecord::Base
     self.save
   end
 
+  validates :start_to_trip, :end_to_trip, presence: true
 end

@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  load_and_authorize_resource
+  
   before_filter :authenticate_user!
   before_filter :set_group, except: :autocomplete
   
