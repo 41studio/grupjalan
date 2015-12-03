@@ -13,6 +13,7 @@ class Ability
     elsif user.is_user?
       can :create, [Group, Post, Comment]
       can :modify, [Post, Trip, Group, Comment], user_id: user.id
+      can :join, [Group, Trip]
       can :votes, Post
       can :read, :all
     else

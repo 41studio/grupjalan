@@ -1,15 +1,4 @@
 Rails.application.routes.draw do
-  get 'conversations/create'
-
-  get 'conversations/show'
-
-
-  # devise_for :admin_users, ActiveAdmin::Devise.config
-  devise_for :users, controllers: {
-    registrations: "users/registrations", 
-    omniauth_callbacks: "users/omniauth_callbacks"
-  }   
-
   apipie
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
@@ -30,6 +19,11 @@ Rails.application.routes.draw do
           get "search"
         end
 
+        member do
+          get "members"
+          get "posts"
+        end
+
         with_options only: [:create, :update, :destroy] do |option|
           option.resources :trips
           option.resources :posts do
@@ -47,8 +41,33 @@ Rails.application.routes.draw do
     end
   end
 
-  # You can have the root of your site routed with "root"
-   resources :users do
+  # admin
+  ActiveAdmin.routes(self)
+
+  # frontend
+  root "pages#index"
+  get 'conversations/create'
+  get 'conversations/show'
+  get 'mytrips', to: 'pages#mytrips', as: :mytrips
+  get 'sync/get_provinces'
+  get 'sync/get_cities'
+  get 'inbox', path: 'pesan', to: 'messages#inbox', as: :inbox
+
+  devise_for :users, controllers: {
+    registrations: "users/registrations", 
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
+
+  resources :messages, path: 'pesan', only: [:show] do
+    collection do
+      post "reply/:conversation_id", to: 'messages#reply', as: :reply
+      post ":recipient_id", to: 'messages#create', as: :create
+      get "recipients"
+      get "new/:recipient_id", path: 'baru/:recipient_id', to: 'messages#new', as: :new
+    end
+  end
+
+  resources :users do
     resources :messages, only: [:index, :create, :destroy] do
       collection do
         get :inbox
@@ -58,46 +77,21 @@ Rails.application.routes.draw do
       get :follow
       get :unfollow
     end
-   end
-   # root 'posts#home'
-
-   get 'index', to: 'posts#index', as: :index
-   get 'current_user_show', to: 'posts#current_user_show', as: :current_show
-   get 'show_profile',   to: 'posts#show_profile', as: :show_profile
-   get 'new_plan_step1', to: 'groups#new_plan_step1', as: :new_plan_step1
-   get 'new_plan_step2', to: 'groups#new_plan_step2', as: :new_plan_step2
-   get 'new_plan_step3', to: 'groups#new_plan_step3', as: :new_plan_step3
-   post 'new_plan_create_group', to: 'groups#new_plan_create_group', as: :new_plan_create_group
-   get 'new_plan_join_group', to: 'groups#new_plan_join_group', as: :new_plan_join_group
-  ActiveAdmin.routes(self)
-
-  root "pages#index"
+  end
   
-  get 'mytrips', to: 'pages#mytrips', as: :mytrips
-
-  get 'sync/get_provinces'
-  get 'sync/get_cities'
-
-  get 'quotes', to: 'posts#quotes', as: :quotes
-
   resources :plans, only: [:new, :create] do
     collection do
       get :search
     end
   end
 
-  
   resources :trips, only: nil do
-    member do
-      # get "group/:group_id", to: "trips#group", as: :group
-      # get "group/:group_id/members", to: "trips#members", as: :members_group
-    end
     collection do 
       get "popular"
     end
   end
 
-  resources :groups, only: [:edit, :update, :show], path: "grup" do
+  resources :groups, only: [:edit, :update, :show, :index], path: "grup" do
     member do
       post "join"
       delete "leave"
@@ -124,7 +118,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create, :destroy]
 
-    post "downvote", to: 'votes#downvote'
+    delete "downvote", to: 'votes#downvote'
     post "upvote", to: 'votes#upvote'
   end
   

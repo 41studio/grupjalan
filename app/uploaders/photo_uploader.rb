@@ -3,7 +3,11 @@
 class PhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :file
+  if Rails.env.production?
+    storage :fog
+  else
+    storage :file
+  end
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -11,7 +15,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # default image when no picture uploaded
   def default_url
-    "nopic.jpg"
+    ActionController::Base.helpers.asset_url('nopic.jpg')
   end
 
   version :thumb do

@@ -1,17 +1,17 @@
-$ ->
-  $('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on 'click', (event) ->
-    $panel = $(this).closest('.panel-google-plus')
-    $comment = $panel.find('.panel-google-plus-comment')
-    $comment.find('.btn:first-child').addClass 'disabled'
+$(document).ready ->
+  $('.input-comment, .panel-posts-comment .btn-close').on 'click', (event) ->
+    $panel = $(this).closest('.panel-posts')
+    $comment = $panel.find('.panel-posts-comment')
     $comment.find('textarea').val ''
-    $panel.toggleClass 'panel-google-plus-show-comment'
-    if $panel.hasClass('panel-google-plus-show-comment')
+    $panel.toggleClass 'panel-posts-show-comment'
+    $panel.find('.input-comment').toggleClass 'hide'
+    if $panel.hasClass('panel-posts-show-comment')
       $comment.find('textarea').focus()
     return
-  $('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on 'keyup', (event) ->
-    $comment = $(this).closest('.panel-google-plus-comment')
-    $comment.find('button[type="submit"]').addClass 'disabled'
+  $('.panel-posts-comment #comment_comment').on 'keyup', (event) ->
+    $comment = $(this).closest('.panel-posts-comment')
+    $comment.find('.btn-success').attr('disabled', '')
     if $(this).val().length >= 1
-      $comment.find('button[type="submit"]').removeClass 'disabled'
+      $comment.find('.btn-success').removeAttr 'disabled'
     return
   return

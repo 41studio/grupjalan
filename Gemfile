@@ -42,10 +42,13 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'apipie-rails'
 gem 'nprogress-rails'
 gem 'cancancan', '~> 1.10'
+gem "fog"
+gem 'mailboxer'
 
 group :development, :test do
   gem 'byebug'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.0'
 end
 
 group :development do
@@ -63,3 +66,9 @@ end
 group :production do 
 	gem 'rails_12factor'
 end  
+
+group :test do
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'database_cleaner'
+  gem 'simplecov', :require => false
+end

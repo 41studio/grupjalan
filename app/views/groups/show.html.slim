@@ -26,14 +26,18 @@
           li
             = link_to "Anggota", members_group_path(@group)
         ul.nav.navbar-nav.navbar-right
-          li
-            = link_to "Edit Grup", edit_group_path(@group)
+          - if user_signed_in? && !@group.user_ids.include?(current_user.id)
+            li
+              = link_to "Join", "#join", "data-toggle": 'modal', "data-target": '#join-group'
+          - if can? :edit, @group
+            li
+              = link_to "Edit Grup", edit_group_path(@group)
       /! /.navbar-collapse
   /! /#HEADER
 
   = render params[:action]
-
-
+- if user_signed_in? && !@group.user_ids.include?(current_user.id)
+  = render 'join'
 / .col-md-10
 /   = image_tag @group.photo_url, class: 'img-thumbnail'
   

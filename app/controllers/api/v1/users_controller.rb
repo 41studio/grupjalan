@@ -30,6 +30,7 @@ class Api::V1::UsersController < BaseApiController
       param :country, String, desc: 'data from /api/v1/countries'
       param :city, String, desc: 'data from /api/v1/cities'
       param :province, String, desc: 'data from /api/v1/provinces'
+      param :photo, ActionDispatch::Http::UploadedFile, desc: 'photo user'
     end
   end
 
@@ -106,7 +107,7 @@ class Api::V1::UsersController < BaseApiController
     end
 
     def user_update_params
-      params.require(:user).permit(:email, :first_name, :last_name, :neighborhood, :address, :gender, :birthday, :handphone, :status, :country, :city, :province, :username)
+      params.require(:user).permit(:email, :first_name, :last_name, :neighborhood, :address, :gender, :birthday, :handphone, :status, :country, :city, :province, :username, :photo)
     end
 
     def verify_user

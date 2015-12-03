@@ -1,6 +1,7 @@
 json.(@user, :id, :email, :username, :first_name, :last_name, :country, :province, :city, :neighborhood,
-  :address, :gender, :handphone, :status, :birthday, :created_at, :provider, :uid, :auth_token)
+  :address, :gender, :handphone, :status, :created_at, :provider, :uid, :auth_token)
 
+json.birthday @user.birthday_format
 json.photo do
   json.original @user.photo_url
   json.thumb @user.photo_url(:thumb)

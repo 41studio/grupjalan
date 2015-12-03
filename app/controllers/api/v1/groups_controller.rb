@@ -1,7 +1,8 @@
 class Api::V1::GroupsController < BaseApiController
   load_and_authorize_resource
 
-  before_action :set_group, only: [:update, :destroy]
+  skip_before_action :authenticate_user_from_token!, only: [:index, :show, :posts, :members]
+  before_action :set_group, only: [:update, :destroy, :members]
 
   def_param_group :search_group do
     param :start_to_trip, String, "Start to trip for group, format: 'dd/mm/yyyy'"
@@ -79,10 +80,18 @@ class Api::V1::GroupsController < BaseApiController
     ).page(params[:page])
   end
 
+  api :GET, '/v1/groups', "get groups, with pagination, order"
+  param :page, String, desc: 'Pagination page number'
+  param :order_by, String, desc: 'Order by column, ["created_at", "name"]'
+  param :order_type, String, desc: 'Order type ["desc", "asc"]'
+  def index
+    @groups = Group.order_by(params[:order_by], params[:order_type]).page(params[:page])
+  end
+
   api :GET, "/v1/groups/:id", 'get detail group'
   param :id, String, "Group id"
   def show
-    @group = Group.includes(posts: [:user, comments: [:user]]).find(params[:id])
+    @group = Group.find(params[:id])
   end
 
   api :POST, "/v1/groups", 'create group and create new trip'
@@ -118,6 +127,42 @@ class Api::V1::GroupsController < BaseApiController
     else
       render json: { errors: @group.errors }, status: 401
     end
+  end
+
+  api :GET, "/v1/groups/:id/members", 'members group'
+  param :id, String, required: true, desc: "Group id"
+  param :page, String, desc: "Pagination page number"
+  example '
+    [
+      {
+        "user_id": 1,
+        "full_name": "Dimas J. Taniawan",
+        "start_to_trip": "20/11/2015",
+        "end_to_trip": "25/11/2015"
+      },
+      {
+        "user_id": 3,
+        "full_name": "Henry Satam",
+        "start_to_trip": "20/11/2015",
+        "end_to_trip": "25/11/2015"
+      },
+      {
+        "user_id": 2,
+        "full_name": "Kris Dhinal",
+        "start_to_trip": "19/11/2015",
+        "end_to_trip": "21/11/2015"
+      }
+    ]
+  '
+  def members
+    @members = @group.trips.includes(:user).order(created_at: :desc).page(params[:page])
+  end
+
+  api :GET, "/v1/groups/:id/posts", 'Posts group'
+  param :id, String, required: true, desc: "Group id"
+  param :page, String, desc: "Pagination page number"
+  def posts
+    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
   end
 
   private

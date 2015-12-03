@@ -8,8 +8,7 @@
         = simple_form_for('', url: new_plan_path, method: :get) do |f|
           = f.error_notification
 
-          = f.input :destination_id, as: :hidden, input_html: { id: "group_id" }
-          = f.input :query, label: 'Tujuan', placeholder: 'ex: Pangandaran', input_html: { class: 'typeahead', autocomplete: "off", value: '', autofocus: true, required: true }
+          = f.input :query, label: 'Nama Grup', placeholder: 'ex: Pangandaran', input_html: { value: '', autofocus: true, required: true }
 
           = f.input "trip[start_to_trip]", as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from", required: true }
           

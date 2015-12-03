@@ -16,18 +16,18 @@ class PostsController < ApplicationController
     @post.group = @group
 
     if @post.save
-      flash[:success] = 'Post berhasil dibuat.'
+      flash[:success] = 'Berhasil membuat postingan.'
       redirect_to :back
     else
-      flash[:danger]  = 'Post gagal dibuat.'
+      flash[:danger]  = 'Gagal membuat postingan.'
       redirect_to :back
     end
   end
 
   def update
     if @post.update(post_params)
-      flash[:success] = 'Post berhasil diupdate.'
-      redirect_to :back
+      flash[:success] = 'Postingan berhasil diupdate.'
+      redirect_to posts_group_path(@post.group)
     else
       render :edit
     end

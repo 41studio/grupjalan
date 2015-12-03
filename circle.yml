@@ -1,0 +1,10 @@
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: grupjalan
+
+machine:
+  ruby:
+    version:
+      2.2.2
