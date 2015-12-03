@@ -2,21 +2,17 @@
 #
 # Table name: groups
 #
-#  id             :integer          not null, primary key
-#  name           :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
-#  location       :string
-#  lat            :float
-#  lng            :float
-#  photo          :string
-#  image          :string
-#  slug           :string
-#  destination_id :integer
-#  categories     :text             default([]), is an Array
-#  description    :text
-#  members_count  :integer
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  location   :string
+#  lat        :float
+#  lng        :float
+#  photo      :string
+#  image      :string
+#  slug       :string
 #
 # Indexes
 #
