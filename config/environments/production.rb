@@ -97,7 +97,7 @@ Rails.application.configure do
     }
 
   config.assets.precompile << Proc.new { |path| path =~ /font-awesome\/fonts/ and File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff']) }  
-  config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
-  config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+  config.aws_access_key_id = ENV['S3_ACCESS_KEY']
+  config.aws_secret_access_key = ENV['S3_SECRET_KEY']
    
 end
