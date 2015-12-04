@@ -4,8 +4,12 @@
       - @groups.each do |group|
         = link_to group_path(group), class: 'list-group-item item-group' do
           .col-md-4.no-padding-left
-            figure
-              = image_tag(group.photo_url(:medium))
+            - if group.photo.blank?
+              figure
+                = holder_tag '140x100', 'Example text', 'gray'
+            -else  
+              figure
+                = image_tag(group.photo_url(:medium))
           .col-md-8.no-padding-right
             h4.list-group-item-heading= group.name
             p.list-group-item-text= group.location

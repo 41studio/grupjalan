@@ -1,12 +1,13 @@
-#join-group.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        button.close aria-label="Close" data-dismiss="modal" type="button" 
-          span aria-hidden="true" &times;
-        h4.modal-title Gabung Ke Grup
-        = simple_form_for(@trip, url: join_group_path(@group)) do |f|
+.row.search-group
+  .col-md-12.col-md-offset
+    .panel.panel-default
+      .panel-body
+        = simple_form_for(@trip, url: trip_path(@trip, :group_id => @group.id)) do |f|
+          = f.error_notification
+
           = f.input :start_to_trip, as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from", required: true }
           
           = f.input :end_to_trip, as: :string, label: 'Mengakhiri Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_to", disabled: true, required: true }
-          = f.submit "Gabung Grup", class: 'btn btn-success'
+          
+          .form-group
+            = f.submit 'update', class: "btn btn-success btn-block"

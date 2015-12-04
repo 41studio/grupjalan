@@ -98,6 +98,7 @@ Rails.application.routes.draw do
       get "members", path: 'anggota'
       get "about", path: 'tentang'
       get "posts", path: 'postingan'
+      get "same", path: 'sama'
     end
 
     collection do 

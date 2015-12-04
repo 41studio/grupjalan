@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   
   before_action :authenticate_user!
   before_action :set_group, except: [:autocomplete, :index]
-  before_action :set_new_trip, only: [:show, :members, :posts, :edit]
+  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same]
   
   def autocomplete
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
 
   def members
     @members = @group.trips.includes(:user)
-    render "show"
+    render :show
   end
 
   def update
@@ -32,6 +32,7 @@ class GroupsController < ApplicationController
       render :show
     end
   end
+
 
   def join
     trip = @group.trips.new(trip_params)
@@ -61,13 +62,26 @@ class GroupsController < ApplicationController
     @groups = Group.explore(params[:search]).page(params[:page])
   end
 
+  def same
+    @sames = @group.trips.joins(:group).includes(:user).where(
+        "start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+        {
+          start_to_trip: current_user.trips.where(group: @group).first.start_to_trip,
+          end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
+        }
+      )
+    render :show
+  end  
+
   private
-    def set_trip
-      @trip = Trip.friendly.find(params[:trip_id])
-    end
+
 
     def set_new_trip
-      @trip = Trip.new
+      if user_signed_in? && !@group.user_ids.include?(current_user.id)
+        @trip = Trip.new
+      else   
+        @trip = Trip.where(group_id: @group.id, user_id: current_user.id).first
+      end  
     end
 
     def set_group

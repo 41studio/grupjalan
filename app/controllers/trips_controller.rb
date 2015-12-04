@@ -38,6 +38,15 @@ class TripsController < ApplicationController
     redirect_to group_trip_path(@group, @trip)
   end
 
+  def update
+    if @trip.update(trip_params)
+      flash[:success] = 'Tanggal berhasil diupdate.'
+      redirect_to group_path(@group)
+    else  
+      render :show
+    end  
+  end  
+
   private
     def set_trip
       @trip = Trip.find(params[:id])
@@ -49,6 +58,6 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-      params.require(:trip).permit(:name_place, :group_id)
+      params.require(:trip).permit(:name_place, :group_id, :start_to_trip, :end_to_trip)
     end
 end

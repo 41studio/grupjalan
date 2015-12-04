@@ -287,6 +287,8 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.3)
+    holder_rails (2.8.0)
+      railties (>= 3.1.0)
     i18n (0.7.0)
     ice_nine (0.11.1)
     inflecto (0.0.2)
@@ -575,6 +577,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   fog
   friendly_id (~> 5.1.0)
+  holder_rails
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks

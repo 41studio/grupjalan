@@ -44,6 +44,7 @@ gem 'nprogress-rails'
 gem 'cancancan', '~> 1.10'
 gem "fog"
 gem 'mailboxer'
+gem 'holder_rails'
 
 group :development, :test do
   gem 'byebug'

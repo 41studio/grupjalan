@@ -1,0 +1,13 @@
+button.btn.btn-custom.btn-sm.btn-round data-target=".bs-example-modal-md" data-toggle="modal" type="button"  Edit Date
+.modal.fade.bs-example-modal-md aria-labelledby="myLargeModalLabel" role="dialog" tabindex="-1" 
+  .modal-dialog.modal-md
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true"  &times;
+        h4#myModalLabel.modal-title
+          b Edit tanggal berangkat
+      .modal-body
+        = render 'form_date_edit' 
+      .modal-footer
+        button.btn.btn-custom.btn-round data-dismiss="modal" type="button"  Close

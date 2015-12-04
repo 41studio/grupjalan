@@ -17,6 +17,7 @@
 //= require groups
 //= require spin.ajax
 //= require turbolinks
+//= require holder
 
 $(function(){
   $('#quote-carousel').carousel({
@@ -140,6 +141,8 @@ $(function(){
     $("#group_id").val(datum.value);
   });
 
-  var time = $('.timetostr').html();
-  var toStr = $('.timetostr').html(moment(new Date(time)).format('ddd, DD MMM YYYY'))
+  $('.timetostr').each(function(){
+    var time = $(this).html();
+    var toStr = $(this).html(moment(new Date(time)).format('ddd, DD MMM YYYY'))
+  })
 });

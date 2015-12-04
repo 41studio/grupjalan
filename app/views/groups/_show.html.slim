@@ -21,6 +21,16 @@
           dt Dibuat pada :
           dd
             span.timetostr= @group.created_at
+
+          - if @trip.persisted?
+            dt Mulai Perjalanan :
+            dd  
+              span.timetostr = @trip.start_to_trip 
+
+            dt Akhir Perjalanan :
+            dd  
+              span.timetostr = @trip.end_to_trip
+
       .col-xs-12.col-sm-6.text-center
         #map style="width:100%; height: 250px"
       .clearfix
