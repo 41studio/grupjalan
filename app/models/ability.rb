@@ -14,6 +14,7 @@ class Ability
       can :create, [Group, Post, Comment]
       can :modify, [Post, Trip, Group, Comment], user_id: user.id
       can :join, [Group, Trip]
+      can :create, Trip
       can :votes, Post
       can :read, :all
     else
