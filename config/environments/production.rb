@@ -97,5 +97,6 @@ Rails.application.configure do
     }
 
   config.assets.precompile << Proc.new { |path| path =~ /font-awesome\/fonts/ and File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff']) }  
-
+  
+   
 end

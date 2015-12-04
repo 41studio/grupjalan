@@ -18,21 +18,10 @@
 #  index_trips_on_user_id         (user_id)
 #
 
-class Trip < ActiveRecord::Base
-  paginates_per 10
+require 'test_helper'
 
-  with_options dependent: :destroy do |assoc|
-    assoc.has_many :posts
-  end
-  has_and_belongs_to_many :users
-  belongs_to :user
-  belongs_to :group, counter_cache: :members_count
-  belongs_to :destination
-  
-  def calculate_member_size
-    self.member_size = self.users.count
-    self.save
-  end
-
-  validates :start_to_trip, :end_to_trip, presence: true
+class TripTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

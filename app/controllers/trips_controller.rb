@@ -28,6 +28,10 @@ class TripsController < ApplicationController
     redirect_to group_trip_path(@group, @trip)
   end
 
+  def popular
+   @popular_trips = Trip.order(member_size: :desc).page params[:page]
+  end  
+
   def join
     @trip.users << current_user
     flash[:success] = "Kamu berhasil join trip ini."

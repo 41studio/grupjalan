@@ -28,17 +28,10 @@
 #  index_posts_on_user_id                  (user_id)
 #
 
-class Post < ActiveRecord::Base
-  mount_uploader :photo, PhotoUploader
-  mount_uploader :video, VideoUploader
+require 'test_helper'
 
-  acts_as_commentable
-  acts_as_votable
-  
-  belongs_to :user
-  belongs_to :group
-
-  validates :description, presence: true
-
-  scope :by_group, -> (group_id) { where(group_id: group_id) }
+class PostTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end
