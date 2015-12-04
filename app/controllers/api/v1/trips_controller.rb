@@ -15,13 +15,13 @@ class Api::V1::TripsController < BaseApiController
   param_group :trip_params
   def create
     if @group.user_ids.include? current_user.id
-      render json: { success: 'Kamu sudah join grup ini.' }, status: :ok
+      render json: { success: 'Kamu sudah gabung ke grup ini sebelumnya.' }, status: :ok
     else
       trip = @group.trips.new(trip_params)
       trip.user_id = current_user.id
 
       if trip.save
-        render json: { success: 'Berhasil join ke grup.' }, status: :ok
+        render json: { success: 'Berhasil gabung ke grup.' }, status: :ok
       else
         render json: { errors: trip.errors }, status: 401
       end
