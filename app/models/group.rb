@@ -28,6 +28,7 @@ class Group < ActiveRecord::Base
 	# searchkick text_start: [:name_place],autocomplete: ['name_place']
 	mount_uploader :photo, PhotoUploader
 	mount_uploader :image, ImageUploader
+  
 
 	CATEGORIES = ['Pantai', 'Wisata', 'Laut', 'Taman']
 
@@ -50,6 +51,7 @@ class Group < ActiveRecord::Base
 	belongs_to :destination
 	
 	validates :name, :user_id, :location, :lat, :lng, presence: true
+
 
 	def self.order_by(column = 'created_at', type = 'desc')
 		columns = ['created_at', 'name']

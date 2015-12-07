@@ -88,6 +88,8 @@ class User < ActiveRecord::Base
 
   # after_update :create_group # disable auto grouping
 
+ 
+
   def self.from_omniauth(auth)
     user = User.where("(provider = ? AND uid = ?) OR email = ? ", auth.provider, auth.uid, auth.info.email).first_or_initialize
 

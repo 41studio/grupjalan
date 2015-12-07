@@ -24,6 +24,7 @@ gem 'omniauth-twitter'
 gem 'koala', '~> 2.2'
 gem 'carrierwave'
 gem 'mini_magick'
+# gem 'jcrop-rails-v2'
 gem 'carrierwave-video'
 gem 'streamio-ffmpeg'
 gem 'rack-mini-profiler'
@@ -45,6 +46,7 @@ gem 'cancancan', '~> 1.10'
 gem "fog"
 gem 'mailboxer'
 gem 'holder_rails'
+# gem 'smartcropper'
 
 group :development, :test do
   gem 'byebug'
@@ -62,6 +64,7 @@ group :development do
   gem 'rails_best_practices'
   gem 'letter_opener'
   gem 'bullet'
+  gem 'meta_request'
 end
 
 group :production do 

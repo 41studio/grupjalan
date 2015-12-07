@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   
   before_action :authenticate_user!
   before_action :set_group, except: [:autocomplete, :index]
-  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same]
+  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update]
   
   def autocomplete
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
