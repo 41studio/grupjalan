@@ -19,7 +19,7 @@ class TripsController < ApplicationController
     @members = @trip.users
     @posts = @trip.posts.includes(:user, :group, comments: [:user])
     
-    render "show"
+    render :show
   end
 
   def leave

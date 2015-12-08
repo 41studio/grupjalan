@@ -23,8 +23,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'koala', '~> 2.2'
 gem 'carrierwave'
-gem 'mini_magick'
-# gem 'jcrop-rails-v2'
+gem 'rmagick'
 gem 'carrierwave-video'
 gem 'streamio-ffmpeg'
 gem 'rack-mini-profiler'
@@ -46,7 +45,7 @@ gem 'cancancan', '~> 1.10'
 gem "fog"
 gem 'mailboxer'
 gem 'holder_rails'
-# gem 'smartcropper'
+gem 'smartcropper'
 
 group :development, :test do
   gem 'byebug'

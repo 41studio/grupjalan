@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class PhotoUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
+  include CarrierWave::RMagick
 
   if Rails.env.production?
     storage :fog
@@ -18,34 +18,35 @@ class PhotoUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.asset_url('nopic.jpg')
   end
 
-#  def smart_crop_and_scale(width, height)
-#     manipulate! do |img|
-#       img = SmartCropper.new(img)
-#       img = img.smart_crop_and_scale(width, height)
-#       img = yield(img) if block_given?
-#       img
-#     end
-# end
+ def smart_crop_and_scale(width, height)
+    manipulate! do |img|
+      img = SmartCropper.new(img)
+      img = img.smart_crop_and_scale(width, height)
+      img = yield(img) if block_given?
+      img
+    end
+end
 
 
   version :thumb do
-    process :resize_to_fill => [50, 50]
-    process crop: '50x50+0+0'
+    process :smart_crop_and_scale => [50, 50]
+    # process :resize_to_fill => [50, 50]
+    
   end
 
   version :small do
-    process :resize_to_fill => [100, 100]
-    process crop: '100x100+0+0'
+    process :smart_crop_and_scale => [100, 100]
+    # process :resize_to_fill => [100, 100]
   end
 
   version :medium do 
-    process :resize_to_fill => [140, 100]
-    process crop: '140x100+0+0'
+    process :smart_crop_and_scale => [140, 100]
+    # process :resize_to_fill => [140, 100]
   end 
 
   version :cover do
-    process :resize_to_fill => [851, 315]
-    process crop: '851x315+0+0'
+    # process :smart_crop_and_scale => [1140, 315]
+    process :resize_to_fill => [1140, 315]
   end
    
   def extension_white_list
@@ -53,28 +54,28 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
 
-   private
+   # private
 
-    # Simplest way
-    def crop(geometry)
-      manipulate! do |img|      
-        img.crop(geometry)
-        img
-      end    
-    end
+   #  # Jalan Sementara
+   #  def crop(geometry)
+   #    manipulate! do |img|      
+   #      img.crop(geometry)
+   #      img
+   #    end    
+   #  end
 
-    # Resize and crop square from Center
-    def resize_and_crop(size)  
-      manipulate! do |image|                 
-        if image[:width] < image[:height]
-          remove = ((image[:height] - image[:width])/2).round 
-          image.shave("0x#{remove}") 
-        elsif image[:width] > image[:height] 
-          remove = ((image[:width] - image[:height])/2).round
-          image.shave("#{remove}x0")
-        end
-        image.resize("#{size}x#{size}")
-        image
-      end
-    end
+   #  # Fungsi untuk crop photo
+   #  def resize_and_crop(size)  
+   #    manipulate! do |image|                 
+   #      if image[:width] < image[:height]
+   #        remove = ((image[:height] - image[:width])/2).round 
+   #        image.shave("0x#{remove}") 
+   #      elsif image[:width] > image[:height] 
+   #        remove = ((image[:width] - image[:height])/2).round
+   #        image.shave("#{remove}x0")
+   #      end
+   #      image.resize("#{size}x#{size}")
+   #      image
+   #    end
+   #  end
 end

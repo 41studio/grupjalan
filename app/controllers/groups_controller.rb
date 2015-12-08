@@ -13,14 +13,17 @@ class GroupsController < ApplicationController
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
     @group_messages = @group.messages.includes(:user).order("created_at desc")
     @message = Message.new
+    @action = 'show'
   end  
 
   def edit
+    @action = 'edit'
     render :show
   end 
 
   def members
     @members = @group.trips.includes(:user)
+    @action = 'members'
     render :show
   end
 
@@ -29,6 +32,7 @@ class GroupsController < ApplicationController
       flash[:success] = 'Grup berhasil diupdate.'
       redirect_to group_path(@group)
     else
+      @action = 'edit'
       render :show
     end
   end
@@ -55,6 +59,7 @@ class GroupsController < ApplicationController
   def posts
     @post = Post.new
     @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
+    @action = 'posts'
     render :show
   end
 
@@ -70,6 +75,7 @@ class GroupsController < ApplicationController
           end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
         }
       )
+    @action = 'same'
     render :show
   end  
 
