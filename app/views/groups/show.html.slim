@@ -32,8 +32,9 @@
             = link_to "Postingan", posts_group_path(@group)
           li
             = link_to "Anggota", members_group_path(@group)
-          li
-            = link_to "Sama", same_group_path(@group)    
+          - if @group.user_ids.include?(current_user.id)
+            li
+              = link_to "Sama", same_group_path(@group)    
 
         ul.nav.navbar-nav.navbar-right
           - if user_signed_in? && !@group.user_ids.include?(current_user.id)
