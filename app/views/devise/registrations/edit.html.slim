@@ -21,6 +21,8 @@
         = f.input :city, :collection => options_cities(current_user), input_html: { class: "form-control city-dropdown", disabled: current_user.province.blank? }
           
         = f.input :neighborhood, placeholder: "Daerah mu", input_html: { class: "form-control" }
+
+        / = f.input :role, :collection => User::ROLE
         
         = f.input :address, as: :text, placeholder: "Alamat kamu", input_html: { class: "form-control" }
         

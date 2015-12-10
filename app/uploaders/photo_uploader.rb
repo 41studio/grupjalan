@@ -25,7 +25,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
       img = yield(img) if block_given?
       img
     end
-end
+ end
 
 
   version :thumb do

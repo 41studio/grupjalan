@@ -16,6 +16,7 @@ class Ability
       can :join, [Group, Trip]
       can :create, Trip
       can :votes, Post
+      can :same, Group
       can :read, :all
     else
       can :read, :all

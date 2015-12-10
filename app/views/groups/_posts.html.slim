@@ -7,6 +7,9 @@
           ul
             li
               = f.input :photo, label_html: { "data-original-title": 'Picture', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default' }, label: '<i class="fa fa-picture-o"></i>'.html_safe, input_html: { class: 'hide' }
+          ul
+            li
+              = f.input :video, label_html: { "data-original-title": 'Video', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default'}, label: '<i class="fa fa-video-camera"></i>'.html_safe, input_html: { class: 'hide' }    
           button.btn.btn-success.green type="submit" 
             i.fa.fa-share
             | Share
@@ -39,6 +42,10 @@
           p= strip_tags(post.description)
           - unless post.photo.file.nil?
             = image_tag post.photo_url, class: 'img-responsive'
+        / .panel-body
+        /   / p= strip_tags(post.description)
+        /   - unless post.video.file.nil?
+        /     = video_tag post.video, controls: true, autobuffer: true, size: '500x300'    
         .panel-footer
           .input-group
             .input-group-btn
