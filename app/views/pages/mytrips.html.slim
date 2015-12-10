@@ -1,5 +1,5 @@
 .col-md-8
-  h1 Mytrips List
+  h1 Trip Saat Ini
   hr
 
   table.table.table-hover.table-bordered.table-striped
@@ -16,3 +16,23 @@
           td= trip.start_to_trip
           td= trip.end_to_trip
           td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
+  hr
+
+.col-md-8
+  h1 Trip Lama 
+  hr
+
+  table.table.table-hover.table-bordered.table-striped
+    thead
+      tr
+        th Group
+        th Start to Trip
+        th End to Trip
+        th Action
+    tbody
+      - @old_trips.each do |old|
+        tr
+          td= link_to old.group.name, group_path(old.group)
+          td= old.start_to_trip
+          td= old.end_to_trip
+          td= link_to 'Show', group_path(old.group, old), class: "btn btn-info btn-sm"          
