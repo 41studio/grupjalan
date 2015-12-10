@@ -8,12 +8,12 @@ class TripsController < ApplicationController
     @posts = @trip.posts.includes(:user, :group, comments: [:user])
   end
 
-  def join
-    @trip.users << current_user 
-    @trip.calculate_member_size
-    flash[:success] = "Kamu berhasil join trip ini."
-    redirect_to trip_path(@trip)
-  end
+  # def join
+  #   @trip.users << current_user 
+  #   @trip.calculate_member_size
+  #   flash[:success] = "Kamu berhasil join trip ini."
+  #   redirect_to trip_path(@trip)
+  # end
 
   def members
     @members = @trip.users
@@ -28,24 +28,24 @@ class TripsController < ApplicationController
     redirect_to group_trip_path(@group, @trip)
   end
 
-  def popular
-   @popular_trips = Trip.order(member_size: :desc).page params[:page]
-  end  
+  # def popular
+  #  @popular_trips = Trip.order(member_size: :desc).page params[:page]
+  # end  
 
-  def join
-    @trip.users << current_user
-    flash[:success] = "Kamu berhasil join trip ini."
-    redirect_to group_trip_path(@group, @trip)
-  end
+  # def join
+  #   @trip.users << current_user
+  #   flash[:success] = "Kamu berhasil join trip ini."
+  #   redirect_to group_trip_path(@group, @trip)
+  # end
 
-  def update
-    if @trip.update(trip_params)
-      flash[:success] = 'Tanggal berhasil diupdate.'
-      redirect_to group_path(@group)
-    else  
-      render :show
-    end  
-  end  
+  # def update
+  #   if @trip.update(trip_params)
+  #     flash[:success] = 'Tanggal berhasil diupdate.'
+  #     redirect_to group_path(@group)
+  #   else  
+  #     render :show
+  #   end  
+  # end  
 
   private
     def set_trip
