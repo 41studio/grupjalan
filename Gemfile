@@ -46,6 +46,7 @@ gem "fog"
 gem 'mailboxer'
 gem 'holder_rails'
 gem 'smartcropper'
+gem 'geokit'
 
 group :development, :test do
   gem 'byebug'

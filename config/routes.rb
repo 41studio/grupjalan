@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   # frontend
-  root "pages#index"
+  root 'pages#index'
   get 'conversations/create'
   get 'conversations/show'
   get 'mytrips', to: 'pages#mytrips', as: :mytrips

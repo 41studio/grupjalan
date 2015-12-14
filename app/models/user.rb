@@ -86,6 +86,8 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
   validates :gender, inclusion: { in: %w(male female), message: '%{value} is not a valid gender.' }
 
+  # after_save :create_group_by_location
+
   # after_update :create_group # disable auto grouping
 
  
@@ -170,4 +172,23 @@ class User < ActiveRecord::Base
   def mailboxer_email(object)
     email
   end
+
+  # def create_group_by_location
+  #   group = Geokit::Geocoders::GoogleGeocoder.geocode '#{self.neighborhood}'
+  #   # Group.where(name: self.country).first_or_create
+  #   # Group.where(name: self.province).first_or_create
+  #   # Group.where(name: self.city).first_or_create
+  #   # Group.where(name: self.neighborhood).first_or_create
+  #   Group.find_or_create_by(name: self.neighborhood) do |group|
+  #     group.user_id = '#{self.id}'
+  #     group.location= '#{self.neighborhood}'
+  #     group.id = '#{group.id}'
+  #     group.lat = '#{group.lat}'
+  #     group.lng = '#{group.lng}'
+  #  end  
+  #   # Group.find_or_create_by(user_id: self.id)
+  #   # Group.find_or_create_by(location: self.neighborhood)
+  #   # Group.find_or_create_by(lat: self.neighborhood)
+  #   # Group.find_or_create_by(lng: self.neighborhood)
+  # end
 end

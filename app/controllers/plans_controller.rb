@@ -1,14 +1,14 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_trips, only: [:new, :create]
 
   def search
     @trip = Trip.new
   end
 
   def new
-    @group = Group.new
+    @group = Group.new 
 
-    set_trips
   end
 
   def create
@@ -21,7 +21,6 @@ class PlansController < ApplicationController
       flash[:notice] =  'Grup berhasil dibuat.'
       redirect_to group_url(@group)
     else
-      set_trips
       render :new
     end
   end
@@ -38,7 +37,7 @@ class PlansController < ApplicationController
         {
           start_to_trip: (params[:trip][:start_to_trip].to_date rescue nil),
           end_to_trip: (params[:trip][:end_to_trip].to_date rescue nil),
-          name: "%#{params[:query].downcase}%"
+          name: ("%#{params[:query].downcase}%" rescue '') 
         }
       )
      

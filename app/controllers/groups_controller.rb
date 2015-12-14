@@ -53,7 +53,7 @@ class GroupsController < ApplicationController
   def leave
     @group.users.delete(current_user)
     flash[:success] = "Kamu berhasil keluar dari grup ini."
-    redirect_to group_path(@group)
+    redirect_to :back
   end
 
   def posts
@@ -73,6 +73,7 @@ class GroupsController < ApplicationController
         {
           start_to_trip: current_user.trips.where(group: @group).first.start_to_trip,
           end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
+          
         }
       )
     @action = 'same'
@@ -99,7 +100,7 @@ class GroupsController < ApplicationController
     end
 
     def trip_params
-      params.require(:trip).permit(:start_to_trip, :end_to_trip)
+      params.require(:trip).permit(:start_to_trip, :end_to_trip, :pribumi)
     end
 end
 

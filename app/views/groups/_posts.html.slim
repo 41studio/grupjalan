@@ -2,17 +2,18 @@
   .new-post
     .widget-area.no-padding.blank
       .status-upload
-        = simple_form_for @post, url: group_posts_path(@group) do |f|
-          = f.input :description, label: false, input_html: { placeholder: 'What you have done here?', class: 'no-resize' }
-          ul
-            li
-              = f.input :photo, label_html: { "data-original-title": 'Picture', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default' }, label: '<i class="fa fa-picture-o"></i>'.html_safe, input_html: { class: 'hide' }
-          / ul
-          /   li
-          /     = f.input :video, label_html: { "data-original-title": 'Video', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default'}, label: '<i class="fa fa-video-camera"></i>'.html_safe, input_html: { class: 'hide' }    
-          button.btn.btn-success.green type="submit" 
-            i.fa.fa-share
-            | Share
+        - if @group.user_ids.include?(current_user.id)
+          = simple_form_for @post, url: group_posts_path(@group) do |f|
+            = f.input :description, label: false, input_html: { placeholder: 'What you have done here?', class: 'no-resize' }
+            ul
+              li
+                = f.input :photo, label_html: { "data-original-title": 'Picture', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default' }, label: '<i class="fa fa-picture-o"></i>'.html_safe, input_html: { class: 'hide' }
+            / ul
+            /   li
+            /     = f.input :video, label_html: { "data-original-title": 'Video', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default'}, label: '<i class="fa fa-video-camera"></i>'.html_safe, input_html: { class: 'hide' }    
+            button.btn.btn-success.green type="submit" 
+              i.fa.fa-share
+              | Share
       /! Status Upload
     /! Widget Area
   
@@ -39,7 +40,8 @@
             span Diposting pada 
             span.timetostr= post.created_at
         .panel-body
-          p= strip_tags(post.description)
+          .text-justify
+            p= strip_tags(post.description)
           - unless post.photo.file.nil?
             = image_tag post.photo_url, class: 'img-responsive'
         / .panel-body

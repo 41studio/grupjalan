@@ -22,11 +22,11 @@ class TripsController < ApplicationController
     render :show
   end
 
-  def leave
-    @trip.users.delete(current_user)
-    flash[:success] = "Kamu berhasil keluar dari trip ini."
-    redirect_to group_trip_path(@group, @trip)
-  end
+  # def leave
+  #   @trip.users.delete(current_user)
+  #   flash[:success] = "Kamu berhasil keluar dari trip ini."
+  #   redirect_to group_trip_path(@group, @trip)
+  # end
 
   # def popular
   #  @popular_trips = Trip.order(member_size: :desc).page params[:page]
@@ -38,14 +38,14 @@ class TripsController < ApplicationController
   #   redirect_to group_trip_path(@group, @trip)
   # end
 
-  # def update
-  #   if @trip.update(trip_params)
-  #     flash[:success] = 'Tanggal berhasil diupdate.'
-  #     redirect_to group_path(@group)
-  #   else  
-  #     render :show
-  #   end  
-  # end  
+  def update
+    if @trip.update(trip_params)
+      flash[:success] = 'Tanggal berhasil diupdate.'
+    else
+      flash[:success] = 'Tanggal tidak boleh kosong'
+    end  
+      redirect_to group_path(@group)
+  end  
 
   private
     def set_trip
@@ -58,6 +58,6 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-      params.require(:trip).permit(:name_place, :group_id, :start_to_trip, :end_to_trip)
+      params.require(:trip).permit(:name_place, :group_id, :start_to_trip, :end_to_trip, :pribumi)
     end
 end

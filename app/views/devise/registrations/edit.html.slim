@@ -42,4 +42,4 @@
           = link_to "Back", root_path, class: "btn3d btn btn-default btn-md"
     
     .col-md-4
-      = image_tag current_user.photo.medium.url, class: "img-rounded", width: '100%'
+      = image_tag current_user.photo_url(:medium), class: "img-rounded", width: '100%'

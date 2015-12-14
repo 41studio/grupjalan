@@ -2,17 +2,24 @@
 #
 # Table name: posts
 #
-#  id             :integer          not null, primary key
-#  title          :string
-#  photo          :string
-#  video          :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  user_id        :integer
-#  description    :text
-#  trip_id        :integer
-#  group_id       :integer
-#  comments_count :integer          default(0)
+#  id                      :integer          not null, primary key
+#  title                   :string
+#  photo                   :string
+#  video                   :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  user_id                 :integer
+#  description             :text
+#  trip_id                 :integer
+#  group_id                :integer
+#  comments_count          :integer          default(0)
+#  cached_votes_total      :integer          default(0)
+#  cached_votes_score      :integer          default(0)
+#  cached_votes_up         :integer          default(0)
+#  cached_votes_down       :integer          default(0)
+#  cached_weighted_score   :integer          default(0)
+#  cached_weighted_total   :integer          default(0)
+#  cached_weighted_average :float            default(0.0)
 #
 # Indexes
 #
@@ -30,7 +37,7 @@
 
 class Post < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
-  mount_uploader :video, VideoUploader
+  # mount_uploader :video, VideoUploader
 
   acts_as_commentable
   acts_as_votable

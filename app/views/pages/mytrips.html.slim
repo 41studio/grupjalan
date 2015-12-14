@@ -12,7 +12,7 @@
     tbody
       - @trips.each do |trip|
         tr
-          td= link_to trip.group.name, group_path(trip.group)
+          td= trip.group.name
           td= trip.start_to_trip
           td= trip.end_to_trip
           td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
@@ -32,7 +32,7 @@
     tbody
       - @old_trips.each do |old|
         tr
-          td= link_to old.group.name, group_path(old.group)
+          td= old.group.name
           td= old.start_to_trip
           td= old.end_to_trip
-          td= link_to 'Show', group_path(old.group, old), class: "btn btn-info btn-sm"          
+          td= link_to 'Show', group_path(old.group, old), class: "btn btn-primary btn-sm"          

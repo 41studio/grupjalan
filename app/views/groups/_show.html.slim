@@ -22,7 +22,7 @@
           dd
             span.timetostr= @group.created_at
 
-          - if @trip.persisted?
+          - if @trip.persisted? && @trip.pribumi == false
             dt Mulai Perjalanan :
             dd  
               span.timetostr = @trip.start_to_trip 
@@ -30,6 +30,12 @@
             dt Akhir Perjalanan :
             dd  
               span.timetostr = @trip.end_to_trip
+
+          - else
+            dt Status :
+            dd 
+              span
+              | Pribumi       
 
       .col-xs-12.col-sm-6.text-center
         #map style="width:100%; height: 250px"

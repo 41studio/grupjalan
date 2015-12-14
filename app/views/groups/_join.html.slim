@@ -6,7 +6,8 @@
           span aria-hidden="true" &times;
         h4.modal-title Gabung Ke Grup
         = simple_form_for(@trip, url: join_group_path(@group)) do |f|
-          = f.input :start_to_trip, as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from", required: true }
+          = f.input :start_to_trip, as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from date_hide", required: true }
           
-          = f.input :end_to_trip, as: :string, label: 'Mengakhiri Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_to", disabled: true, required: true }
+          = f.input :end_to_trip, as: :string, label: 'Mengakhiri Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_to date_hide", disabled: true, required: true }
+          = f.input :pribumi, input_html: { class: "pribumi" }
           = f.submit "Gabung Grup", class: 'btn btn-success'

@@ -7,13 +7,17 @@
       .info
         .title
           = link_to member.user.full_name, ''
-        .desc
-          strong Mulai Perjalanan : 
-          span.timetostr= member.start_to_trip
-          
-        .desc
-          strong Akhir Perjalanan : 
-          span.timetostr= member.end_to_trip
+        - if member.pribumi == true
+          .desc
+            h4 pribumi
+        -else    
+          .desc
+            strong Mulai Perjalanan : 
+            span.timetostr= member.start_to_trip
+            
+          .desc
+            strong Akhir Perjalanan : 
+            span.timetostr= member.end_to_trip
 
       .bottom
         - unless member.user_id.eql? current_user.id

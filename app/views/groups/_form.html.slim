@@ -10,7 +10,7 @@
   = f.input :image, as: :file, label: 'Logo'
   = f.input :photo, as: :file, label: 'Cover'
   = f.input :category_id, collection: Group::CATEGORIES, label: 'Category', include_blank: true, input_html: { class: 'form-control'}
-  = f.input  :location, label: 'Lokasi', input_html: { class: "form-control", id: "us2-address" }
+  = f.input :location, label: 'Lokasi', input_html: { class: "form-control", id: "us2-address" }
 
   .form-actions
     = f.button :submit, class: "btn3d btn btn-primary btn-md"
