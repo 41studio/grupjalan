@@ -17,6 +17,7 @@ class Ability
       can :create, Trip
       can :votes, Post
       can :same, Group
+      can :leave, Group
       can :read, :all
     else
       can :read, :all

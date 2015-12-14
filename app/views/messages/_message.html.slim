@@ -9,7 +9,8 @@
           small.pull-right.text-muted
             span.glyphicon.glyphicon-time
             = "#{time_ago_in_words(message.created_at)} ago"
-        p= message.body
+        .text-justify    
+          p= message.body
   - else
     li.right.clearfix
       span.chat-img.pull-right
