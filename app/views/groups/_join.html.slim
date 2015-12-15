@@ -5,6 +5,7 @@
         button.close aria-label="Close" data-dismiss="modal" type="button" 
           span aria-hidden="true" &times;
         h4.modal-title Gabung Ke Grup
+        hr
         = simple_form_for(@trip, url: join_group_path(@group)) do |f|
           = f.input :start_to_trip, as: :string, label: 'Mulai Perjalanan', placeholder: 'yyyy-mm-dd', input_html: { class: "form-control datepicker_from date_hide", required: true }
           
