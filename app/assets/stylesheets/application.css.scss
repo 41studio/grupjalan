@@ -12,25 +12,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-@font-face{
-  font-family:'FontAwesome';
-  src:url('ogi/bete/font/fontawesome-webfont.eot?v=3.0.1');
-  src:url('/ogi/bete/font/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'), 
-  url('/ogi/bete/font/fontawesome-webfont.woff?v=3.0.1') format('woff'),
-  url('ogi/bete/font/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
-  font-weight:normal;
-  font-style:normal }
-
-[class^="icon-"]:before,
-[class*=" icon-"]:before
-{
-  font-family:FontAwesome;
-  font-weight:normal;
-  font-style:normal;
-  display:inline-block;
-  text-decoration:inherit
-}
-
 body{
   padding-top: 70px;
   padding-bottom: 80px;
@@ -275,7 +256,13 @@ body{
 
 .navbar-default .navbar-text {
   color: #fff;
-}     
+}  
+
+.btn-danger {
+  color: #fff;
+  background-color: #31708f;
+  border-color: #31708f;
+}   
 
 /*.panel-default > .panel-heading {
   color: #333333;
@@ -351,14 +338,4 @@ body{
   -moz-transition: width 4.25s linear;
   -o-transition: width 4.25s linear;
   transition: width 4.25s linear;
-}
-
-/* for image priview */
-
-#dvPreview
-{
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
-    min-height: 400px;
-    min-width: 400px;
-    display: none;
 }

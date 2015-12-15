@@ -47,6 +47,7 @@ gem 'mailboxer'
 gem 'holder_rails'
 gem 'smartcropper'
 gem 'geokit'
+gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
 
 group :development, :test do
   gem 'byebug'

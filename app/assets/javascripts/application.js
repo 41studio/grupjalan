@@ -18,6 +18,7 @@
 //= require spin.ajax
 //= require turbolinks
 //= require holder
+//= require data-confirm-modal
 
 $(function(){
   $('#quote-carousel').carousel({

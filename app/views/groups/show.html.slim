@@ -43,7 +43,7 @@
               = render 'join'
           - else
             li
-              = link_to '', leave_group_path(@group), class: "fa fa-user-times", title: 'Leave group', rel: 'tooltip', method: :delete, data: { confirm: 'Are you sure to leave in this group?' }
+              = link_to '', leave_group_path(@group), class: "fa fa-user-times", title: 'Leave group', rel: 'tooltip', method: :delete, data: { confirm: 'Are you sure to leave in this group?', commit: 'Yes' }
             li
               = render 'edit_date'
 
