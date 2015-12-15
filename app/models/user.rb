@@ -174,6 +174,7 @@ class User < ActiveRecord::Base
   end
 
   def create_group_by_location
+    return if self.neighborhood.empty?
     location = Geokit::Geocoders::GoogleGeocoder.geocode "#{self.neighborhood}"
     group = Group.where(name: self.neighborhood).first
 
@@ -181,7 +182,7 @@ class User < ActiveRecord::Base
       group = Group.new
       group.user_id = User.where(role: 1).first.id
       group.location = "#{self.neighborhood}"
-      group.name = "#{self.neighborhood}"
+      group.name = "#{self.neighborhood}" 
       group.lat = "#{location.lat}"
       group.lng = "#{location.lng}"
       group.save

@@ -6,7 +6,7 @@
           .col-md-4.no-padding-left
             - if group.photo.blank?
               figure
-                = holder_tag '140x100', 'Kris Ganteng', 'gray'
+                = holder_tag '140x100', 'Blank Image', 'gray'
             -else  
               figure
                 = image_tag(group.photo_url(:medium))

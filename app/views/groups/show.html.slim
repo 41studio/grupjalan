@@ -5,7 +5,7 @@
         .carousel-inner role="listbox" 
           .item.active
           - if @group.photo.blank?
-            = holder_tag '1140x315', 'Kris Ganteng', 'gray'
+            = holder_tag '1140x315', 'Blank Cover Image', 'gray'
           - else  
             = image_tag @group.photo_url(:cover)
     
@@ -18,7 +18,7 @@
           span.icon-bar
         - if @group.image.blank?
           a.navbar-brand href="#"
-            = holder_tag '160x160', 'Kris Ganteng', 'gray'
+            = holder_tag '160x160', 'Blank Logo Image', 'gray'
         -else  
           a.navbar-brand href="#"
             = image_tag @group.image_url(:logo), class: 'img-responsive'
