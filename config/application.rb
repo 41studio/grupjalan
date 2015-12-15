@@ -30,6 +30,21 @@ module Grupjalan
       generate.view_specs false
     end
 
-   
+    # Enable the asset pipeline
+    config.assets.enabled = true
+    config.assets.paths << "#{Rails.root}/app/assets/fonts" 
+    and update:
+
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url('/assets/fontawesome-webfont.eot?v=4.0.3');
+      src: url('/assets/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), 
+      url('/assets/fontawesome-webfont.woff?v=4.0.3') format('woff'),
+      url('/assets/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), 
+      url('/assets/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+
   end
 end
