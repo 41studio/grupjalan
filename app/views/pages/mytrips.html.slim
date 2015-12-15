@@ -1,38 +1,150 @@
-.col-md-8
-  h1 Trip Saat Ini
+- if @trips.blank?
+  h6
+    pre 
+      | Trip Saat Ini Kosong Bro
+  h6
+    pre
+      | Trip Lama Kosong Bro     
   hr
+  .col-md-8
+    h1 Pribumi
+    hr
 
-  table.table.table-hover.table-bordered.table-striped
-    thead
-      tr
-        th Group
-        th Start to Trip
-        th End to Trip
-        th Action
-    tbody
-      - @trips.each do |trip|
+    table.table.table-hover.table-bordered.table-striped
+      thead
         tr
-          td= trip.group.name
-          td= trip.start_to_trip
-          td= trip.end_to_trip
-          td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
-  hr
+          th Group
+          / th Start to Trip
+          / th End to Trip
+          th Action
+      tbody
+        - @pribumis.each do |pri|
+          tr
+            td= pri.group.name
+            / td= old.start_to_trip
+            / td= old.end_to_trip
+            td= link_to 'Show', group_path(pri.group, pri), class: "btn btn-primary btn-sm" 
 
-.col-md-8
-  h1 Trip Lama 
-  hr
+- elsif @old_trips.blank?
+  .col-md-8
+    h1 Trip Saat Ini
+    hr
 
-  table.table.table-hover.table-bordered.table-striped
-    thead
-      tr
-        th Group
-        th Start to Trip
-        th End to Trip
-        th Action
-    tbody
-      - @old_trips.each do |old|
+    table.table.table-hover.table-bordered.table-striped
+      thead
         tr
-          td= old.group.name
-          td= old.start_to_trip
-          td= old.end_to_trip
-          td= link_to 'Show', group_path(old.group, old), class: "btn btn-primary btn-sm"          
+          th Group
+          th Start to Trip
+          th End to Trip
+          th Action
+      tbody
+        - @trips.each do |trip|
+          tr
+            td= trip.group.name
+            td= trip.start_to_trip
+            td= trip.end_to_trip
+            td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
+    hr
+
+  .col-md-8
+    h6 
+      pre
+        | Trip Lama Kosong Bro 
+    hr
+
+    / table.table.table-hover.table-bordered.table-striped
+    /   thead
+    /     tr
+    /       th Group
+    /       th Start to Trip
+    /       th End to Trip
+    /       th Action
+    /   tbody
+    /     - @old_trips.each do |old|
+    /       tr
+    /         td= old.group.name
+    /         td= old.start_to_trip
+    /         td= old.end_to_trip
+    /         td= link_to 'Show', group_path(old.group, old), class: "btn btn-primary btn-sm"
+
+  .col-md-8
+    h1 Pribumi
+    hr
+
+    table.table.table-hover.table-bordered.table-striped
+      thead
+        tr
+          th Group
+          / th Start to Trip
+          / th End to Trip
+          th Action
+      tbody
+        - @pribumis.each do |pri|
+          tr
+            td= pri.group.name
+            / td= old.start_to_trip
+            / td= old.end_to_trip
+            td= link_to 'Show', group_path(pri.group, pri), class: "btn btn-primary btn-sm"     
+ 
+    
+                                  
+- else  
+  .col-md-8
+    h1 Trip Saat Ini
+    hr
+
+    table.table.table-hover.table-bordered.table-striped
+      thead
+        tr
+          th Group
+          th Start to Trip
+          th End to Trip
+          th Action
+      tbody
+        - @trips.each do |trip|
+          tr
+            td= trip.group.name
+            td= trip.start_to_trip
+            td= trip.end_to_trip
+            td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
+    hr
+
+  .col-md-8
+    h1 Trip Lama 
+    hr
+
+    table.table.table-hover.table-bordered.table-striped
+      thead
+        tr
+          th Group
+          th Start to Trip
+          th End to Trip
+          th Action
+      tbody
+        - @old_trips.each do |old|
+          tr
+            td= old.group.name
+            td= old.start_to_trip
+            td= old.end_to_trip
+            td= link_to 'Show', group_path(old.group, old), class: "btn btn-primary btn-sm"
+
+  .col-md-8
+    h1 Pribumi
+    hr
+
+    table.table.table-hover.table-bordered.table-striped
+      thead
+        tr
+          th Group
+          / th Start to Trip
+          / th End to Trip
+          th Action
+      tbody
+        - @pribumis.each do |pri|
+          tr
+            td= pri.group.name
+            / td= old.start_to_trip
+            / td= old.end_to_trip
+            td= link_to 'Show', group_path(pri.group, pri), class: "btn btn-primary btn-sm"     
+
+

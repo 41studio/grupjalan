@@ -333,3 +333,13 @@ body{
   -o-transition: width 4.25s linear;
   transition: width 4.25s linear;
 }
+
+/* for image priview */
+
+#dvPreview
+{
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+    min-height: 400px;
+    min-width: 400px;
+    display: none;
+}
