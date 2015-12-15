@@ -47,7 +47,6 @@ gem 'mailboxer'
 gem 'holder_rails'
 gem 'smartcropper'
 gem 'geokit'
-gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'byebug'
