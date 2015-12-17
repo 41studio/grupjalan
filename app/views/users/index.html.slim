@@ -1,11 +1,47 @@
-.container
-  .row
-    .col-md-8
-      - @users.each do |user| 
-        hr
-        p = image_tag user.photo.medium.url, class: "img-rounded", width: '15%'	
-        h5
-          p = user.full_name
-        p = link_to 'Show Profile', user_path(user), class: "btn3d btn btn-default btn-sm", style: 'margin-left: 600px'
-  = paginate @users, theme: 'twitter-bootstrap-3',
-                     pagination_class: "pagination-md"
+/ .container
+/   .row
+/     .col-md-8
+/       - @users.each do |user| 
+/         hr
+/         p = image_tag user.photo.medium.url, class: "img-rounded", width: '15%'	
+/         h5
+/           p = user.full_name
+/         p = link_to 'Show Profile', user_path(user), class: "btn3d btn btn-default btn-sm", style: 'margin-left: 600px'
+/   = paginate @users, theme: 'twitter-bootstrap-3',
+/                      pagination_class: "pagination-md"
+
+.explore-groups
+  .col-md-8.no-padding-left
+    .list-group
+      - @users.each do |user|
+        = link_to user_path(user), class: 'list-group-item item-group' do
+          .col-md-4.no-padding-left
+            - if user.photo.blank?
+              figure
+                = holder_tag '140x100', 'Blank Image', 'gray'
+            -else  
+              figure
+                = image_tag(user.photo_url(:medium))
+          .col-md-8.no-padding-right
+            h4.list-group-item-heading= user.full_name
+            p.list-group-item-text= user.address
+          .clearfix
+    .text-center
+      = paginate @users
+
+  .col-md-4.no-padding-right
+    .panel.panel-default
+      .panel.panel-default
+        #headingOne.panel-heading role="tab" 
+          h4.panel-title
+            a aria-controls="collapseOne" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapseOne" role="button" 
+              | Info
+      .panel-body
+        #accordion.panel-group aria-multiselectable="true" role="tablist" 
+        #collapseOne.panel-collapse.collapse.in aria-labelledby="headingOne" role="tabpanel" 
+          .panel-body
+            = video_tag "This is it.mp4", :size => "320x240", :controls => true 
+            hr
+            .text-justify
+              | Disrupt drinking vinegar hammock, health goth umami cray tattooed retro blue bottle kogi forage. Wayfarers DIY trust fund humblebrag. Cronut whatever fingerstache tousled, humblebrag stumptown tattooed street art farm-to-table narwhal vinyl synth brooklyn gluten-free. Flannel street art helvetica gluten-free, polaroid schlitz vice. Tattooed kickstarter pitchfork, cred williamsburg craft beer knausgaard iPhone photo booth truffaut microdosing umami cold-pressed mustache. Farm-to-table wayfarers neutra VHS, gentrify try-hard iPhone forage beard keffiyeh truffaut +1 fingerstache narwhal. Actually migas twee, deep v letterpress sartorial flannel hoodie irony cray shabby chic freegan kombucha keytar neutra.
+          

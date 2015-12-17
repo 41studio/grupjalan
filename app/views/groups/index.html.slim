@@ -16,15 +16,37 @@
           .clearfix
     .text-center
       = paginate @groups
+
   .col-md-4.no-padding-right
     .panel.panel-default
-      .panel-heading Cari Grup
+      .panel.panel-default
+        #headingOne.panel-heading role="tab" 
+          h4.panel-title
+            a aria-controls="collapseOne" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapseOne" role="button" 
+              | Cari Group
       .panel-body
-        = simple_form_for(:search, url: groups_path, method: :get) do |f|
+        #accordion.panel-group aria-multiselectable="true" role="tablist" 
+        #collapseOne.panel-collapse.collapse.in aria-labelledby="headingOne" role="tabpanel" 
+          .panel-body
+            = simple_form_for(:search, url: groups_path, method: :get) do |f|
           
-          = f.input :name, label: 'Nama Grup', input_html: { value: value_name(params[:search]) }
-          = f.input :categories, as: :check_boxes, collection: Group::CATEGORIES, label: 'Kategori', checked: checked_categories(params[:search])
-          = f.input :sort, as: :select, collection: [['Terbaru', 'newest'], ['Terlama', 'oldest'], ['Anggota Terbanyak', 'members']], class: 'form-control', selected: selected_sort(params[:search]), label: 'Urutkan'
+              = f.input :name, label: 'Nama Grup', input_html: { value: value_name(params[:search]) }
+              = f.input :categories, as: :check_boxes, collection: Group::CATEGORIES, label: 'Kategori', checked: checked_categories(params[:search])
+              = f.input :sort, as: :select, collection: [['Terbaru', 'newest'], ['Terlama', 'oldest'], ['Anggota Terbanyak', 'members']], class: 'form-control', selected: selected_sort(params[:search]), label: 'Urutkan'
 
-          .form-group
-            = f.submit "Filter", class: 'btn btn-default btn-block'
+              .form-group
+                = f.submit "Filter", class: 'btn btn-default btn-block'
+            
+              
+  / .col-md-4.no-padding-right
+  /   .panel.panel-default
+  /     .panel-heading Cari Grup
+  /     .panel-body
+  /       = simple_form_for(:search, url: groups_path, method: :get) do |f|
+          
+  /         = f.input :name, label: 'Nama Grup', input_html: { value: value_name(params[:search]) }
+  /         = f.input :categories, as: :check_boxes, collection: Group::CATEGORIES, label: 'Kategori', checked: checked_categories(params[:search])
+  /         = f.input :sort, as: :select, collection: [['Terbaru', 'newest'], ['Terlama', 'oldest'], ['Anggota Terbanyak', 'members']], class: 'form-control', selected: selected_sort(params[:search]), label: 'Urutkan'
+
+  /         .form-group
+  /           = f.submit "Filter", class: 'btn btn-default btn-block'

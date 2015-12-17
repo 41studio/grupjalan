@@ -1,22 +1,53 @@
-.container
-  .row
-    .col-md-8
-      h2
-        p = image_tag @user.photo.medium.url, class: "img-rounded", width: '25%' 
-        p = @user.full_name
-        .row
-          col-md-1
-            h6 Pengikut
-            p = @user.followers_count
-          col-md-1
-            h6 mengikuti
-            p = @user.follow_count  
-        hr
-        - if current_user.following? @user
-        	p = link_to 'unfollow', unfollow_user_path(@user), class: "btn3d btn btn-danger btn-sm", style: 'margin-left: 600px'
-        - else  
-          p = link_to 'follow', follow_user_path(@user), class: "btn3d btn btn-primary btn-sm", style: 'margin-left: 600px'
+.group
+  header#header
+    .slider
+      #carousel-example-generic.carousel.slide data-ride="carousel" 
+        .carousel-inner role="listbox" 
+          .item.active
+            - if @user.photo.blank?
+              = holder_tag '1140x315', 'Blank Cover Image', 'gray'
+            - else  
+              = image_tag @user.photo_url(:cover)
 
-        - unless @user.eql? current_user
-          p = link_to 'Send Message', user_messages_path(@user), class: "btn btn-success btn-xs start-conversation", style: 'margin-left : 600px'
-          
+    nav.navbar.navbar-default
+      .navbar-header
+        button.navbar-toggle.collapsed data-target="#mainNav" data-toggle="collapse" type="button" 
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        - if @user.image.blank?
+          a.navbar-brand href="#"
+            = holder_tag '160x160', 'Blank Logo Image', 'gray'
+        -else  
+          a.navbar-brand href="#"
+            = image_tag @user.image_url(:logo), class: 'img-responsive'  
+        span.site-name= @user.full_name            
+
+
+
+
+
+
+/ .container
+/   .row
+/     .col-md-8
+/       h2
+/         p = image_tag @user.photo.medium.url, class: "img-rounded", width: '25%' 
+/         p = @user.full_name
+/         .row
+/           col-md-1
+/             h6 Pengikut
+/             p = @user.followers_count
+/           col-md-1
+/             h6 mengikuti
+/             p = @user.follow_count  
+/         hr
+/         - if current_user.following? @user
+/         	p = link_to 'unfollow', unfollow_user_path(@user), class: "btn3d btn btn-danger btn-sm", style: 'margin-left: 600px'
+/         - else  
+/           p = link_to 'follow', follow_user_path(@user), class: "btn3d btn btn-primary btn-sm", style: 'margin-left: 600px'
+
+        / - unless @user.eql? current_user
+        /   p = link_to 'Send Message', user_messages_path(@user), class: "btn btn-success btn-xs start-conversation", style: 'margin-left : 600px'
+        /   

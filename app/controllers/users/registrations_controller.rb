@@ -39,11 +39,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.for(:sign_up) << [:photo, :video, :username, :first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :role, :country, :city, :province]
+      devise_parameter_sanitizer.for(:sign_up) << [:photo, :video, :username, :first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :role, :country, :city, :province, :image]
     end
 
     def configure_account_update_params
-      devise_parameter_sanitizer.for(:account_update) << [:photo, :video, :username, :first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :role, :country, :city, :province]
+      devise_parameter_sanitizer.for(:account_update) << [:photo, :video, :username, :first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :role, :country, :city, :province, :image]
     end
 
     def clear_session

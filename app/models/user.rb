@@ -37,6 +37,7 @@
 #  unconfirmed_email      :string
 #  birthday               :date
 #  auth_token             :string
+#  image                  :string
 #
 # Indexes
 #
@@ -49,7 +50,7 @@
 #
 
 class User < ActiveRecord::Base
-  paginates_per 3
+  paginates_per 5
   # enum gender: [:Male, :Female]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter] 
   
   mount_uploader :photo, PhotoUploader 
+  mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
 
   acts_as_followable
