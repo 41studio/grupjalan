@@ -1,0 +1,50 @@
+#edit-profile.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true" &times;
+        h4.modal-title Edit Profile
+        hr
+        = simple_form_for @user, url: user_path(@user) do |f|
+          / = f.input :status, as: :text, autofocus: true, placeholder: "Apa yang anda pikirkan ?", input_html: { class: "form-control", maxlength: 255, rows: 4 }
+          = f.input :first_name, placeholder: "Type your first name here", input_html: { class: "form-control" }
+
+          = f.input :last_name, placeholder: "Type your last name here", input_html: { class: "form-control" }
+
+          = f.input :handphone, placeholder: "0813-23xx-xxxx", input_html: { class: "form-control" }
+
+          = f.input :gender, as: :radio_buttons, :collection => User::GENDERS
+
+          = f.input :birthday, as: :string, placeholder: "yyyy-mm-dd", input_html: { class: "form-control datepicker" }
+
+          = f.input :country, collection: Country::ALL, input_html: { class: "form-control country-dropdown" }
+          
+          = f.input :province, :collection => options_provinces(current_user), input_html: { class: "form-control province-dropdown", disabled: current_user.province.blank? }
+            
+          = f.input :city, :collection => options_cities(current_user), input_html: { class: "form-control city-dropdown", disabled: current_user.province.blank? }
+            
+          = f.input :neighborhood, placeholder: "Daerah mu", input_html: { class: "form-control" }
+
+          / = f.input :role, :collection => User::ROLE
+          
+          = f.input :address, as: :text, placeholder: "Alamat kamu", input_html: { class: "form-control" }
+          
+          = f.input :email, input_html: { class: "form-control" }
+          
+          = f.input :photo, as: :file, label: 'Photo profile'
+          br
+          = f.input :image, as: :file, label: 'Image profile'
+          / br
+          / = f.input :video, as: :file, label: 'Clip'
+          
+          / = f.input :password, autocomplete: "off", hint: "Leave blank if you don't want to change.", input_html: { class: "form-control" }
+          
+          / = f.input :password_confirmation, autocomplete: "off", input_html: { class: "form-control" }
+
+          / = f.input :current_password, autocomplete: "off", hint: 'We need your current password to confirm your changes.', input_html: { class: "form-control" }
+          hr
+          .form-group
+            = f.submit "Update", class: "btn3d btn btn-primary btn-md"
+            | &nbsp;
+            = link_to "Back", user_path, class: "btn3d btn btn-default btn-md"

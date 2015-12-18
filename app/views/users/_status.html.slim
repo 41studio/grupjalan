@@ -1,0 +1,15 @@
+#status-create.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button" 
+          span aria-hidden="true" &times;
+        h4.modal-title User Status
+        hr
+        = simple_form_for @user, url: user_path(@user) do |f|
+          = f.input :status, as: :text, autofocus: true, placeholder: "Apa yang anda pikirkan ?", input_html: { class: "form-control", maxlength: 255, rows: 4 }
+          hr
+          .form-group
+            = f.submit "Update", class: "btn3d btn btn-primary btn-md"
+            | &nbsp;
+            = link_to "Back", user_path, class: "btn3d btn btn-default btn-md"

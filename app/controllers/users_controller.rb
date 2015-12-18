@@ -1,12 +1,28 @@
 class UsersController < ApplicationController
-  before_filter :set_user, only: [:show, :message, :follow, :unfollow]
+  before_filter :set_user, only: [:show, :message, :follow, :unfollow, :edit, :update]
 
   def index
   	@users = User.order(first_name: :desc).page params[:page]
   end
 
   def show
+    @action = 'show'
   end
+
+  def edit
+    @action = 'edit'
+    render :show
+  end  
+
+  def update
+    if @user.update(user_params)
+      flash[:success] = 'Data User berhasil diupdate.'
+      redirect_to user_path(@user)
+    else
+      @action = 'edit'
+      render :show
+    end
+  end  
 
   def follow
 
@@ -39,5 +55,9 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:photo, :video, :username, :first_name, :last_name, :neighborhood, :address, :gender, :brithday, :handphone, :status, :role, :country, :city, :province, :image)
   end  
 end

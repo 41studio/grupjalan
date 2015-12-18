@@ -23,8 +23,14 @@
               figure
                 = image_tag(user.photo_url(:medium))
           .col-md-8.no-padding-right
+            dt Name :
             h4.list-group-item-heading= user.full_name
+            br
+            dt Address :
             p.list-group-item-text= user.address
+            br
+            dt Status :
+            p.list-group-item-text= user.status
           .clearfix
     .text-center
       = paginate @users

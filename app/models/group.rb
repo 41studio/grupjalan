@@ -54,6 +54,7 @@ class Group < ActiveRecord::Base
 	has_many :trips, dependent: :destroy
 	has_many :posts, dependent: :destroy
 	belongs_to :destination
+	belongs_to :category
 	
 	validates :name, :user_id, :location, :lat, :lng, presence: true
 
