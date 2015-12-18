@@ -34,8 +34,8 @@
         /     li #Millennials
         /     li #Generation
         .panel-heading
-          = image_tag post.user.photo_url(:thumb), class: 'img-circle pull-left', size: '50x50'
-          h3= post.user.full_name
+          = link_to image_tag(post.user.photo_url(:thumb), class: 'img-circle pull-left', size: '50x50'), user_path(post.user)
+          h3= link_to post.user.full_name, user_path(post.user)
           h5
             span Diposting pada 
             span.timetostr= post.created_at
@@ -66,9 +66,9 @@
           - post.comments.each do |comment|
             .list-group-item
               .col-md-2
-                = image_tag(comment.user.photo_url(:thumb), class: 'img-circle', size: '50x50')
+                = link_to image_tag(comment.user.photo_url(:thumb), class: 'img-circle', size: '50x50'), user_path(comment.user)
               .col-md-10
-                h4.list-group-item-heading= comment.user.full_name
+                h4.list-group-item-heading= link_to comment.user.full_name, user_path(comment.user)
                 span.timetostr.list-group-item-text= comment.created_at
                 p.list-group-item-text= comment.comment
               .clearfix
