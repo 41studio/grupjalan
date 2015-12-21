@@ -37,7 +37,9 @@
 
            - if can? :edit, @user  
               = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'
-              = render 'edit'            
+              = render 'edit'
+                 
+  = render @action                     
 
 
 

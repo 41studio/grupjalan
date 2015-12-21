@@ -1,0 +1,48 @@
+.detail
+  .well.profile
+    .col-sm-12.col-md-12
+      .col-xs-12.col-sm-6
+        h2= "Detail #{@user.full_name}"
+        dl.dl-horizontal
+          dt Alamat :
+          - if @user.address.blank?
+            dd
+              h5= "Alamatnya belum diisi bro"
+          - else  
+            dd= @user.address
+          
+          dt Gender :
+          dd= @user.gender
+
+          / dt Deskripsi : 
+          / dd= strip_tags(@group.description)
+
+          / dt Pemilik :
+          / dd= @group.user.full_name
+
+          / dt Dibuat pada :
+          / dd
+          /   span.timetostr= @group.created_at
+
+          / - if @trip.persisted? && @trip.pribumi == false
+          /   dt Mulai Perjalanan :
+          /   dd  
+          /     span.timetostr = @trip.start_to_trip 
+
+          /   dt Akhir Perjalanan :
+          /   dd  
+          /     span.timetostr = @trip.end_to_trip
+
+          / - if @trip.pribumi == true
+          /   dt Status :
+          /   dd 
+          /     span
+          /     | Pribumi       
+
+      .col-xs-12.divider.text-center
+        .col-xs-12.col-sm-4.col-sm-offset-4.emphasis
+        / h2
+        /   strong= @group.trips.count
+        / p
+        /   small Anggota
+    .clearfix    
