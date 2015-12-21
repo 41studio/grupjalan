@@ -57,7 +57,7 @@
 
           - if can? :edit, @group
             li
-              = link_to "Edit Grup", edit_group_path(@group)
+              = link_to "Edit Grup", edit_group_path(@group), class: "fa fa-cog", title: 'Edit group', rel: 'tooltip'
       /! /.navbar-collapse
   /! /#HEADER
 
