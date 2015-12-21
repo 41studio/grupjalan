@@ -29,6 +29,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     # process crop: '160x160+0+0'
   end
 
+   version :cover do
+    # process :smart_crop_and_scale => [1140, 315]
+    process :resize_to_fill => [1140, 315]
+  end
+
 
   # private
 

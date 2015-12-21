@@ -48,6 +48,13 @@ class PhotoUploader < CarrierWave::Uploader::Base
     # process :smart_crop_and_scale => [1140, 315]
     process :resize_to_fill => [1140, 315]
   end
+
+  version :logo do
+    process :smart_crop_and_scale => [160, 160]
+    # process :resize_to_fill => [160, 160]
+    # process crop: '160x160+0+0'
+  end
+
    
   def extension_white_list
     %w(jpg jpeg gif png)

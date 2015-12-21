@@ -7,7 +7,7 @@
             - if @user.photo.blank?
               = holder_tag '1140x315', 'Blank Cover Image', 'gray'
             - else  
-              = image_tag @user.photo_url(:cover)
+              = image_tag @user.image_url(:cover)
 
     nav.navbar.navbar-default
       .navbar-header
@@ -21,7 +21,7 @@
             = holder_tag '160x160', 'Blank Logo Image', 'gray'
         -else  
           a.navbar-brand href="#"
-            = image_tag @user.image_url(:logo), class: 'img-responsive'  
+            = image_tag @user.photo_url(:logo), class: 'img-responsive'  
         span.site-name= @user.full_name 
       #mainNav.collapse.navbar-collapse 
          ul.nav.main-menu.navbar-nav
@@ -35,10 +35,10 @@
               = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'
               = render 'edit'
 
-           - if can? :edit, @user  
-              = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'
-              = render 'edit'
-                 
+           / - if can? :edit, @user  
+           /    = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'
+           /    = render 'edit'
+
   = render @action                     
 
 
