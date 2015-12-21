@@ -145,6 +145,8 @@ $(function(){
   $('.timetostr').each(function(){
     var time = $(this).html();
     var toStr = $(this).html(moment(new Date(time)).format('ddd, DD MMM YYYY'))
+
+    $(this).removeClass('timetostr');
   })
 
   $('.pribumi').on('change', function(){

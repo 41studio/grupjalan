@@ -1,0 +1,4 @@
+var post = $("[data-id='post-<%= @comment.commentable.id %>']");
+var comment = post.find("[data-id='comment-<%= @comment.id %>']");
+
+comment.slideUp();

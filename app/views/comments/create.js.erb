@@ -1,0 +1,19 @@
+if (<%= @success %>) {
+  var post = $("[data-id='post-<%= @comment.commentable.id %>']");
+  var list_comment_container = post.find('.panel-posts-comments');
+  list_comment_container.append("<%=j render 'groups/comment_row', comment: @comment, post: @comment.commentable %>");
+
+  $('.timetostr').each(function(){
+    var time = $(this).html();
+    var toStr = $(this).html(moment(new Date(time)).format('ddd, DD MMM YYYY'));
+
+    $(this).removeClass('timetostr');
+  });
+
+} else {
+  alert('gagal')
+}
+
+
+$("#comment_comment").val('');
+

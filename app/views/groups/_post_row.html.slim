@@ -1,0 +1,55 @@
+div class="post #{set_class_post(index)}" data-id="post-#{post.id}"
+  .panel.panel-default.panel-posts 
+    - if post.user_id.eql?(current_user.id)
+      .dropdown
+        span.dropdown-toggle data-toggle="dropdown" type="button" 
+          span.glyphicon.glyphicon-chevron-down 
+        ul.dropdown-menu role="menu"
+          li role="presentation"
+            = link_to "Hapus", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }
+          li role="presentation"
+            = link_to "Edit", edit_post_path(post)
+    / .panel-posts-tags
+    /   ul
+    /     li #Millennials
+    /     li #Generation
+    .panel-heading
+      = link_to image_tag(post.user.photo_url(:thumb), class: 'img-circle pull-left', size: '50x50'), user_path(post.user)
+      h3= link_to post.user.full_name, user_path(post.user)
+      h5
+        span Diposting pada 
+        span.timetostr= post.created_at
+    .panel-body
+      .text-justify
+        p= strip_tags(post.description)
+      - unless post.photo.file.nil?
+        = image_tag post.photo_url, class: 'img-responsive'
+    / .panel-body
+    /   / p= strip_tags(post.description)
+    /   - unless post.video.file.nil?
+    /     = video_tag post.video, controls: true, autobuffer: true, size: '500x300'    
+    .panel-footer
+      .input-group
+        .input-group-btn
+          - if current_user.voted_up_on? post
+            = link_to post_downvote_path(post), class: 'btn btn-primary', method: :delete do
+              i.fa.fa-thumbs-o-up
+              |  
+              = post.cached_votes_up
+          - else
+            = link_to post_upvote_path(post), class: 'btn btn-default', method: :post do
+              i.fa.fa-thumbs-o-up
+              |  
+              = post.cached_votes_up
+        input.form-control.input-comment placeholder="Add a comment..."
+    .panel-posts-comments.list-group 
+      - post.comments.each do |comment|
+        = render 'comment_row', comment: comment, post: post
+    .panel-posts-comment
+      = image_tag(current_user.photo_url(:thumb), class: 'img-circle', size: '50x50')
+      .panel-posts-textarea
+        = simple_form_for(:comment, url: post_comments_path(post), remote: true) do |f|
+          = f.input :comment, as: :text, input_html: { rows: 4 }, label: false
+          = f.submit "Komen", class: 'btn btn-success', disabled: ''
+          button.btn.btn-default.btn-close type="reset" Cancel
+      .clearfix
