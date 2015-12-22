@@ -1,5 +1,5 @@
 module GroupsHelper
-  def set_class_post(index)
+  def set_class_post(index = 0)
     if (index % 2).eql? 0
       'no-padding-right'
     else

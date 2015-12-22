@@ -16,11 +16,11 @@ class PostsController < ApplicationController
     @post.group = @group
 
     if @post.save
-      flash[:success] = 'Berhasil membuat postingan.'
-      redirect_to :back
+      @success = true
+      
     else
-      flash[:danger]  = 'Gagal membuat postingan.'
-      redirect_to :back
+      @success = false
+      
     end
   end
 
@@ -35,9 +35,9 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:success] = 'Post berhasil dihapus.'
+    # flash[:success] = 'Post berhasil dihapus.'
 
-    redirect_to :back
+    # redirect_to :back
   end
 
   private

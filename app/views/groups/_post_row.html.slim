@@ -1,4 +1,4 @@
-div class="post #{set_class_post(index)}" data-id="post-#{post.id}"
+div class="post" data-id="post-#{post.id}"
   .panel.panel-default.panel-posts 
     - if post.user_id.eql?(current_user.id)
       .dropdown
@@ -6,7 +6,7 @@ div class="post #{set_class_post(index)}" data-id="post-#{post.id}"
           span.glyphicon.glyphicon-chevron-down 
         ul.dropdown-menu role="menu"
           li role="presentation"
-            = link_to "Hapus", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to "Hapus", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, remote: true
           li role="presentation"
             = link_to "Edit", edit_post_path(post)
     / .panel-posts-tags
@@ -30,18 +30,18 @@ div class="post #{set_class_post(index)}" data-id="post-#{post.id}"
     /     = video_tag post.video, controls: true, autobuffer: true, size: '500x300'    
     .panel-footer
       .input-group
-        .input-group-btn
+        .input-group-btn 
           - if current_user.voted_up_on? post
-            = link_to post_downvote_path(post), class: 'btn btn-primary', method: :delete do
+            = link_to post_downvote_path(post), class: 'btn btn-primary', method: :delete, remote: true, data: {id: "vote-#{post.id}"} do
               i.fa.fa-thumbs-o-up
               |  
-              = post.cached_votes_up
+              span= post.cached_votes_up
           - else
-            = link_to post_upvote_path(post), class: 'btn btn-default', method: :post do
+            = link_to post_upvote_path(post), class: 'btn btn-default', method: :post, remote: true, data: {id: "vote-#{post.id}"} do
               i.fa.fa-thumbs-o-up
               |  
-              = post.cached_votes_up
-        input.form-control.input-comment placeholder="Add a comment..."
+              span= post.cached_votes_up
+        input.form-control.j-input-comment placeholder="Add a comment..."
     .panel-posts-comments.list-group 
       - post.comments.each do |comment|
         = render 'comment_row', comment: comment, post: post
@@ -51,5 +51,6 @@ div class="post #{set_class_post(index)}" data-id="post-#{post.id}"
         = simple_form_for(:comment, url: post_comments_path(post), remote: true) do |f|
           = f.input :comment, as: :text, input_html: { rows: 4 }, label: false
           = f.submit "Komen", class: 'btn btn-success', disabled: ''
+          | &nbsp;
           button.btn.btn-default.btn-close type="reset" Cancel
       .clearfix

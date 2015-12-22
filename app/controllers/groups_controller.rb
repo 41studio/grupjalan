@@ -4,7 +4,8 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_group, except: [:autocomplete, :index]
   before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update]
-  
+  before_action :find_post, only: :show
+
   def autocomplete
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
   end
@@ -13,6 +14,18 @@ class GroupsController < ApplicationController
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
     @group_messages = @group.messages.includes(:user).order("created_at desc")
     @message = Message.new
+    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
+    @members = @group.trips.includes(:user)
+    unless current_user.trips.where(group: @group).empty?
+      @sames = @group.trips.joins(:group).includes(:user).where(
+          "start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+          {
+            start_to_trip: current_user.trips.where(group: @group).first.start_to_trip,
+            end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
+            
+          }
+        )
+    end  
     @action = 'show'
   end  
 
@@ -89,6 +102,10 @@ class GroupsController < ApplicationController
       else   
         @trip = Trip.where(group_id: @group.id, user_id: current_user.id).first
       end  
+    end
+
+    def find_post
+      @post = Post.new
     end
 
     def set_group

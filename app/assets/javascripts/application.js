@@ -2,6 +2,7 @@
 //= require jquery-ui
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require bootstrap
 //= require bootstrap-datepicker/dist/js/bootstrap-datepicker
 //= require typeahead.js/dist/typeahead.bundle

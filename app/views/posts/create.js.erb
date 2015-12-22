@@ -1,0 +1,20 @@
+if (<%= @success %>) {
+  // var post = $("[data-id='post-<%= @post.id %>']");
+  var list_post_container = $('.posts .new-post').next();
+  list_post_container.after("<%=j render 'groups/post_row', post: @post %>");
+
+  $('.timetostr').each(function(){
+    var time = $(this).html();
+    var toStr = $(this).html(moment(new Date(time)).format('ddd, DD MMM YYYY'));
+
+    $(this).removeClass('timetostr');
+  });
+
+
+} else {
+  alert('gagal')
+}
+
+
+$("#post_description").val('');
+

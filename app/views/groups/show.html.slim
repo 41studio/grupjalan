@@ -28,8 +28,8 @@
         ul.nav.main-menu.navbar-nav
           li
             = link_to "Tentang", group_path(@group)
-          li
-            = link_to "Postingan", posts_group_path(@group)
+          / li
+          /   = link_to "Postingan", posts_group_path(@group)
           li
             = link_to "Anggota", members_group_path(@group)
           - if @group.user_ids.include?(current_user.id)
@@ -58,10 +58,59 @@
           - if can? :edit, @group
             li
               = link_to "Edit Grup", edit_group_path(@group), class: "fa fa-cog", title: 'Edit group', rel: 'tooltip'
+
+    
       /! /.navbar-collapse
   /! /#HEADER
 
   = render @action
+  - if @action == 'show'
+    .row
+      .posts.col-md-8
+        .new-post
+          .widget-area.no-padding.blank
+            .status-upload
+              - if @group.user_ids.include?(current_user.id)
+                = simple_form_for(@post, url: group_posts_path(@group), remote: true) do |f|
+                  / = simple_form_for(:comment, url: post_comments_path(post), remote: true) do |f|
+                  = f.input :description, label: false, input_html: { placeholder: 'What you have done here?', class: 'no-resize' }
+                  ul
+                    li
+                      = f.input :photo, label_html: { "data-original-title": 'Picture', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default' }, label: '<i class="fa fa-picture-o"></i>'.html_safe, input_html: { class: 'hide' }
+                  / ul
+                  /   li
+                  /     = f.input :video, label_html: { "data-original-title": 'Video', 'data-placement': 'bottom', 'data-toggle': 'tooltip', class: 'btn btn-default'}, label: '<i class="fa fa-video-camera"></i>'.html_safe, input_html: { class: 'hide' }    
+                  button.btn.btn-success.green type="submit" 
+                    i.fa.fa-share
+                    | Share
+                  .clearfix
+
+
+
+            /! Status Upload
+          /! Widget Area
+        .clearfix
+        - @posts.each do |post|
+          = render 'post_row', post: post
+
+      .posts.col-md-4
+        .panel.panel-default
+          .panel-heading 
+            | Anggota
+          .panel-body
+            - @members.each do |member|
+              = render 'members_row', member: member
+
+      .posts.col-md-4
+        .panel.panel-default
+          .panel-heading
+            | Sama
+          .panel-body
+            - if @sames
+              - @sames.each do |same|
+                = render 'same_row', same: same
+
+    
 
   
 / .col-md-10

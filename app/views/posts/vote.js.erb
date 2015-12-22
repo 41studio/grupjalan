@@ -1,0 +1,16 @@
+var vote = $("[data-id='vote-<%=@post.id %>']");
+vote.find('span').text('<%=@post.cached_votes_up %>');
+
+
+<% if action_name.eql? 'upvote' %>
+  vote.removeClass('btn-default');
+  vote.addClass('btn-primary');
+  vote.attr('href', "/posts/<%= @post.id %>/downvote");
+  vote.data('method', 'delete');
+<% else %>
+  vote.removeClass('btn-primary');
+  vote.addClass('btn-default');
+  vote.attr('href', "/posts/<%= @post.id %>/upvote");
+  vote.data('method', 'post');
+<% end %>
+

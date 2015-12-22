@@ -3,7 +3,8 @@
     .widget-area.no-padding.blank
       .status-upload
         - if @group.user_ids.include?(current_user.id)
-          = simple_form_for @post, url: group_posts_path(@group) do |f|
+          = simple_form_for(@post, url: group_posts_path(@group), remote: true) do |f|
+            / = simple_form_for(:comment, url: post_comments_path(post), remote: true) do |f|
             = f.input :description, label: false, input_html: { placeholder: 'What you have done here?', class: 'no-resize' }
             ul
               li

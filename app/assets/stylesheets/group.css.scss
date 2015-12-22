@@ -504,15 +504,16 @@
       padding: 0;
     }
     .new-post{
-      width: 50%;
-      float: left;
+/*      width: 50%;
+      float: left;*/
       padding-left: 0;
       padding-right: 15px;
+      padding-bottom: 15px;
     }
     .post{
-      width: 50%;
-      float: left;
-      padding: 0 15px;
+      /*width: 50%;
+      float: left;*/
+      padding: 0 15px 0 0;
     }
     .widget-area {
       background-color: #fff;
