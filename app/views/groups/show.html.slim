@@ -99,7 +99,7 @@
             | Anggota
           .panel-body
             - @members.each do |member|
-              = render 'members_row', member: member
+              = render 'members_show', member: member
 
       .posts.col-md-4
         .panel.panel-default
@@ -108,7 +108,15 @@
           .panel-body
             - if @sames
               - @sames.each do |same|
-                = render 'same_row', same: same
+                = render 'same_show', same: same
+
+      .posts.col-md-4
+        .panel.panel-default
+          .panel-heading
+            | Pribumi
+          .panel-body
+            - @pribumis.each do |pribumi|
+              = render 'pribumis_row', pribumi: pribumi           
 
     
 

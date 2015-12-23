@@ -16,6 +16,7 @@ class GroupsController < ApplicationController
     @message = Message.new
     @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
     @members = @group.trips.includes(:user)
+    @pribumis = @group.trips.includes(:user).where(pribumi: true)
     unless current_user.trips.where(group: @group).empty?
       @sames = @group.trips.joins(:group).includes(:user).where(
           "start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",

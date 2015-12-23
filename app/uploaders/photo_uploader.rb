@@ -55,6 +55,11 @@ class PhotoUploader < CarrierWave::Uploader::Base
     # process crop: '160x160+0+0'
   end
 
+  version :sosmall do
+    process :resize_to_fill => [50, 50]
+
+  end  
+
    
   def extension_white_list
     %w(jpg jpeg gif png)
