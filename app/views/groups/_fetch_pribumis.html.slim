@@ -1,0 +1,13 @@
+- if pribumis.blank?
+  .posts.col-md-4
+    .alert-message.alert-message-info
+      h4
+        | Pribumi nya kosong bro
+- else      
+  .posts.col-md-4
+    .panel.panel-default
+      .panel-heading
+        | Pribumi
+      .panel-body
+        - pribumis.each do |pribumi|
+          = render 'pribumis_row', pribumi: pribumi 

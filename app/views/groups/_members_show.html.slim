@@ -5,7 +5,7 @@
       = image_tag member.user.photo_url(:sosmall), class: "img-circle"
     .info
       .title
-        = link_to member.user.full_name, user_path(member.user)
+        = link_to member.user.full_name, user_path(member.user) 
       / - if member.pribumi == true
       /   .desc
       /     h4 pribumi

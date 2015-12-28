@@ -1,0 +1,13 @@
+var list_post_container = $('.fetch-posts');
+list_post_container.html("<%=j render 'groups/fetch_posts_row', posts: @posts %>");
+
+var list_member_container = $('.fetch-members');
+list_member_container.html("<%=j render 'groups/fetch_members', members: @members %>");
+
+var list_pribumi_container = $('.fetch-pribumis');
+list_pribumi_container.html("<%=j render 'groups/fetch_pribumis', pribumis: @pribumis %>");
+
+var list_same_container = $('.fetch-sames');
+list_same_container.html("<%=j render 'groups/fetch_sames', sames: @sames %>");
+
+

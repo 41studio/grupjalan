@@ -30,11 +30,11 @@
             = link_to "Tentang", group_path(@group)
           / li
           /   = link_to "Postingan", posts_group_path(@group)
-          li
-            = link_to "Anggota", members_group_path(@group)
-          - if @group.user_ids.include?(current_user.id)
-            li
-              = link_to "Sama", same_group_path(@group)    
+          / li
+          /   = link_to "Anggota", members_group_path(@group)
+          / - if @group.user_ids.include?(current_user.id)
+          /   li
+          /     = link_to "Sama", same_group_path(@group)    
 
         ul.nav.navbar-nav.navbar-right
           - if user_signed_in? && !@group.user_ids.include?(current_user.id)
@@ -89,50 +89,30 @@
                         | Share
                       .clearfix
 
-
-
-                /! Status Upload
-              /! Widget Area
             .clearfix
-            - @posts.each do |post|
-              = render 'post_row', post: post
+            .fetch-posts
 
-      .posts.col-md-4
-        .panel.panel-default
-          .panel-heading 
-            | Anggota
-          .panel-body
-            - @members.each do |member|
-              = render 'members_show', member: member
+
+      .fetch-members
               
-      - if @sames.blank?
-        .posts.col-md-4
-          .alert-message.alert-message-notice
-            h4
-              | Sama nya kosong bro
-      - else        
-        .posts.col-md-4
-          .panel.panel-default
-            .panel-heading
-              | Sama
-            .panel-body
-              - if @sames
-                - @sames.each do |same|
-                  = render 'same_show', same: same
+      .fetch-sames
+      
+      .fetch-pribumis               
 
-      - if @pribumis.blank?
-        .posts.col-md-4
-          .alert-message.alert-message-info
-            h4
-              | Pribumi nya kosong bro
-      - else      
-        .posts.col-md-4
-          .panel.panel-default
-            .panel-heading
-              | Pribumi
-            .panel-body
-              - @pribumis.each do |pribumi|
-                = render 'pribumis_row', pribumi: pribumi           
+      / - if @pribumis.blank?
+      /   .posts.col-md-4
+      /     .alert-message.alert-message-info
+      /       h4
+      /         | Pribumi nya kosong bro
+      / - else      
+      /   .posts.col-md-4
+      /     .panel.panel-default
+      /       .panel-heading
+      /         | Pribumi
+      /       .panel-body
+      /         - @pribumis.each do |pribumi|
+      /           = render 'pribumis_row', pribumi: pribumi 
+
 
     
 
@@ -185,7 +165,10 @@
 /             td= user.full_name
 
 
-/ javascript:
+javascript:
+  $.ajax({
+    url: "/grup/#{@group.id}/ajpost"
+  })
 /   $(document).ready(function(){
 /     $("#map").googleMap();
 /     $("#map").addMarker({

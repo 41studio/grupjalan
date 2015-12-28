@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       get "about", path: 'tentang'
       get "posts", path: 'postingan'
       get "same", path: 'sama'
+      get "fetch_posts", path: 'ajpost'
     end
 
     collection do 

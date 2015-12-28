@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_group, except: [:autocomplete, :index]
   before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update]
-  before_action :find_post, only: :show
+  before_action :find_post, only: [:show, :fetch_posts]
 
   def autocomplete
     render json: Destination.select(:id, :name).where("name ILIKE ?", "#{params[:query]}%").limit(10)
@@ -14,19 +14,6 @@ class GroupsController < ApplicationController
     @group_posts = @group.posts.includes(:user, comments: [:user]).by_group(@group.id)
     @group_messages = @group.messages.includes(:user).order("created_at desc")
     @message = Message.new
-    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
-    @members = @group.trips.includes(:user)
-    @pribumis = @group.trips.includes(:user).where(pribumi: true)
-    unless current_user.trips.where(group: @group).empty?
-      @sames = @group.trips.joins(:group).includes(:user).where(
-          "start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
-          {
-            start_to_trip: current_user.trips.where(group: @group).first.start_to_trip,
-            end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
-            
-          }
-        )
-    end  
     @action = 'show'
   end  
 
@@ -69,6 +56,22 @@ class GroupsController < ApplicationController
     flash[:success] = "Kamu berhasil keluar dari grup ini."
     redirect_to :back
   end
+
+  def fetch_posts
+    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
+    @members = @group.trips.includes(:user).all.limit(4)
+    @pribumis = @group.trips.includes(:user).where(pribumi: true).all.limit(4)
+    unless current_user.trips.where(group: @group).empty?
+      @sames = @group.trips.joins(:group).includes(:user).where(
+          "start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+          {
+            start_to_trip: current_user.trips.where(group: @group).first.start_to_trip,
+            end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
+            
+          }
+        ).all.limit(4)
+    end  
+  end  
 
   def posts
     @post = Post.new
