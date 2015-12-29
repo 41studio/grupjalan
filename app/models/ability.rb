@@ -19,6 +19,7 @@ class Ability
       can :same, Group
       can :leave, Group
       can :read, :all
+      can :fetch_posts, Group
     else
       can :read, :all
     end

@@ -70,7 +70,9 @@ class GroupsController < ApplicationController
             
           }
         ).all.limit(4)
-    end  
+    end
+    # @action = 'fetch_posts'  
+    # render :show
   end  
 
   def posts
