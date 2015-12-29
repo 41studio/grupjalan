@@ -20,6 +20,7 @@ class Ability
       can :leave, Group
       can :read, :all
       can :fetch_posts, Group
+      can :pribumis, Group
     else
       can :read, :all
     end

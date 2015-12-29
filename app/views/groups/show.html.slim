@@ -27,7 +27,7 @@
       #mainNav.collapse.navbar-collapse
         ul.nav.main-menu.navbar-nav
           li
-            = link_to "Tentang", group_path(@group)
+            = link_to "Tentang", group_path(@group), class: "fa fa-home", title: 'About', rel: 'tooltip'
           / li
           /   = link_to "Postingan", posts_group_path(@group)
           / li
@@ -88,7 +88,7 @@
                         i.fa.fa-share
                         | Share
                       .clearfix
-
+                      
             .clearfix
             .fetch-posts
 
@@ -99,80 +99,10 @@
 
       .fetch-pribumis               
 
-      / - if @pribumis.blank?
-      /   .posts.col-md-4
-      /     .alert-message.alert-message-info
-      /       h4
-      /         | Pribumi nya kosong bro
-      / - else      
-      /   .posts.col-md-4
-      /     .panel.panel-default
-      /       .panel-heading
-      /         | Pribumi
-      /       .panel-body
-      /         - @pribumis.each do |pribumi|
-      /           = render 'pribumis_row', pribumi: pribumi 
-
-
-    
-
-  
-/ .col-md-10
-/   = image_tag @group.photo_url, class: 'img-thumbnail'
-  
-/   h4 Lokasi: 
-/   blockquote
-/     = @group.location 
-
-/ .col-md-2
-/   .panel.panel-default
-/     .panel-heading= @group.name
-/     .panel-body
-/       = image_tag @group.image_url(:logo), class: 'img-thumbnail'
-/ .col-md-12
-/   #map style="width: 100%; height: 400px;"
-/   br
-/ .clearfix
-
-
-/ h1= @group.name
-/ hr
-/ .col-md-8
-/   .panel.panel-default
-/     .panel-heading List Trips
-/     table.table.table-striped.table-hover.table-bordered
-/       thead
-/         th Start to Trip
-/         th End to Trip
-/         th Owner
-/         th 
-/       tbody
-/         - @group.trips.each do |trip|
-/           tr
-/             td= trip.start_to_trip
-/             td= trip.end_to_trip
-/             td= trip.user.full_name
-/             td= link_to "View", group_trip_path(trip.group, trip)
-/ .col-md-4
-/   .panel.panel-default
-/     .panel-heading Members
-/     table.table.table-stripped.table-hover.table-bordered
-/       thead
-/         th Full Name
-/       tbody
-/         - @group.users.each do |user|
-/           tr
-/             td= user.full_name
-
+     
 
 javascript:
   $.ajax({
     url: "/grup/#{@group.id}/ajpost"
   })
-/   $(document).ready(function(){
-/     $("#map").googleMap();
-/     $("#map").addMarker({
-/       zoom: 10, // Initial zoom level (optional)
-/       coords: ["#{@group.lat}", "#{@group.lng}"]
-/     });
-/   })          
+

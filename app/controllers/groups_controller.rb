@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   
   before_action :authenticate_user!
   before_action :set_group, except: [:autocomplete, :index]
-  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update]
+  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update, :pribumis]
   before_action :find_post, only: [:show, :fetch_posts]
 
   def autocomplete
@@ -71,8 +71,6 @@ class GroupsController < ApplicationController
           }
         ).all.limit(4)
     end
-    # @action = 'fetch_posts'  
-    # render :show
   end  
 
   def posts
@@ -97,7 +95,13 @@ class GroupsController < ApplicationController
       )
     @action = 'same'
     render :show
-  end  
+  end 
+
+  def pribumis
+    @pribumis = @group.trips.includes(:user).where(pribumi: true)
+    @action = 'pribumis'
+    render :show
+  end 
 
   private
 
