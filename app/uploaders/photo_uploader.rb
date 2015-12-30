@@ -29,7 +29,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
 
   version :thumb do
-    process :smart_crop_and_scale => [50, 50]
+    process :smart_crop_and_scale => [30, 30]
     # process :resize_to_fill => [50, 50]
     
   end

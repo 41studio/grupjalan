@@ -32,13 +32,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
           /       =link_to "Buat Plan Baru", new_plan_step1_path
         ul.nav.navbar-nav.navbar-right
           li
-            = link_to "Keluar", destroy_user_session_path, method: :delete
-          li
             = link_to "Kotak Masuk", inbox_path
           li
             = link_to "Edit Account", edit_user_registration_path  
           li
-            = image_tag current_user.photo_url(:thumb), size: "50x50", class: "img-circle"
+            = link_to "Keluar", destroy_user_session_path, title: "Leave app", method: :delete, data: { confirm: 'Are you sure to leave in this app?', commit: 'Yes' }
+          li
+            = link_to image_tag(current_user.photo_url(:thumb), class: "img-circle"), edit_profile_user_path(current_user)
       - else
         ul.nav.navbar-nav.navbar-right
           li

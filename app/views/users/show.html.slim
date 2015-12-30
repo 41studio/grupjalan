@@ -29,11 +29,11 @@
             - if @user.eql? current_user
               = link_to "Status", "#status", "data-toggle": 'modal', "data-target": '#status-create', "class": 'fa fa-comment', "title": 'Status', "rel": 'tooltip'
               = render 'status'
-         ul.nav.navbar-nav.navbar-right
-          li
-           - if @user.eql? current_user
-              = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'
-              = render 'edit'
+         / ul.nav.navbar-nav.navbar-right
+         /  li
+         /   - if @user.eql? current_user
+         /      = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'
+         /      = render 'edit'
 
            / - if can? :edit, @user  
            /    = link_to "Edit Profile", "#edit", "data-toggle": 'modal', "data-target": '#edit-profile', "class": 'fa  fa-cog', "title": 'Edit', "rel": 'tooltip'

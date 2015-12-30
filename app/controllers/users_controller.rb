@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :set_user, only: [:show, :message, :follow, :unfollow, :edit, :update]
+  before_filter :set_user, only: [:show, :message, :follow, :unfollow, :edit, :update, :edit_profile]
 
   def index
   	@users = User.order(first_name: :desc).page params[:page]
@@ -14,10 +14,14 @@ class UsersController < ApplicationController
     render :show
   end  
 
+  def edit_profile
+
+  end  
+
   def update
     if @user.update(user_params)
       flash[:success] = 'Data User berhasil diupdate.'
-      redirect_to user_path(@user)
+      redirect_to root_path
     else
       @action = 'edit'
       render :show

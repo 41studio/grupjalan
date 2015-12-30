@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     member do
       get :follow
       get :unfollow
+      get :edit_profile
     end
   end
   
