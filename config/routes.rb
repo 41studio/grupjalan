@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'conversations/create'
   get 'conversations/show'
   get 'mytrips', to: 'pages#mytrips', as: :mytrips
+  get 'about', to: 'pages#about', as: :about
   get 'sync/get_provinces'
   get 'sync/get_cities'
   get 'inbox', path: 'pesan', to: 'messages#inbox', as: :inbox
@@ -125,5 +126,7 @@ Rails.application.routes.draw do
     delete "downvote", to: 'votes#downvote'
     post "upvote", to: 'votes#upvote'
   end
+
+  resources :contacts
   
 end

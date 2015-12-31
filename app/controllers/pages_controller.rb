@@ -23,4 +23,8 @@ class PagesController < ApplicationController
     @pribumis = current_user.trips.includes(:group).where(pribumi: true)
 
   end
+
+  def about
+    
+  end  
 end

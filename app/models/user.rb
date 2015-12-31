@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
     assoc.has_many :trips
     assoc.has_many :owned_groups, class_name: "Group"
     assoc.has_many :comments
+    assoc.has_many :contacts
     # assoc.has_many :messages
   end
   
