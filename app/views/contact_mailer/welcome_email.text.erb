@@ -1,9 +1,10 @@
-Welcome to example.com, <%= @contact.email %>
+You have a new message: <%= @contact.subject %>
 ===============================================
- 
-You have successfully signed up to example.com,
-your username is: <%= @contact.email %>.
- 
-To login to the site, just follow this link: <%= @url %>.
- 
-Thanks for joining and have a great day!
+
+You have received a new message:
+
+-----------------------------------------------
+<%= @contact.message.html_safe? ? @contact.message : strip_tags(@contact.message) %>
+-----------------------------------------------
+
+Visit <%= root_url %> and go to your inbox for more info.

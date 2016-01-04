@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @contact.email %></h1>
+    <h1>You have a new message: <%= @contact.subject %></h1>
     <p>
-      You have successfully signed up to example.com,
-      your username is: <%= @contact.email %>.<br>
+      You have received a new message:
     </p>
+    <blockquote>
+      <p>
+        <%= raw @contact.message %>
+      </p>
+    </blockquote>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      Visit <%= link_to root_url, root_url %> and go to your inbox for more info.
     </p>
-    <p>Thanks for joining and have a great day!</p>
   </body>
 </html>

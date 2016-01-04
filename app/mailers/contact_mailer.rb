@@ -3,7 +3,7 @@ class ContactMailer < ApplicationMailer
 
   def welcome_email(contact)
     @contact = contact
-    @url  = 'http://lvh.me:3000/login'
+    @url  = 'https://grupjalan.herokuapp.com'
     mail(to: @contact.email, subject: 'Welcome to My Awesome Site')
   end
 end

@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
     @contact = current_user.contacts.new(contact_params)
 
     if @contact.save
-      ContactMailer.welcome_email(current_user).deliver
+      ContactMailer.welcome_email(@contact).deliver
  
       flash[:success] = 'Thank you for your message'
     else
