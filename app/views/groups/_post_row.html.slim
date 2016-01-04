@@ -48,7 +48,7 @@ div class="post" data-id="post-#{post.id}"
       - post.comments.each do |comment|
         = render 'comment_row', comment: comment, post: post
     .panel-posts-comment
-      = image_tag(current_user.photo_url(:thumb), class: 'img-circle', size: '50x50')
+      = image_tag(current_user.photo_url(:thumb), class: 'img-circle')
       .panel-posts-textarea
         = simple_form_for(:comment, url: post_comments_path(post), remote: true) do |f|
           = f.input :comment, as: :text, input_html: { rows: 4 }, label: false

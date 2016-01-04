@@ -1,12 +1,36 @@
 .container
   .row
-    .col-md-6
-      = simple_form_for @contact do |f|
-        = f.input :name, required: true
-        = f.input :email, required: true
-        = f.input :subject
-        = f.input :message, as: :text, input_html: { rows: 15 }
-        = f.submit "Send Message", class: 'btn btn-success'
+    = simple_form_for @contact do |f|
+      .row
+        .col-md-6
+          = f.input :name, required: true
+        .col-md-6  
+          = f.input :email, required: true
+      / = f.input :subject
+      .row
+        .col-md-12
+          = f.input :message, as: :text, input_html: { rows: 15 }
+      .row
+        .col-md-12    
+          = f.submit "Send Message", class: 'btn btn-success'
 
-    
-   
+
+/    
+
+/ .container
+/   .row
+/     form#contact-form.contact-form role="form" 
+/       .row
+/         .col-md-6
+/           .form-group
+/             input#Name.form-control autocomplete="off" name="Name" placeholder="Name" type="text" /
+/         .col-md-6
+/           .form-group
+/             input#email.form-control autocomplete="off" name="email" placeholder="E-mail" type="email" /
+/       .row
+/         .col-md-12
+/           .form-group
+/             textarea#Message.form-control.textarea name="Message" placeholder="Message" rows="3" 
+/       .row
+/         .col-md-12
+/           button.btn.main-btn.pull-right type="submit"  Send a message
