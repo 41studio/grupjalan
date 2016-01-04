@@ -34,7 +34,7 @@
         / / br
         / / = f.input :video, as: :file, label: 'Clip'
         
-        = f.input :password, autocomplete: "off", hint: "Leave blank if you don't want to change.", input_html: { class: "form-control" }
+        = f.input :password, autocomplete: "off", hint: "Leave blank if you don't want to change.", input_html: { class: "form-control", id: "password", 'data-toggle': "popover", title: "Password Strength", 'data-content': "Enter Password..." }
         
         = f.input :password_confirmation, autocomplete: "off", input_html: { class: "form-control" }
 

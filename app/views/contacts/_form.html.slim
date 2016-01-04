@@ -1,11 +1,11 @@
 .container
   .row
     .col-md-6
-      = simple_form_for('', url: '') do |f|
-        = f.input :name
-        = f.input :email
+      = simple_form_for @contact do |f|
+        = f.input :name, required: true
+        = f.input :email, required: true
         = f.input :subject
-        = f.input :message, as: :text, input_html: { rows: 8 }
+        = f.input :message, as: :text, input_html: { rows: 15 }
         = f.submit "Send Message", class: 'btn btn-success'
 
     

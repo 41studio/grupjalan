@@ -74,7 +74,7 @@ class GroupsController < ApplicationController
   end  
 
   def posts
-    @post = Post.new
+    @post  = Post.new
     @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
     @action = 'posts'
     render :show
