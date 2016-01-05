@@ -254,7 +254,7 @@ $(function(){
     });
 
     // create the back to top button
-    $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
+    $('#kris').prepend('<a href="#" class="back-to-top">Back to Top</a>');
 
     var amountScrolled = 300;
 
