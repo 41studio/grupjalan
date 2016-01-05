@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
         email: auth.info.email,
         first_name: auth.info.name.split(" ", 2).first,
         last_name: auth.info.name.split(" ", 2).last,
-        username: auth.info.nickname,
+        username: auth.info.name,
         remote_photo_url: auth.info.image,
         provider: auth.provider,
         uid: auth.uid
