@@ -3,14 +3,14 @@
     = simple_form_for @contact do |f|
       .row
         .col-md-6
-          = f.input :name, required: true
+          = f.input :name, required: true, input_html: { value: get_name }
         .col-md-6  
-          = f.input :email, required: true
+          = f.input :email, required: true, input_html: { value: get_email }
         .col-md-12  
-          = f.input :subject
+          = f.input :subject, :collection => Category::CAT
       .row
         .col-md-12
-          = f.input :message, as: :text, input_html: { rows: 15 }
+          = f.input :message, as: :text, placeholder: "Type Your Message In Here...", input_html: { rows: 15 }
       .row
         .col-md-12    
           = f.submit "Send Message", class: 'btn btn-success pull-right'

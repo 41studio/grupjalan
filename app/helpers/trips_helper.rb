@@ -41,3 +41,9 @@ module TripsHelper
     end
   end    
 end
+
+
+
+
+
+
