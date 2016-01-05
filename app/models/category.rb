@@ -10,5 +10,4 @@
 
 class Category < ActiveRecord::Base
 	has_many :groups, dependent: :destroy
-  CAT = ['Pesan', 'Laporan Bug', 'Lainnya']
 end

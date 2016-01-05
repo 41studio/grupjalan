@@ -19,4 +19,5 @@ class Contact < ActiveRecord::Base
   validates :email, length: { maximum: 225}
   validates :subject, length: { maximum: 225}
   validates :message, length: { maximum: 1000}
+  CAT = ['Pesan', 'Laporan Bug', 'Lainnya']
 end

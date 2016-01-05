@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  alias_method :twitter, :callback_omniauth
+  # alias_method :twitter, :callback_omniauth
   alias_method :facebook, :callback_omniauth
   alias_method :google_oauth2, :callback_omniauth
 end
