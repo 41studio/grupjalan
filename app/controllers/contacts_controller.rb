@@ -13,7 +13,6 @@ class ContactsController < ApplicationController
       flash[:success] = 'Thank you for your message'
     else
       flash[:error] = 'Cannot send message.'
-      render :new
     end
     redirect_to root_path
   end

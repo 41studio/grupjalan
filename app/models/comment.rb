@@ -27,5 +27,5 @@ class Comment < ActiveRecord::Base
 
   default_scope -> { order('created_at ASC') }
 
-  validates :comment, presence: true
+  validates :comment, length: { maximum: 1000 }
 end

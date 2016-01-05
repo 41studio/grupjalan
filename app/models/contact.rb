@@ -14,4 +14,9 @@
 
 class Contact < ActiveRecord::Base
   belongs_to :user
+
+  validates :name, length: { maximum: 225 }
+  validates :email, length: { maximum: 225}
+  validates :subject, length: { maximum: 225}
+  validates :message, length: { maximum: 1000}
 end

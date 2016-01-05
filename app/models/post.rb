@@ -45,7 +45,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
 
-  validates :description, presence: true
+  validates :description, length: { maximum: 1000 }
 
   scope :by_group, -> (group_id) { where(group_id: group_id) }
 end
