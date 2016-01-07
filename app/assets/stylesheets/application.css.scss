@@ -8,6 +8,7 @@
  *= require explore_groups
  *= require messages
  *= require spin.ajax
+ *= require scroll
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -518,5 +519,6 @@ a {
     line-height: 50px;
     top: 0px;
 }
+
 
 

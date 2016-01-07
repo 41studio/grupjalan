@@ -254,22 +254,24 @@ $(function(){
     });
 
     // create the back to top button
-    $('#kris').prepend('<a href="#" class="back-to-top">Back to Top</a>');
-
-    var amountScrolled = 300;
-
-    $(window).scroll(function() {
-      if ( $(window).scrollTop() > amountScrolled ) {
-        $('a.back-to-top').fadeIn('slow');
+    $(document).on( 'scroll', function(){
+ 
+      if ($(window).scrollTop() > 100) {
+        $('.scroll-top-wrapper').addClass('show');
       } else {
-        $('a.back-to-top').fadeOut('slow');
+        $('.scroll-top-wrapper').removeClass('show');
       }
     });
+ 
+    $('.scroll-top-wrapper').on('click', scrollToTop);
 
-    $('a.back-to-top, a.simple-back-to-top').click(function() {
-      $('html, body').animate({
-        scrollTop: 0
-      }, 700);
-      return false;
-    });  
+    function scrollToTop() {
+      verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
+      element = $('body');
+      offset = element.offset();
+      offsetTop = offset.top;
+      $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+    }
+
 });
+

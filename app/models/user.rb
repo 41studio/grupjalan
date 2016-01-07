@@ -88,11 +88,7 @@ class User < ActiveRecord::Base
   validates :username, :first_name, :last_name, :email, presence: true
   validates :username, uniqueness: true
   validates :gender, inclusion: { in: %w(male female), message: '%{value} is not a valid gender.' }
-  validates :first_name, length: { maximum: 225 }
-  validates :last_name, length: { maximum: 225 }
-  validates :handphone, length: { in: 6..20 }
-  validates :neighborhood, length: { maximum: 225 }
-  validates :address, length: { maximum: 225 }
+ 
   
   after_save :create_group_by_location
 
