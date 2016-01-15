@@ -6,4 +6,7 @@
       = render 'edit_profile'
 
     .col-md-4
-      = image_tag current_user.photo_url(:reg), class: "img-round", width: '100%'  
+      - if current_user.photo.blank?
+         = holder_tag '500x500', 'Blank Image', 'gray', class: "img-round"
+      - else
+         = image_tag current_user.photo_url(:reg), class: "img-round", width: '100%'  

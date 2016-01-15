@@ -2,7 +2,10 @@
     / .card.hovercard
     /   .cardheader
     .avatar
-      = image_tag same.user.photo_url(:sosmall), class: "img-circle"
+      - if same.user.photo.blank?
+         = holder_tag '50x50', 'Blank Image', 'gray', class: "img-circle"
+      - else   
+         = image_tag same.user.photo_url(:sosmall), class: "img-circle"
     .info
       .title
         = link_to same.user.full_name, user_path(same.user)

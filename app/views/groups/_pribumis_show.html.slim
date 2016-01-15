@@ -2,7 +2,10 @@
     .card.hovercard
       .cardheader
       .avatar
-        = image_tag pribumi.user.photo_url(:small)
+        - if pribumi.user.photo.blank?
+           = holder_tag '100x100', 'Blank Image', 'gray'
+        - else   
+           = image_tag pribumi.user.photo_url(:small)
       .info
         .title
           = link_to pribumi.user.full_name, user_path(pribumi.user)
