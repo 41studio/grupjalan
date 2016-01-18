@@ -5,8 +5,22 @@
       hr
       = render 'edit_profile'
 
-    .col-md-4
-      - if current_user.photo.blank?
-         = holder_tag '500x500', 'Blank Image', 'gray', class: "img-round"
-      - else
-         = image_tag current_user.photo_url(:reg), class: "img-round", width: '100%'  
+    .col-lg-3.col-md-4.col-sm-6.col-xs-12
+      .hovereffect
+          - if current_user.photo.blank?
+            = holder_tag '500x500', 'Blank Image', 'gray', class: "img-round"
+            .overlay
+              h2 This user has no photo
+              p
+                a href="#"  Lihat Selengkapnya
+          - else
+            = image_tag current_user.photo_url(:reg), class: "img-round", width: '100%'  
+            .overlay
+              h2
+                = "#{current_user.full_name}"
+              h2
+                .text-justify
+                  = "#{current_user.status}"
+              hr    
+              p
+                a href="#"  Lihat Selengkapnya
