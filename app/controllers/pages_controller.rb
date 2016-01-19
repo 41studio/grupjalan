@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
 
   def mytrips
+    @groups = Group.order("created_at ASC").all.limit(5)
     @trips = current_user.trips.includes(:group).where(
       "end_to_trip >= :end_to_trip",
       {

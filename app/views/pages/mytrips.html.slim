@@ -1,3 +1,4 @@
+= render 'index'
 - if @trips.blank?
   .notice.notice-info
     h4
@@ -6,7 +7,7 @@
     h4
       | Trip Lama Kosong Bro     
   hr
-  .col-md-8
+  .col-md-12
     h1 Pribumi
     hr
 
@@ -26,7 +27,7 @@
             td= link_to 'Show', group_path(pri.group, pri), class: "btn btn-primary btn-sm" 
 
 - elsif @old_trips.blank?
-  .col-md-8
+  .col-md-12
     h1 Trip Saat Ini
     hr
 
@@ -46,7 +47,7 @@
             td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
     hr
 
-  .col-md-8
+  .col-md-12
     .notice.notice-success
       h4
         | Trip Lama Kosong Bro 
@@ -67,7 +68,7 @@
     /         td= old.end_to_trip
     /         td= link_to 'Show', group_path(old.group, old), class: "btn btn-primary btn-sm"
 
-  .col-md-8
+  .col-md-12
     h1 Pribumi
     hr
 
@@ -89,7 +90,7 @@
     
                                   
 - else  
-  .col-md-8
+  .col-md-12
     h1 Trip Saat Ini
     hr
 
@@ -109,7 +110,7 @@
             td= link_to 'Show', group_path(trip.group, trip), class: "btn btn-primary btn-sm"
     hr
 
-  .col-md-8
+  .col-md-12
     h1 Trip Lama 
     hr
 
@@ -128,7 +129,7 @@
             td= old.end_to_trip
             td= link_to 'Show', group_path(old.group, old), class: "btn btn-primary btn-sm"
 
-  .col-md-8
+  .col-md-12
     h1 Pribumi
     hr
 
@@ -145,6 +146,14 @@
             td= pri.group.name
             / td= old.start_to_trip
             / td= old.end_to_trip
-            td= link_to 'Show', group_path(pri.group, pri), class: "btn btn-primary btn-sm"     
+            td= link_to 'Show', group_path(pri.group, pri), class: "btn btn-primary btn-sm"   
+
+/! The scroll to top feature
+.scroll-top-wrapper
+  span.scroll-top-inner
+    i.fa.fa-2x.fa-arrow-circle-up
+
+         
+
 
 

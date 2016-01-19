@@ -1,0 +1,45 @@
+.jumbotron
+  .container
+    .row
+      /! The carousel
+      #transition-timer-carousel.carousel.slide.transition-timer-carousel data-ride="carousel" 
+        /! Indicators
+        ol.carousel-indicators
+          - @groups.each_with_index do |group, i|
+            li class=('active' if i == 0) data-slide-to="#{i}" data-target="#transition-timer-carousel" 
+          / li data-slide-to="1" data-target="#transition-timer-carousel" 
+          / li data-slide-to="2" data-target="#transition-timer-carousel" 
+        /! Wrapper for slides
+        .carousel-inner
+          - @groups.each_with_index do |group, i|
+            .item class=('active' if i == 0)
+              - if group.photo.blank?
+                = holder_tag '1200x400', 'Blank Cover Image', 'gray'
+                / img src="http://placehold.it/1200x400" /
+              - else  
+                = image_tag group.photo_url(:home)
+              .carousel-caption
+                h1.carousel-caption-header = link_to group.name, group_path(group), class: "custom-link"
+                p.carousel-caption-text.hidden-sm.hidden-xs
+                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+          / .item
+          /   / img src="http://placehold.it/1200x400/AAAAAA/888888" /
+          /   = image_tag("gj.jpg", alt: "rss feed")
+          /   .carousel-caption
+          /     h1.carousel-caption-header Slide 2
+          /     p.carousel-caption-text.hidden-sm.hidden-xs
+          /       | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+          / .item
+          /   / img src="http://placehold.it/1200x400/888888/555555" /
+          /   = image_tag("gj2.jpg", alt: "rss feed")
+          /   .carousel-caption
+          /     h1.carousel-caption-header Slide 3
+          /     p.carousel-caption-text.hidden-sm.hidden-xs
+          /       | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+        /! Controls
+        a.left.carousel-control data-slide="prev" href="#transition-timer-carousel" 
+          span.glyphicon.glyphicon-chevron-left
+        a.right.carousel-control data-slide="next" href="#transition-timer-carousel" 
+          span.glyphicon.glyphicon-chevron-right
+        /! Timer "progress bar"
+        hr.transition-timer-carousel-progress-bar.animate/

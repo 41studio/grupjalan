@@ -17,6 +17,7 @@
 #  categories     :text             default([]), is an Array
 #  description    :text
 #  members_count  :integer
+#  featured       :boolean          default(FALSE)
 #
 # Indexes
 #

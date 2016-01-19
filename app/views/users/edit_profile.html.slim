@@ -20,7 +20,16 @@
                 = "#{current_user.full_name}"
               h2
                 .text-justify
+                  center
+                    | Status:
+                    br
+                    br
                   = "#{current_user.status}"
               hr    
               p
                 a href="#"  Lihat Selengkapnya
+                
+/! The scroll to top feature
+.scroll-top-wrapper
+  span.scroll-top-inner
+    i.fa.fa-2x.fa-arrow-circle-up                

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: conversations
+#
+#  id         :integer          not null, primary key
+#  members    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_conversations_on_members  (members)
+#
+
 class ConversationsController < ApplicationController
   before_action :authenticate_user!
 

@@ -59,6 +59,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
     # process crop: '160x160+0+0'
   end
 
+  version :home do
+    process :smart_crop_and_scale => [1200, 400]
+  end  
+
   version :sosmall do
     process :resize_to_fill => [50, 50]
 
