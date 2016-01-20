@@ -20,6 +20,8 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  start_to_trip           :date
+#  end_to_trip             :date
 #
 # Indexes
 #
@@ -39,6 +41,8 @@ class Post < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   # mount_uploader :video, VideoUploader
 
+  before_save :date
+
   acts_as_commentable
   acts_as_votable
   
@@ -48,4 +52,10 @@ class Post < ActiveRecord::Base
   validates :description, length: { maximum: 1000 }
 
   scope :by_group, -> (group_id) { where(group_id: group_id) }
+
+  def date
+    trip = self.user.trips.where(group: group.id).first
+    self.start_to_trip = trip.start_to_trip
+    self.end_to_trip = trip.end_to_trip
+  end  
 end

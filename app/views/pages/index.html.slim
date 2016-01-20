@@ -1,6 +1,6 @@
-.jumbotron
-  .container
-    .row
+.container
+  .row
+    .col-md-12
       /! The carousel
       #transition-timer-carousel.carousel.slide.transition-timer-carousel data-ride="carousel" 
         /! Indicators
@@ -38,11 +38,18 @@
           span.glyphicon.glyphicon-chevron-right
         /! Timer "progress bar"
         hr.transition-timer-carousel-progress-bar.animate/
-
-.jumbotron
-   h1 Selamat datang di grup jalan-jalan !
-   p 
-    h5
-      .text-justify
-        |Echo Park listicle church-key, Pinterest fanny pack Kickstarter Godard skateboard irony letterpress dreamcatcher polaroid bespoke yr lumbersexual. Chia deep v pour-over four loko distillery pickled, cred leggings mlkshk vegan tote bag wolf. Deep v Wes Anderson yr food truck, pop-up try-hard plaid cray. Freegan meh banjo, XOXO fixie crucifix 3 wolf moon single-origin coffee Marfa Pitchfork leggings swag distillery wolf. Gentrify DIY viral direct trade. Migas cold-pressed plaid, PBR&B PBR Truffaut squid cornhole Brooklyn. Williamsburg Tumblr pug drinking vinegar 8-bit swag.
-
+  hr
+.container
+  .row
+    .col-md-12
+      h1 Featured Groups
+      hr
+      - @groups.each do |group|
+        .col-lg-3.col-md-4.col-xs-6.thumb
+          a.thumbnail href=" #{group_path(group)}"
+            img.img-responsive
+              - if group.photo.blank?
+                  = holder_tag '400x300', 'Blank Image', 'gray'
+              -else  
+                  = image_tag(group.photo_url(:ihome), 'data-toggle': "tooltip", title: "#{group.name}", 'data-placement': "bottom")
+        

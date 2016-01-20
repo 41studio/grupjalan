@@ -64,6 +64,10 @@
   /! /#HEADER
 
   = render @action
+  = link_to 'All Posts', group_path, class: "btn btn-default btn-block"
+  |&nbsp;
+  = link_to 'Same Date Posts', group_path, class: "btn btn-default btn-block"
+  hr
   - if @action == 'show'
     .row
       .posts.col-md-8

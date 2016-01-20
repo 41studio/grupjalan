@@ -20,6 +20,8 @@
 #  cached_weighted_score   :integer          default(0)
 #  cached_weighted_total   :integer          default(0)
 #  cached_weighted_average :float            default(0.0)
+#  start_to_trip           :date
+#  end_to_trip             :date
 #
 # Indexes
 #

@@ -1,11 +1,13 @@
 = render 'index'
+br
 - if @trips.blank?
-  .notice.notice-info
-    h4
-      | Trip Saat Ini Kosong Bro
-  .notice.notice-success
-    h4
-      | Trip Lama Kosong Bro     
+  .col-md-12
+    .notice.notice-info
+      h4
+        | Trip Saat Ini Kosong Bro
+    .notice.notice-success
+      h4
+        | Trip Lama Kosong Bro     
   hr
   .col-md-12
     h1 Pribumi

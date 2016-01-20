@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, only: :mytrips
 
   def index
+    @groups = Group.order("created_at DESC").all.limit(8)
     redirect_to mytrips_url if user_signed_in?
   end
 
