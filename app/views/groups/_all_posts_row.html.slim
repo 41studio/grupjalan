@@ -1,0 +1,22 @@
+.panel.panel-default data-id="post-#{post.id}"
+  .panel-heading Semua Postingan
+  .panel-body
+    - if post.user.photo.blank?
+      = holder_tag '50x50', 'Blank Logo Image', 'gray', class: "img-circle pull-left"
+    - else  
+      = link_to image_tag(post.user.photo_url(:thumb), class: 'img-circle pull-left'), user_path(post.user)
+      h3= link_to post.user.full_name, user_path(post.user)
+    .text-muted
+      h6= "#{time_ago_in_words(post.created_at)} ago"
+    / = link_to image_tag(post.user.photo_url(:thumb), class: 'img-circle pull-left'), user_path(post.user)
+    br
+    .text-justify
+      .notice.notice-info
+        p= strip_tags(post.description)
+        - unless post.photo.file.nil?
+          = image_tag post.photo_url(:ihome), class: 'img-responsive img-rounded'    
+    hr        
+/! The scroll to top feature
+.scroll-top-wrapper
+  span.scroll-top-inner
+    i.fa.fa-2x.fa-arrow-circle-up                  

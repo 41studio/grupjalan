@@ -2,7 +2,7 @@ user = User.first_or_create(:username => 'Agung', :first_name => 'agung', :last_
 
 user = User.create :username => 'Kris', :first_name => 'Kris', :last_name => 'Dhinal', :email => 'kris@41studio.com', :role => 1, :password => '24121987', :confirmed_at => Time.now
 
-user = User.create :username => 'Lara', :first_name => 'Lara', :last_name => 'Crof', :email => 'krisdhinal@gmail.com', :role => 0, :password => 'akiyama', :confirmed_at => Time.now
+# user = User.create :username => 'Lara', :first_name => 'Lara', :last_name => 'Crof', :email => 'krisdhinal@gmail.com', :role => 0, :password => 'akiyama', :confirmed_at => Time.now
 
 destinations = ['Pangandaran', 'Bali', 'Bukit Moko']
 

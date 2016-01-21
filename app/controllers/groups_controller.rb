@@ -111,7 +111,7 @@ class GroupsController < ApplicationController
   def all_posts
     @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
     @action = 'all_posts'
-    render :show
+    render :fetch_all_posts
   end 
 
   def same_posts
@@ -124,7 +124,7 @@ class GroupsController < ApplicationController
 
       ).order("created_at DESC")
     @action = 'same_posts'
-    render :show
+    render :fetch_same_posts
   end 
 
   def index
