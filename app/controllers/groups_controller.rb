@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
   
   before_action :authenticate_user!
   before_action :set_group, except: [:autocomplete, :index]
-  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update, :pribumis]
+  before_action :set_new_trip, only: [:show, :members, :posts, :edit, :same, :update, :pribumis, :all_posts, :same_posts]
   before_action :find_post, only: [:show, :fetch_posts]
 
   def autocomplete
@@ -107,6 +107,25 @@ class GroupsController < ApplicationController
     @action = 'posts'
     render :show
   end
+
+  def all_posts
+    @posts = @group.posts.includes(:user, comments: [:user]).order(created_at: :desc)
+    @action = 'all_posts'
+    render :show
+  end 
+
+  def same_posts
+    @same_posts = @group.posts.includes(:user, comments: [:user]).where(
+        "start_to_trip < :end_to_trip AND end_to_trip > :start_to_trip",
+        {
+          start_to_trip: current_user.trips.where(group: @group).first.start_to_trip,
+          end_to_trip: current_user.trips.where(group: @group).first.end_to_trip,
+        }
+
+      ).order("created_at DESC")
+    @action = 'same_posts'
+    render :show
+  end 
 
   def index
     @groups = Group.explore(params[:search]).page(params[:page])

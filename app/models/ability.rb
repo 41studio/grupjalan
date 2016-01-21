@@ -21,6 +21,8 @@ class Ability
       can :read, :all
       can :fetch_posts, Group
       can :pribumis, Group
+      can :all_posts, Group
+      can :same_posts, Group
     else
       can :read, :all
     end

@@ -103,6 +103,8 @@ Rails.application.routes.draw do
       get "same", path: 'sama'
       get "fetch_posts", path: 'ajpost'
       get "pribumis", path: 'pribumi'
+      get "all_posts", path: 'semua_post'
+      get "same_posts", path: 'sama_post'
     end
 
     collection do 

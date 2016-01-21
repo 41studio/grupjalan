@@ -64,11 +64,12 @@
   /! /#HEADER
 
   = render @action
-  = link_to 'All Posts', group_path, class: "btn btn-default btn-block"
-  |&nbsp;
-  = link_to 'Same Date Posts', group_path, class: "btn btn-default btn-block"
-  hr
   - if @action == 'show'
+    - if @group.user_ids.include?(current_user.id)
+      = link_to 'All Posts',  all_posts_group_path(@group), class: "btn btn-default btn-block", 'data-toggle': "tooltip", title: "Click on here", 'data-placement': "right"
+      |&nbsp;
+      = link_to 'Same Date Posts', same_posts_group_path(@group), class: "btn btn-default btn-block", 'data-toggle': "tooltip", title: "Click on here", 'data-placement': "left"
+    br
     .row
       .posts.col-md-8
         .panel.panel-default
