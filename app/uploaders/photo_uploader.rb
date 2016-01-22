@@ -72,7 +72,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   version :home do
-    process :smart_crop_and_scale => [1200, 400]
+    process :resize_to_fill => [1200, 400]
   end 
 
   version :ihome do

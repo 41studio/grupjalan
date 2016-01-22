@@ -21,7 +21,8 @@
               .carousel-caption
                 h1.carousel-caption-header = link_to group.name, group_path(group), class: "custom-link"
                 p.carousel-caption-text.hidden-sm.hidden-xs
-                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dignissim aliquet rutrum. Praesent vitae ante in nisi condimentum egestas. Aliquam.
+                  .text-justify
+                    = group.description
           / .item
           /   / img src="http://placehold.it/1200x400/AAAAAA/888888" /
           /   = image_tag("gj.jpg", alt: "rss feed")
