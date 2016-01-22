@@ -1,0 +1,14 @@
+.list-group-item data-id="comment-#{comment.id}"
+  .col-md-2
+    = link_to image_tag(comment.user.photo_url(:thumb), class: 'img-circle', size: '50x50'), user_path(comment.user)
+  .col-md-10
+    h4.list-group-item-heading= link_to comment.user.full_name, user_path(comment.user)
+    .text-muted
+      span.glyphicon.glyphicon-time
+        h6= "#{time_ago_in_words(comment.created_at)} ago"
+    / span.timetostr.list-group-item-text= comment.created_at
+    p.list-group-item-text= comment.comment
+    br
+    - if comment.user_id == current_user.id
+      = link_to '', post_comment_path(post_id: sampo.id, id: comment.id), class: 'btn btn-primary fa fa-trash', title: 'delete comment', rel: 'tooltip', method: :delete, data: { confirm: 'Are you sure to delete this comment?' }, remote: true
+  .clearfix

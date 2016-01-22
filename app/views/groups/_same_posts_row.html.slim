@@ -14,8 +14,35 @@
       .notice.notice-info
         p= strip_tags(sampo.description)
         - unless sampo.photo.file.nil?
-          = image_tag sampo.photo_url(:ihome), class: 'img-responsive img-rounded'    
-    hr        
+          = image_tag sampo.photo_url(:ihome), class: 'img-responsive'   
+
+    .panel-footer
+      .input-group
+        .input-group-btn 
+          - if current_user.voted_up_on? sampo
+            = link_to post_downvote_path(sampo), class: 'btn btn-primary btn-lg', method: :delete, remote: true, data: {id: "vote-#{sampo.id}"} do
+              i.fa.fa-thumbs-o-up
+              |  
+              span= sampo.cached_votes_up
+          - else
+            = link_to post_upvote_path(sampo), class: 'btn btn-default btn-lg', method: :post, remote: true, data: {id: "vote-#{sampo.id}"} do
+              i.fa.fa-thumbs-o-up
+              |  
+              span= sampo.cached_votes_up
+        / input.form-control.j-input-comment placeholder="Add a comment..."
+    .panel-posts-comments.list-group 
+      - sampo.comments.each do |comment|
+        = render 'comment_same_row', comment: comment, sampo: sampo
+    .panel-posts-comment
+      / = image_tag(current_user.photo_url(:thumb), class: 'img-circle')
+      .panel-posts-textarea
+        = simple_form_for(:comment, url: post_comments_path(sampo), remote: true) do |f|
+          = f.input :comment, as: :text, input_html: { rows: 4 }, label: false
+          = f.submit "Komen", class: 'btn btn-success', disabled: ''
+          / | &nbsp;
+          / button.btn.btn-default.btn-close type="reset" Cancel
+      .clearfix         
+                 
 /! The scroll to top feature
 .scroll-top-wrapper
   span.scroll-top-inner
