@@ -1,6 +1,17 @@
 .panel.panel-default data-id="post-#{post.id}"
   .panel-heading Semua Postingan
   .panel-body
+    - if post.user_id.eql?(current_user.id)
+        .kiri
+          .dropdown
+            span.dropdown-toggle data-toggle="dropdown" type="button" 
+              span.glyphicon.glyphicon-chevron-down 
+            ul.dropdown-menu role="menu"
+              li role="presentation"
+                = link_to "Hapus", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, remote: true
+              li role="presentation"
+                = link_to "Edit", edit_post_path(post)
+    br
     - if post.user.photo.blank?
       = holder_tag '50x50', 'Blank Logo Image', 'gray', class: "img-circle pull-left"
     - else  
@@ -30,6 +41,7 @@
               |  
               span= post.cached_votes_up
         / input.form-control.j-input-comment placeholder="Add a comment..."
+    br    
     .panel-posts-comments.list-group 
       - post.comments.each do |comment|
         = render 'comment_row', comment: comment, post: post

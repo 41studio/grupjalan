@@ -20,12 +20,16 @@ nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
           .dropdown
             menu1.dropdown-toggle data-toggle="dropdown"
               - if current_user.photo.blank?
-                 = holder_tag '50x50', 'Blank Image', 'gray', class: "img-circle"
+                 = holder_tag '32x32', 'Blank Image', 'gray', class: "img-circles"
               -else   
-                 = link_to image_tag(current_user.photo_url(:thumb), class: "img-circle"), edit_profile_user_path(current_user)
+                 = link_to image_tag(current_user.photo_url(:thumb3), class: "img-circles"), edit_profile_user_path(current_user)
               span.caret
             ul.dropdown-menu aria-labelledby="menu1" role="menu" 
               li.dropdown-header role="presentation"  = "Hai, #{current_user.full_name}"
+
+              li role="presentation"
+                center
+                  = image_tag current_user.photo_url(:thumb2), class: "img-circle"
 
               li role="presentation" 
                 = link_to "Kotak Masuk", inbox_path, class: "fa fa-envelope"
