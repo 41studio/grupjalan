@@ -31,20 +31,7 @@ class MessagesController < ApplicationController
     flash[:success] = 'Pesan terkirim.'
     redirect_to inbox_url
   end
-
-  def index
-    user_id   = current_user.id
-    to        = params[:user_id].to_i  
-    members   = [user_id, to].sort
-    members.sort!
-    members = members.join('-')
-
-    @user = User.find(params[:user_id])
-    @conversation = Conversation.find_or_create_by(members: members)
-    @messages = @conversation.messages.includes(:user).order("created_at desc")
-    @message  = Message.new
-  end
-
+  
   def destroy
     message = Message.find(params[:id])
     message.destroy

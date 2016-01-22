@@ -27,16 +27,16 @@
         - unless post.photo.file.nil?
           = image_tag post.photo_url(:ihome), class: 'img-responsive'  
 
-    .panel-footer
+    .panel-footers
       .input-group
         .input-group-btn 
           - if current_user.voted_up_on? post
-            = link_to post_downvote_path(post), class: 'btn btn-primary btn-lg', method: :delete, remote: true, data: {id: "vote-#{post.id}"} do
+            = link_to post_downvote_path(post), class: 'btn btn-primary btn-md', method: :delete, remote: true, data: {id: "vote-#{post.id}"} do
               i.fa.fa-thumbs-o-up
               |  
               span= post.cached_votes_up
           - else
-            = link_to post_upvote_path(post), class: 'btn btn-default btn-lg', method: :post, remote: true, data: {id: "vote-#{post.id}"} do
+            = link_to post_upvote_path(post), class: 'btn btn-default btn-md', method: :post, remote: true, data: {id: "vote-#{post.id}"} do
               i.fa.fa-thumbs-o-up
               |  
               span= post.cached_votes_up
